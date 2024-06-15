@@ -19,7 +19,9 @@ public class HexTile : MonoBehaviour
     public void SetColorToGreen()
     {
         _renderer = GetComponent<SpriteRenderer>();
-        _renderer.color = Color.green;
+        //_renderer.color = Color.green;
+        //_renderer.color = new Color32(173, 173, 173, 200);
+        _renderer.color = new Color32(172, 250, 211, 200);
     }
 
     private void OnMouseEnter()
