@@ -374,7 +374,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.26391357, g: 0.6037736, b: 0.52100974, a: 0}
+  m_BackGroundColor: {r: 0.67912644, g: 0.74213827, b: 0.72413486, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -480,7 +480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cffa06a25627a462a836edd327aec0df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeRemaining: 60
+  timeRemaining: 180
   timeText: {fileID: 729227999}
   gameEndText: {fileID: 955710787}
 --- !u!114 &729227999

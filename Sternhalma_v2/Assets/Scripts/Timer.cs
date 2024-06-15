@@ -6,7 +6,7 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    public float timeRemaining = 60; 
+    public float timeRemaining = 180; 
     private bool timeIsRunning = true;
     public TMP_Text timeText;
     public TMP_Text gameEndText; 
