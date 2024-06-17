@@ -128,12 +128,15 @@ public class UnitManager : MonoBehaviour
     public void UpdateCurrentStatus(Vector3 rem1Pos, Vector3 rem2Pos, Vector3 addPos)
     {
         BaseUnit unit = currentStatus[rem1Pos];
-        //currentStatus.Remove(rem1Pos);
-        //currentStatus.Add(addPos, unit);
-        //currentStatus.Remove(rem2Pos);
         currentStatus[rem1Pos] = null;
         currentStatus[rem2Pos] = null;
         currentStatus[addPos] = unit;
+
+        HexTile newTile = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(addPos));
+        if (newTile != null)
+        {
+            isVisited.Add(newTile);  
+        }
     }
 
     public void UpdateCurrentStatusRotation(Vector3 pos, BaseUnit unit)
