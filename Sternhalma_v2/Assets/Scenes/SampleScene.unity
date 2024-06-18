@@ -885,11 +885,11 @@ RectTransform:
   - {fileID: 1401810453}
   m_Father: {fileID: 306585516}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 681, y: 329.58008}
-  m_SizeDelta: {x: 160, y: 106.7518}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -110, y: -101}
+  m_SizeDelta: {x: 160, y: 106.75183}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &1230127764
 MonoBehaviour:
   m_ObjectHideFlags: 0
