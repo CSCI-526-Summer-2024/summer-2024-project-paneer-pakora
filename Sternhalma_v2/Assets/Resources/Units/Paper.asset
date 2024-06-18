@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Paper
   m_EditorClassIdentifier: 
   Faction: 1
-  UnitPrefab: {fileID: 1065944236424893699, guid: f1cf2b3216f304b7eb4b8929369fdf36, type: 3}
+  UnitPrefab: {fileID: 6636882256305780520, guid: 436ae8ba1b45c0a479620ac361f7fd99, type: 3}

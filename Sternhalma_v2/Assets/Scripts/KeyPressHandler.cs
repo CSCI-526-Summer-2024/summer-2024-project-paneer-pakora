@@ -19,6 +19,12 @@ public class KeyPressHandler : MonoBehaviour
         }
     }
 
+    // if the rotate button is clicked
+    //public void OnClickRotate()
+    //{
+    //    OnRKeyPressed();
+    //}
+
     void OnRKeyPressed()
     {
         HexTile selectedTile = UnitManager.Instance.selectedTile;

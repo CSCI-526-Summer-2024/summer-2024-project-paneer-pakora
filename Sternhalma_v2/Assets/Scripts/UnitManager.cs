@@ -58,7 +58,8 @@ public class UnitManager : MonoBehaviour
         }
 
         // Spawn scissor units
-        List<Vector3> scissorList = new List<Vector3> { new Vector3(0, 0) };
+        //List<Vector3> scissorList = new List<Vector3> { new Vector3(0, 0) };
+        List<Vector3> scissorList = new List<Vector3> { new Vector3(-3.0f, 1.0f), new Vector3(0, -1.0f) };
         var scissorCount = scissorList.Count;
 
         for (int i = 0; i < scissorCount; i++)
@@ -75,7 +76,8 @@ public class UnitManager : MonoBehaviour
         }
 
         // Spawn rock units
-        List<Vector3> rockList = new List<Vector3> { new Vector3(1.5f, -0.5f), new Vector3(-1.5f, -0.5f) };
+        //List<Vector3> rockList = new List<Vector3> { new Vector3(1.5f, -0.5f), new Vector3(-1.5f, -0.5f) };
+        List<Vector3> rockList = new List<Vector3> { new Vector3(-1.5f, -1.5f), new Vector3(-1.5f, 0.5f), new Vector3(0.0f, 1.0f), new Vector3(1.5f, -0.5f), new Vector3(3.0f, 0) };
         var rockCount = rockList.Count;
 
         for (int i = 0; i < rockCount; i++)
@@ -91,7 +93,8 @@ public class UnitManager : MonoBehaviour
         }
 
         // Spawn paper units
-        List<Vector3> paperList = new List<Vector3> { new Vector3(1.5f, 0.5f), new Vector3(0, -1), new Vector3(-1.5f, 0.5f) };
+        //List<Vector3> paperList = new List<Vector3> { new Vector3(1.5f, 0.5f), new Vector3(0, -1), new Vector3(-1.5f, 0.5f) };
+        List<Vector3> paperList = new List<Vector3> { new Vector3(-3.0f, 0f), new Vector3(-1.5f, 1.5f), new Vector3(1.5f, 1.5f), new Vector3(1.5f, -1.5f), new Vector3(3.0f, -1.0f) };
         var paperCount = paperList.Count;
 
         for (int i = 0; i < paperCount; i++)

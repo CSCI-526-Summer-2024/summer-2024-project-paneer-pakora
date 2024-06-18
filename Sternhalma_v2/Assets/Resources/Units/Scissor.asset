@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Scissor
   m_EditorClassIdentifier: 
   Faction: 2
-  UnitPrefab: {fileID: 1040201938614720006, guid: 9452b24e51d4b4e30b7210bc3a73dc67, type: 3}
+  UnitPrefab: {fileID: -2387285501131673512, guid: d4bb0576ed70df84bb9dad0010265c67, type: 3}

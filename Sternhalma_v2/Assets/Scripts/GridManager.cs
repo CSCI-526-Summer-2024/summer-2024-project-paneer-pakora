@@ -58,6 +58,8 @@ public class GridManager : MonoBehaviour
 
                     //Debug.Log("Pos");
                     //Debug.Log(xPos + " " + yPos);
+
+                    hex.isRotatable = false;
                 }
             }
 
@@ -80,6 +82,15 @@ public class GridManager : MonoBehaviour
 
                     //Debug.Log("Pos");
                     //Debug.Log(xPos + " " + yPos);
+
+                    if (y == -1.5f || y == 1.5f)
+                    {
+                        hex.isRotatable = false;
+                    }
+                    else
+                    {
+                        hex.isRotatable = true;
+                    }
                 }
             }
 
@@ -101,6 +112,15 @@ public class GridManager : MonoBehaviour
                     posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
                     //Debug.Log("Pos");
                     //Debug.Log(xPos + " " + yPos);
+
+                    if (y == -2f || y == 2)
+                    {
+                        hex.isRotatable = false;
+                    }
+                    else
+                    {
+                        hex.isRotatable = true;
+                    }
                 }
             }
         }
