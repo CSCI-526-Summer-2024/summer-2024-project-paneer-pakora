@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour
 {
     public static Timer Instance;
     public float timeRemaining = 180;  
-    public float initialTime = 180;    
+    public float initialTime = 300;    
     private bool timeIsRunning = true;
     public TMP_Text timeText;
     public TMP_Text gameEndText;

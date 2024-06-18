@@ -6,6 +6,7 @@ using Unity.Services.Analytics;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public GameObject rotateButton;
     public GameState GameState;
 
     private void Awake()
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         ChangeState(GameState.GenerateGrid);
+        GameManager.Instance.rotateButton.SetActive(false);
     }
 
     public void ChangeState(GameState newState)
