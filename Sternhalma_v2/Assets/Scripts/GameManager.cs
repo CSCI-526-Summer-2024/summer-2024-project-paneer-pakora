@@ -1,7 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Services.Analytics;
 
 public class GameManager : MonoBehaviour
 {
@@ -42,13 +42,32 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.WinState:
                 Debug.Log("Player Wins!");
+                SendAnalyticsEvent("win");
                 break;
             case GameState.LoseState:
                 Debug.Log("Player Loses!");
+                SendAnalyticsEvent("lose");
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
+    }
+
+    private void SendAnalyticsEvent(string result)
+    {
+        float timeRemaining = Timer.Instance.timeRemaining;
+        float totalTime = Timer.Instance.initialTime;
+        float timeTaken = totalTime - timeRemaining;
+
+        var parameters = new Dictionary<string, object>
+        {
+            { "result", result },
+            { "timeRemaining", timeRemaining },
+            { "timeTaken", timeTaken }
+        };
+
+        AnalyticsService.Instance.CustomData("level_complete", parameters);
+        AnalyticsService.Instance.Flush();
     }
 }
 
