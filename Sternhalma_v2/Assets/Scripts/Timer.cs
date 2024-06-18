@@ -6,10 +6,24 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    public float timeRemaining = 180;
+    public static Timer Instance;
+    public float timeRemaining = 180;  
+    public float initialTime = 180;    
     private bool timeIsRunning = true;
     public TMP_Text timeText;
     public TMP_Text gameEndText;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -34,7 +48,7 @@ public class Timer : MonoBehaviour
                 DisplayEndGameText("You Lose!");
             }
 
-            CheckGameStatus(); 
+            CheckGameStatus();
         }
     }
 
@@ -52,36 +66,13 @@ public class Timer : MonoBehaviour
         int paperCount = GameObject.FindGameObjectsWithTag("Paper").Length;
         int scissorCount = GameObject.FindGameObjectsWithTag("Scissors").Length;
 
-       
         bool oneTypeLeft = (rockCount == 0 && paperCount == 0 && scissorCount == 1) ||
                            (rockCount == 0 && paperCount == 1 && scissorCount == 0) ||
                            (rockCount == 1 && paperCount == 0 && scissorCount == 0);
 
-       
         bool allTilesVisited = UnitManager.Instance.isVisited.Count == UnitManager.Instance.currentStatus.Count;
 
-    
-        if (oneTypeLeft && !allTilesVisited)
-        {
-            Debug.Log("One type of unit left and not all tiles visited.");
-            timeIsRunning = false;
-            GameManager.Instance.ChangeState(GameState.LoseState);
-            DisplayEndGameText("You Lose!");
-            return;
-        }
-
-     
-        if (AllUnitsHaveNoValidMoves())
-        {
-            Debug.Log("All units have no valid moves.");
-            timeIsRunning = false;
-            GameManager.Instance.ChangeState(GameState.LoseState);
-            DisplayEndGameText("You Lose!");
-            return;
-        }
-
-      
-        if (oneTypeLeft && allTilesVisited)
+        if (oneTypeLeft || allTilesVisited )
         {
             Debug.Log("One type of unit left and all tiles visited.");
             timeIsRunning = false;
@@ -106,16 +97,15 @@ public class Timer : MonoBehaviour
             if (unit != null && HasValidMoveForUnit(pos, unit))
             {
                 Debug.Log($"Unit at {pos} ({unit.Faction}) has a valid move.");
-                return false; 
+                return false;
             }
         }
         Debug.Log("No units have valid moves.");
-        return true; 
+        return true;
     }
 
     bool HasValidMoveForUnit(Vector3 pos, BaseUnit unit)
     {
-       
         Vector3[] directions = {
             new Vector3(1.5f, 0.5f), new Vector3(1.5f, -0.5f),
             new Vector3(-1.5f, 0.5f), new Vector3(-1.5f, -0.5f),
@@ -130,18 +120,17 @@ public class Timer : MonoBehaviour
             if (IsValidMove(pos, targetPos, unit.Faction))
             {
                 Debug.Log($"Valid move found for {unit.Faction} at {pos} to {targetPos}.");
-                return true; 
+                return true;
             }
         }
         Debug.Log($"No valid moves found for {unit.Faction} at {pos}.");
-        return false; 
+        return false;
     }
 
     bool IsValidMove(Vector3 fromPos, Vector3 toPos, Faction faction)
     {
         Debug.Log($"Checking move from {fromPos} to {toPos} for {faction}.");
 
-       
         if (UnitManager.Instance.currentStatus.ContainsKey(toPos))
         {
             if (UnitManager.Instance.currentStatus[toPos] == null)
@@ -162,7 +151,7 @@ public class Timer : MonoBehaviour
                             (faction == Faction.Scissor && midUnit.Faction == Faction.Paper))
                         {
                             Debug.Log($"Valid capture move for {faction} from {fromPos} to {toPos} over {midUnit.Faction}.");
-                            return true; 
+                            return true;
                         }
                         else
                         {

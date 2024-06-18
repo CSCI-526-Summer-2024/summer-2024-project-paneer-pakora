@@ -5,7 +5,6 @@ using System.Linq;
 
 public class UnitManager : MonoBehaviour
 {
-
     public static UnitManager Instance;
 
     private List<ScriptableUnit> units;
@@ -32,6 +31,7 @@ public class UnitManager : MonoBehaviour
         tileToUnit = new Dictionary<HexTile, BaseUnit>();
         currentStatus = new Dictionary<Vector3, BaseUnit>();
 
+        // Initialize the currentStatus dictionary with null values
         for (float x = -3; x <= 3; x += 1.5f)
         {
             if (x == -3.0f || x == 3.0f)
@@ -41,7 +41,6 @@ public class UnitManager : MonoBehaviour
                     currentStatus[new Vector3(x, y)] = null;
                 }
             }
-
             else if (x == -1.5f || x == 1.5f)
             {
                 for (float y = -1.5f; y <= 1.5f; y++)
@@ -49,7 +48,6 @@ public class UnitManager : MonoBehaviour
                     currentStatus[new Vector3(x, y)] = null;
                 }
             }
-
             else
             {
                 for (int y = -2; y <= 2; y++)
@@ -59,26 +57,24 @@ public class UnitManager : MonoBehaviour
             }
         }
 
-        List<Vector3> scissorList = new List<Vector3> { new Vector3(0, 0)};
+        // Spawn scissor units
+        List<Vector3> scissorList = new List<Vector3> { new Vector3(0, 0) };
         var scissorCount = scissorList.Count;
 
         for (int i = 0; i < scissorCount; i++)
         {
             var scissorPrefab = GetUnit<Scissor>(Faction.Scissor);
             BaseUnit spawnedScissor = Instantiate(scissorPrefab);
-            HexTile scissorTile = GridManager.Instance.GetTileAtPos
-                (
-                GridManager.Instance.GetTranslatedPos(scissorList[i])
-                );
+            HexTile scissorTile = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(scissorList[i]));
 
             scissorTile.SetUnit(spawnedScissor);
             tileToUnit[scissorTile] = spawnedScissor;
             currentStatus[scissorList[i]] = spawnedScissor;
             isVisited.Add(scissorTile);
             scissorTile.SetColorToGreen();
-
         }
 
+        // Spawn rock units
         List<Vector3> rockList = new List<Vector3> { new Vector3(1.5f, -0.5f), new Vector3(-1.5f, -0.5f) };
         var rockCount = rockList.Count;
 
@@ -86,10 +82,7 @@ public class UnitManager : MonoBehaviour
         {
             var rockPrefab = GetUnit<Rock>(Faction.Rock);
             BaseUnit spawnedRock = Instantiate(rockPrefab);
-            HexTile rockTile = GridManager.Instance.GetTileAtPos
-                (
-                GridManager.Instance.GetTranslatedPos(rockList[i])
-                );
+            HexTile rockTile = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(rockList[i]));
             rockTile.SetUnit(spawnedRock);
             tileToUnit[rockTile] = spawnedRock;
             currentStatus[rockList[i]] = spawnedRock;
@@ -97,6 +90,7 @@ public class UnitManager : MonoBehaviour
             rockTile.SetColorToGreen();
         }
 
+        // Spawn paper units
         List<Vector3> paperList = new List<Vector3> { new Vector3(1.5f, 0.5f), new Vector3(0, -1), new Vector3(-1.5f, 0.5f) };
         var paperCount = paperList.Count;
 
@@ -105,10 +99,7 @@ public class UnitManager : MonoBehaviour
             var paperPrefab = GetUnit<Paper>(Faction.Paper);
 
             BaseUnit spawnedPaper = Instantiate(paperPrefab);
-            HexTile paperTile = GridManager.Instance.GetTileAtPos
-                (
-                GridManager.Instance.GetTranslatedPos(paperList[i])
-                );
+            HexTile paperTile = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(paperList[i]));
 
             paperTile.SetUnit(spawnedPaper);
             tileToUnit[paperTile] = spawnedPaper;
@@ -117,6 +108,7 @@ public class UnitManager : MonoBehaviour
             paperTile.SetColorToGreen();
         }
 
+        // Change the game state to PlayerTurn after spawning objects
         GameManager.Instance.ChangeState(GameState.PlayerTurn);
     }
 
