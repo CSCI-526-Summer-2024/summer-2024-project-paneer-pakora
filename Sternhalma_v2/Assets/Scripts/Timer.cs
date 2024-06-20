@@ -1,29 +1,204 @@
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using UnityEngine.UI;
+//using TMPro;
+
+//public class Timer : MonoBehaviour
+//{
+//    public static Timer Instance;
+//    public float timeRemaining = 180;  
+//    public float initialTime = 300;    
+//    private bool timeIsRunning = true;
+//    public TMP_Text timeText;
+//    public TMP_Text gameEndText;
+
+//    private void Awake()
+//    {
+//        if (Instance == null)
+//        {
+//            Instance = this;
+//        }
+//        else
+//        {
+//            Destroy(gameObject);
+//        }
+//    }
+
+//    void Start()
+//    {
+//        DisplayTime(timeRemaining);
+//        gameEndText.gameObject.SetActive(false);
+//    }
+
+//    void Update()
+//    {
+//        if (timeIsRunning)
+//        {
+//            if (timeRemaining > 0)
+//            {
+//                timeRemaining -= Time.deltaTime;
+//                DisplayTime(timeRemaining);
+//            }
+//            else
+//            {
+//                timeRemaining = 0;
+//                timeIsRunning = false;
+//                GameManager.Instance.ChangeState(GameState.LoseState);
+//                DisplayEndGameText("You Lose!");
+//            }
+
+//            CheckGameStatus();
+//        }
+//    }
+
+//    void DisplayTime(float timeToDisplay)
+//    {
+//        timeToDisplay = Mathf.Max(timeToDisplay, 0);
+//        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
+//        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+//        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+//    }
+
+//    void CheckGameStatus()
+//    {
+//        int rockCount = GameObject.FindGameObjectsWithTag("Rock").Length;
+//        int paperCount = GameObject.FindGameObjectsWithTag("Paper").Length;
+//        int scissorCount = GameObject.FindGameObjectsWithTag("Scissors").Length;
+
+//        bool oneTypeLeft = (rockCount == 0 && paperCount == 0 && scissorCount == 1) ||
+//                           (rockCount == 0 && paperCount == 1 && scissorCount == 0) ||
+//                           (rockCount == 1 && paperCount == 0 && scissorCount == 0);
+
+//        bool allTilesVisited = UnitManager.Instance.isVisited.Count == UnitManager.Instance.currentStatus.Count;
+
+//        if (oneTypeLeft || allTilesVisited )
+//        {
+//            Debug.Log("One type of unit left and all tiles visited.");
+//            timeIsRunning = false;
+//            GameManager.Instance.ChangeState(GameState.WinState);
+//            DisplayEndGameText("You Win!");
+//        }
+//    }
+
+//    public void DisplayEndGameText(string message)
+//    {
+//        gameEndText.text = message;
+//        gameEndText.gameObject.SetActive(true);
+//    }
+
+//    bool AllUnitsHaveNoValidMoves()
+//    {
+//        foreach (var kvp in UnitManager.Instance.currentStatus)
+//        {
+//            Vector3 pos = kvp.Key;
+//            BaseUnit unit = kvp.Value;
+
+//            if (unit != null && HasValidMoveForUnit(pos, unit))
+//            {
+//                Debug.Log($"Unit at {pos} ({unit.Faction}) has a valid move.");
+//                return false;
+//            }
+//        }
+//        Debug.Log("No units have valid moves.");
+//        return true;
+//    }
+
+//    bool HasValidMoveForUnit(Vector3 pos, BaseUnit unit)
+//    {
+//        Vector3[] directions = {
+//            new Vector3(1.5f, 0.5f), new Vector3(1.5f, -0.5f),
+//            new Vector3(-1.5f, 0.5f), new Vector3(-1.5f, -0.5f),
+//            new Vector3(3.0f, 1.0f), new Vector3(3.0f, -1.0f),
+//            new Vector3(-3.0f, 1.0f), new Vector3(-3.0f, -1.0f)
+//        };
+
+//        foreach (var dir in directions)
+//        {
+//            Vector3 targetPos = pos + dir;
+//            Debug.Log($"Checking move from {pos} to {targetPos} for {unit.Faction}.");
+//            if (IsValidMove(pos, targetPos, unit.Faction))
+//            {
+//                Debug.Log($"Valid move found for {unit.Faction} at {pos} to {targetPos}.");
+//                return true;
+//            }
+//        }
+//        Debug.Log($"No valid moves found for {unit.Faction} at {pos}.");
+//        return false;
+//    }
+
+//    bool IsValidMove(Vector3 fromPos, Vector3 toPos, Faction faction)
+//    {
+//        Debug.Log($"Checking move from {fromPos} to {toPos} for {faction}.");
+
+//        if (UnitManager.Instance.currentStatus.ContainsKey(toPos))
+//        {
+//            if (UnitManager.Instance.currentStatus[toPos] == null)
+//            {
+//                Debug.Log($"Target tile at {toPos} is empty.");
+
+//                Vector3 midPos = (fromPos + toPos) / 2;
+//                Debug.Log($"Calculated mid position: {midPos}");
+
+//                if (UnitManager.Instance.currentStatus.ContainsKey(midPos))
+//                {
+//                    BaseUnit midUnit = UnitManager.Instance.currentStatus[midPos];
+//                    if (midUnit != null)
+//                    {
+//                        Debug.Log($"Mid unit at {midPos} is a {midUnit.Faction}.");
+//                        if ((faction == Faction.Rock && midUnit.Faction == Faction.Scissor) ||
+//                            (faction == Faction.Paper && midUnit.Faction == Faction.Rock) ||
+//                            (faction == Faction.Scissor && midUnit.Faction == Faction.Paper))
+//                        {
+//                            Debug.Log($"Valid capture move for {faction} from {fromPos} to {toPos} over {midUnit.Faction}.");
+//                            return true;
+//                        }
+//                        else
+//                        {
+//                            Debug.Log($"Mid unit at {midPos} is not capturable by {faction}. It's a {midUnit.Faction}.");
+//                        }
+//                    }
+//                    else
+//                    {
+//                        Debug.Log($"No mid unit at {midPos} to capture.");
+//                    }
+//                }
+//                else
+//                {
+//                    Debug.Log($"Mid position {midPos} not within bounds.");
+//                }
+//            }
+//            else
+//            {
+//                Debug.Log($"Target tile at {toPos} is not empty.");
+//            }
+//        }
+//        else
+//        {
+//            Debug.Log($"Target position {toPos} not within bounds.");
+//        }
+
+//        Debug.Log($"Invalid move for {faction} from {fromPos} to {toPos}.");
+//        return false;
+//    }
+//}
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class Timer : MonoBehaviour
 {
     public static Timer Instance;
-    public float timeRemaining = 180;  
-    public float initialTime = 300;    
+    public float initialTime = 300;
+    public float timeRemaining = 180;
     private bool timeIsRunning = true;
     public TMP_Text timeText;
     public TMP_Text gameEndText;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     void Start()
     {
@@ -47,9 +222,8 @@ public class Timer : MonoBehaviour
                 GameManager.Instance.ChangeState(GameState.LoseState);
                 DisplayEndGameText("You Lose!");
             }
-
-            CheckGameStatus();
         }
+        CheckGameStatus();
     }
 
     void DisplayTime(float timeToDisplay)
@@ -62,22 +236,61 @@ public class Timer : MonoBehaviour
 
     void CheckGameStatus()
     {
-        int rockCount = GameObject.FindGameObjectsWithTag("Rock").Length;
-        int paperCount = GameObject.FindGameObjectsWithTag("Paper").Length;
-        int scissorCount = GameObject.FindGameObjectsWithTag("Scissors").Length;
-
-        bool oneTypeLeft = (rockCount == 0 && paperCount == 0 && scissorCount == 1) ||
-                           (rockCount == 0 && paperCount == 1 && scissorCount == 0) ||
-                           (rockCount == 1 && paperCount == 0 && scissorCount == 0);
-
-        bool allTilesVisited = UnitManager.Instance.isVisited.Count == UnitManager.Instance.currentStatus.Count;
-
-        if (oneTypeLeft || allTilesVisited )
+        int nonNullCount = UnitManager.Instance.currentStatus.Values.Count(value => value != null);
+        int visitedTileCount = UnitManager.Instance.isVisited.Count;
+        if (nonNullCount == 1 || visitedTileCount == 19)
         {
-            Debug.Log("One type of unit left and all tiles visited.");
             timeIsRunning = false;
             GameManager.Instance.ChangeState(GameState.WinState);
             DisplayEndGameText("You Win!");
+            return;
+        }
+
+        else
+        {
+
+            Dictionary<Vector3, BaseUnit> dict = UnitManager.Instance.currentStatus;
+            bool onlyLoneIsland = CheckIsOnlyLoneIsland(dict);
+            bool onlyPerimeter = CheckIsOnlyPerimeter(dict);
+            bool onlyOnePieceType = CheckIsOnlyOnePiece(dict);
+            //bool onlyLoneIslandInterior = CheckLoneIslandInterior(dict);
+
+            if (onlyOnePieceType)
+            {
+                timeIsRunning = false;
+                Debug.Log("In only one piece type lose condition");
+                GameManager.Instance.ChangeState(GameState.LoseState);
+                DisplayEndGameText("You Lose!");
+                return;
+            }
+
+            if (onlyLoneIsland)
+            {
+                timeIsRunning = false;
+                Debug.Log("In Lone Island lose condition");
+                GameManager.Instance.ChangeState(GameState.LoseState);
+                DisplayEndGameText("You Lose!");
+                return;
+            }
+
+            if (onlyPerimeter)
+            {
+                if (CheckValidMoveOnPerimeter(dict))
+                {
+                    return;
+                }
+                else
+                {
+                    timeIsRunning = false;
+                    Debug.Log("In no valid perimeter move condition");
+                    GameManager.Instance.ChangeState(GameState.LoseState);
+                    DisplayEndGameText("You Lose!");
+                    return;
+                }
+            }
+
+            return;
+
         }
     }
 
@@ -87,98 +300,268 @@ public class Timer : MonoBehaviour
         gameEndText.gameObject.SetActive(true);
     }
 
-    bool AllUnitsHaveNoValidMoves()
+    private bool CheckIsOnlyLoneIsland(Dictionary<Vector3, BaseUnit> dict)
     {
-        foreach (var kvp in UnitManager.Instance.currentStatus)
-        {
-            Vector3 pos = kvp.Key;
-            BaseUnit unit = kvp.Value;
+        List<Vector3> keys = new List<Vector3>(dict.Keys);
 
-            if (unit != null && HasValidMoveForUnit(pos, unit))
+        foreach (Vector3 pos in keys)
+        {
+            if (dict[pos] != null)
             {
-                Debug.Log($"Unit at {pos} ({unit.Faction}) has a valid move.");
-                return false;
+                float posX = pos.x;
+                float posY = pos.y;
+
+                Vector3 topPos = new Vector3(posX, posY + 1.0f);
+                Vector3 topRightPos = new Vector3(posX + 1.5f, posY + 0.5f);
+                Vector3 bottomRightPos = new Vector3(posX + 1.5f, posY - 0.5f);
+                Vector3 bottomPos = new Vector3(posX, posY - 1.0f);
+                Vector3 bottomLeftPos = new Vector3(posX - 1.5f, posY - 0.5f);
+                Vector3 topLeftPos = new Vector3(posX - 1.5f, posY + 0.5f);
+
+                if ((keys.Contains(topPos) && dict[topPos] != null) ||
+                    (keys.Contains(topRightPos) && dict[topRightPos] != null) ||
+                    (keys.Contains(bottomRightPos) && dict[bottomRightPos] != null) ||
+                    (keys.Contains(bottomPos) && dict[bottomPos] != null) ||
+                    (keys.Contains(bottomLeftPos) && dict[bottomLeftPos] != null) ||
+                    (keys.Contains(topLeftPos) && dict[topLeftPos] != null))
+                {
+                    return false;
+                }
             }
         }
-        Debug.Log("No units have valid moves.");
+
         return true;
     }
 
-    bool HasValidMoveForUnit(Vector3 pos, BaseUnit unit)
+    private bool CheckIsOnlyPerimeter(Dictionary<Vector3, BaseUnit> dict)
     {
-        Vector3[] directions = {
-            new Vector3(1.5f, 0.5f), new Vector3(1.5f, -0.5f),
-            new Vector3(-1.5f, 0.5f), new Vector3(-1.5f, -0.5f),
-            new Vector3(3.0f, 1.0f), new Vector3(3.0f, -1.0f),
-            new Vector3(-3.0f, 1.0f), new Vector3(-3.0f, -1.0f)
-        };
+        List<Vector3> internalPos = new List<Vector3> { new Vector3(0, 1.0f), new Vector3(1.5f, 0.5f), new Vector3(1.5f, -0.5f),
+                                                        new Vector3(0, -1.0f), new Vector3(-1.5f, -0.5f), new Vector3(-1.5f, 0.5f),
+                                                        new Vector3(0, 0)};
 
-        foreach (var dir in directions)
+        for (int i = 0; i < internalPos.Count; i++)
         {
-            Vector3 targetPos = pos + dir;
-            Debug.Log($"Checking move from {pos} to {targetPos} for {unit.Faction}.");
-            if (IsValidMove(pos, targetPos, unit.Faction))
+            if (dict[internalPos[i]] != null)
             {
-                Debug.Log($"Valid move found for {unit.Faction} at {pos} to {targetPos}.");
-                return true;
+                if (!IsLonePiece(dict, internalPos[i]))
+                {
+                    return false;
+                }
             }
         }
-        Debug.Log($"No valid moves found for {unit.Faction} at {pos}.");
-        return false;
+
+        return true;
     }
 
-    bool IsValidMove(Vector3 fromPos, Vector3 toPos, Faction faction)
+    private bool CheckIsOnlyOnePiece(Dictionary<Vector3, BaseUnit> dict)
     {
-        Debug.Log($"Checking move from {fromPos} to {toPos} for {faction}.");
 
-        if (UnitManager.Instance.currentStatus.ContainsKey(toPos))
+        int paperCount = 0;
+        int scissorCount = 0;
+        int rockCount = 0;
+
+        foreach (Vector3 key in dict.Keys)
         {
-            if (UnitManager.Instance.currentStatus[toPos] == null)
-            {
-                Debug.Log($"Target tile at {toPos} is empty.");
 
-                Vector3 midPos = (fromPos + toPos) / 2;
-                Debug.Log($"Calculated mid position: {midPos}");
-
-                if (UnitManager.Instance.currentStatus.ContainsKey(midPos))
-                {
-                    BaseUnit midUnit = UnitManager.Instance.currentStatus[midPos];
-                    if (midUnit != null)
-                    {
-                        Debug.Log($"Mid unit at {midPos} is a {midUnit.Faction}.");
-                        if ((faction == Faction.Rock && midUnit.Faction == Faction.Scissor) ||
-                            (faction == Faction.Paper && midUnit.Faction == Faction.Rock) ||
-                            (faction == Faction.Scissor && midUnit.Faction == Faction.Paper))
-                        {
-                            Debug.Log($"Valid capture move for {faction} from {fromPos} to {toPos} over {midUnit.Faction}.");
-                            return true;
-                        }
-                        else
-                        {
-                            Debug.Log($"Mid unit at {midPos} is not capturable by {faction}. It's a {midUnit.Faction}.");
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log($"No mid unit at {midPos} to capture.");
-                    }
-                }
-                else
-                {
-                    Debug.Log($"Mid position {midPos} not within bounds.");
-                }
-            }
-            else
+            if (dict[key] != null && dict[key].Faction == Faction.Paper)
             {
-                Debug.Log($"Target tile at {toPos} is not empty.");
+                paperCount += 1;
             }
+
+            else if (dict[key] != null && dict[key].Faction == Faction.Rock)
+            {
+                rockCount += 1;
+            }
+            else if (dict[key] != null && dict[key].Faction == Faction.Scissor)
+            {
+                scissorCount += 1;
+            }
+        }
+
+        if (rockCount == 0 && paperCount == 0 && scissorCount != 0)
+        {
+            GameManager.Instance.ChangeState(GameState.LoseState);
+            return true;
+        }
+        else if (rockCount == 0 && paperCount != 0 && scissorCount == 0)
+        {
+            GameManager.Instance.ChangeState(GameState.LoseState);
+            return true;
+        }
+        else if (rockCount != 0 && paperCount == 0 && scissorCount == 0)
+        {
+            GameManager.Instance.ChangeState(GameState.LoseState);
+            return true;
         }
         else
         {
-            Debug.Log($"Target position {toPos} not within bounds.");
+            return false;
+        }
+    }
+
+    private bool CheckValidMoveOnPerimeter(Dictionary<Vector3, BaseUnit> dict)
+    {
+        List<Vector3> perimeterPos = new List<Vector3> { new Vector3(0f, 2.0f), new Vector3(1.5f, 1.5f),
+                                                         new Vector3(3.0f, 1.0f), new Vector3(3.0f, 0f),
+                                                         new Vector3(3.0f, -1.0f), new Vector3(1.5f, -1.5f),
+                                                         new Vector3(0f, -2.0f), new Vector3(-1.5f, -1.5f),
+                                                         new Vector3(-3.0f, -1.0f), new Vector3(-3.0f, 0f),
+                                                         new Vector3(-3.0f, 1.0f), new Vector3(-1.5f, 1.5f)
+                                                        };
+
+        for (int i = 0; i < perimeterPos.Count - 1; i = i + 2)
+        {
+            if (i < 10)
+            {
+                if (dict[perimeterPos[i]] != null && dict[perimeterPos[i + 1]] != null && dict[perimeterPos[i + 2]] == null)
+                {
+                    if (isMovePossible(dict, perimeterPos[i], perimeterPos[i + 1]))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            else
+            {
+                if (dict[perimeterPos[i]] != null && dict[perimeterPos[i + 1]] != null && dict[perimeterPos[0]] == null)
+                {
+                    if (isMovePossible(dict, perimeterPos[i], perimeterPos[i + 1]))
+                    {
+                        return true;
+                    }
+                }
+            }
         }
 
-        Debug.Log($"Invalid move for {faction} from {fromPos} to {toPos}.");
+        for (int i = perimeterPos.Count - 2; i >= 0; i = i - 2)
+        {
+            if (i > 1)
+            {
+                if (dict[perimeterPos[i]] != null && dict[perimeterPos[i - 1]] != null && dict[perimeterPos[i - 2]] == null)
+                {
+                    if (isMovePossible(dict, perimeterPos[i], perimeterPos[i - 1]))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            else
+            {
+                if (dict[perimeterPos[i]] != null && dict[perimeterPos[11]] != null && dict[perimeterPos[10]] == null)
+                {
+                    if (isMovePossible(dict, perimeterPos[i], perimeterPos[perimeterPos.Count - 1]))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
+
+    private bool isMovePossible(Dictionary<Vector3, BaseUnit> dict, Vector3 pos1, Vector3 pos2)
+    {
+        if (dict[pos1].Faction == Faction.Rock)
+        {
+            if (dict[pos2].Faction == Faction.Scissor)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        else if (dict[pos1].Faction == Faction.Scissor)
+        {
+            if (dict[pos2].Faction == Faction.Paper)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        else
+        {
+            if (dict[pos2].Faction == Faction.Rock)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    private bool CheckLoneIslandInterior(Dictionary<Vector3, BaseUnit> dict)
+    {
+        List<Vector3> internalPos = new List<Vector3> { new Vector3(0, 1.0f), new Vector3(1.5f, 0.5f), new Vector3(1.5f, -0.5f),
+                                                        new Vector3(0, -1.0f), new Vector3(-1.5f, -0.5f), new Vector3(-1.5f, 0.5f),
+                                                        new Vector3(0, 0)};
+
+        for (int i = 0; i < internalPos.Count; i++)
+        {
+
+            Vector3 pos = internalPos[i];
+
+            if (dict[pos] != null)
+            {
+                float posX = pos.x;
+                float posY = pos.y;
+
+                Vector3 topPos = new Vector3(posX, posY + 1.0f);
+                Vector3 topRightPos = new Vector3(posX + 1.5f, posY + 0.5f);
+                Vector3 bottomRightPos = new Vector3(posX + 1.5f, posY - 0.5f);
+                Vector3 bottomPos = new Vector3(posX, posY - 1.0f);
+                Vector3 bottomLeftPos = new Vector3(posX - 1.5f, posY - 0.5f);
+                Vector3 topLeftPos = new Vector3(posX - 1.5f, posY + 0.5f);
+
+                if ((dict[topPos] != null) ||
+                    (dict[topRightPos] != null) ||
+                    (dict[bottomRightPos] != null) ||
+                    (dict[bottomPos] != null) ||
+                    (dict[bottomLeftPos] != null) ||
+                    (dict[topLeftPos] != null))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private bool IsLonePiece(Dictionary<Vector3, BaseUnit> dict, Vector3 pos)
+    {
+        float posX = pos.x;
+        float posY = pos.y;
+
+        Vector3 topPos = new Vector3(posX, posY + 1.0f);
+        Vector3 topRightPos = new Vector3(posX + 1.5f, posY + 0.5f);
+        Vector3 bottomRightPos = new Vector3(posX + 1.5f, posY - 0.5f);
+        Vector3 bottomPos = new Vector3(posX, posY - 1.0f);
+        Vector3 bottomLeftPos = new Vector3(posX - 1.5f, posY - 0.5f);
+        Vector3 topLeftPos = new Vector3(posX - 1.5f, posY + 0.5f);
+
+        if ((dict[topPos] != null) ||
+            (dict[topRightPos] != null) ||
+            (dict[bottomRightPos] != null) ||
+            (dict[bottomPos] != null) ||
+            (dict[bottomLeftPos] != null) ||
+            (dict[topLeftPos] != null))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+
 }

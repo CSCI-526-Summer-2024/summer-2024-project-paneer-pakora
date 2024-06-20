@@ -44,11 +44,11 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.WinState:
                 Debug.Log("Player Wins!");
-                SendAnalyticsEvent("win");
+                //SendAnalyticsEvent("win");
                 break;
             case GameState.LoseState:
                 Debug.Log("Player Loses!");
-                SendAnalyticsEvent("lose");
+                //SendAnalyticsEvent("lose");
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
