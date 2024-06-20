@@ -656,7 +656,7 @@ GameObject:
   - component: {fileID: 8447883190670954352}
   m_Layer: 0
   m_Name: Rock_Template
-  m_TagString: Untagged
+  m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
