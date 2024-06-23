@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        ChangeState(GameState.GenerateGrid);
+        ChangeState(GameState.Tutorial2);
         GameManager.Instance.rotateButton.SetActive(false);
     }
 
@@ -37,8 +37,11 @@ public class GameManager : MonoBehaviour
             case GameState.GenerateGrid:
                 GridManager.Instance.GenerateHexGrid();
                 break;
+            case GameState.Tutorial2:
+                GridManager.Instance.GenerateTutorial2_Grid();
+                break;
             case GameState.SpawnObjects:
-                UnitManager.Instance.SpawnObjects();
+                UnitManager.Instance.SpawnTutorial2Objects();
                 break;
             case GameState.PlayerTurn:
                 break;
@@ -79,5 +82,6 @@ public enum GameState
     SpawnObjects = 1,
     PlayerTurn = 2,
     WinState = 3,
-    LoseState = 4
+    LoseState = 4,
+    Tutorial2 = 5
 }
