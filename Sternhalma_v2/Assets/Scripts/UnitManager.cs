@@ -10,10 +10,14 @@ public class UnitManager : MonoBehaviour
     private List<ScriptableUnit> units;
     public HexTile selectedTile;
 
-    public Dictionary<HexTile, BaseUnit> tileToUnit;
-    public Dictionary<Vector3, BaseUnit> currentStatus;
+    public Dictionary<HexTile, BaseUnit> tileToUnit = new Dictionary<HexTile, BaseUnit>();
+    public Dictionary<Vector3, BaseUnit> currentStatus = new Dictionary<Vector3, BaseUnit>();
 
     public HashSet<HexTile> isVisited = new HashSet<HexTile>();
+
+    public int pieceCount, piecesRemoved;
+    public ProgressMeter tileCoverageMeter;
+    public ProgressMeter piecesRemovedMeter;
 
     private void Awake()
     {
@@ -28,9 +32,6 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnObjects()
     {
-        tileToUnit = new Dictionary<HexTile, BaseUnit>();
-        currentStatus = new Dictionary<Vector3, BaseUnit>();
-
         // Initialize the currentStatus dictionary with null values
         for (float x = -3; x <= 3; x += 1.5f)
         {
@@ -73,6 +74,7 @@ public class UnitManager : MonoBehaviour
             currentStatus[scissorList[i]] = spawnedScissor;
             isVisited.Add(scissorTile);
             scissorTile.SetColorToGreen();
+
         }
 
         // Spawn rock units
@@ -90,6 +92,7 @@ public class UnitManager : MonoBehaviour
             currentStatus[rockList[i]] = spawnedRock;
             isVisited.Add(rockTile);
             rockTile.SetColorToGreen();
+
         }
 
         // Spawn paper units
@@ -109,7 +112,20 @@ public class UnitManager : MonoBehaviour
             currentStatus[paperList[i]] = spawnedPaper;
             isVisited.Add(paperTile);
             paperTile.SetColorToGreen();
+
         }
+
+        // set tile coverage progress meter
+        var tileCount = currentStatus.Count;
+        var coveredTileCount = isVisited.Count;
+        tileCoverageMeter.SetMaxProgress(tileCount);
+        tileCoverageMeter.SetProgress(coveredTileCount);
+
+        // set # pieces removed progress meter
+        pieceCount = scissorCount + rockCount + paperCount;
+        piecesRemoved = 0;                                      // start with all pieces on board; none removed
+        piecesRemovedMeter.SetMaxProgress(pieceCount - 1);      // win condition requires 1 piece remaining
+        piecesRemovedMeter.SetProgress(piecesRemoved);
 
         // Change the game state to PlayerTurn after spawning objects
         GameManager.Instance.ChangeState(GameState.PlayerTurn);
@@ -191,6 +207,7 @@ public class UnitManager : MonoBehaviour
             currentStatus[scissorList[i]] = spawnedScissor;
             isVisited.Add(scissorTile);
             scissorTile.SetColorToGreen();
+
         }
 
         // Spawn rock units
@@ -209,6 +226,7 @@ public class UnitManager : MonoBehaviour
             currentStatus[rockList[i]] = spawnedRock;
             isVisited.Add(rockTile);
             rockTile.SetColorToGreen();
+
         }
 
         // Spawn paper units
@@ -229,7 +247,20 @@ public class UnitManager : MonoBehaviour
             currentStatus[paperList[i]] = spawnedPaper;
             isVisited.Add(paperTile);
             paperTile.SetColorToGreen();
+
         }
+
+        // set tile coverage progress meter
+        var tileCount = currentStatus.Count;
+        var coveredTileCount = isVisited.Count;
+        tileCoverageMeter.SetMaxProgress(tileCount);
+        tileCoverageMeter.SetProgress(coveredTileCount);
+
+        // set # pieces removed progress meter
+        pieceCount = scissorCount + rockCount + paperCount;
+        piecesRemoved = 0;                                      // start with all pieces on board; none removed
+        piecesRemovedMeter.SetMaxProgress(pieceCount - 1);      // win condition requires 1 piece remaining
+        piecesRemovedMeter.SetProgress(piecesRemoved);                      
 
         // Change the game state to PlayerTurn after spawning objects
         GameManager.Instance.ChangeState(GameState.PlayerTurn);
@@ -251,6 +282,7 @@ public class UnitManager : MonoBehaviour
         if (newTile != null)
         {
             isVisited.Add(newTile);  
+            // increment % tiles covered (?)
         }
     }
 
