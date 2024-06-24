@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Timer : MonoBehaviour
+public class Tutorial2_Timer : MonoBehaviour
 {
-    public static Timer Instance;
+    public static Tutorial2_Timer Instance;
     public float timeRemaining = 180;  
     public float initialTime = 300;    
     private bool timeIsRunning = true;
@@ -44,7 +44,7 @@ public class Timer : MonoBehaviour
             {
                 timeRemaining = 0;
                 timeIsRunning = false;
-                GameManager.Instance.ChangeState(GameState.LoseState);
+                Tutorial2_GameManager.Instance.ChangeState(GameState.LoseState);
                 DisplayEndGameText("You Lose!");
             }
 
@@ -69,19 +69,14 @@ public class Timer : MonoBehaviour
         bool oneTypeLeft = (rockCount == 0 && paperCount == 0 && scissorCount == 1) ||
                            (rockCount == 0 && paperCount == 1 && scissorCount == 0) ||
                            (rockCount == 1 && paperCount == 0 && scissorCount == 0);
-
-        Debug.Log("UnitManager.Instance: ");
-        Debug.Log(UnitManager.Instance);
-        Debug.Log(UnitManager.Instance.isVisited.Count);
-        Debug.Log(UnitManager.Instance.currentStatus.Count);
         
-        bool allTilesVisited = UnitManager.Instance.isVisited.Count == UnitManager.Instance.currentStatus.Count;
+        bool allTilesVisited = Tutorial2_UnitManager.Instance.isVisited.Count == Tutorial2_UnitManager.Instance.currentStatus.Count;
 
         if (oneTypeLeft || allTilesVisited )
         {
             Debug.Log("One type of unit left and all tiles visited.");
             timeIsRunning = false;
-            GameManager.Instance.ChangeState(GameState.WinState);
+            Tutorial2_GameManager.Instance.ChangeState(GameState.WinState);
             DisplayEndGameText("You Win!");
         }
     }
@@ -94,10 +89,10 @@ public class Timer : MonoBehaviour
 
     bool AllUnitsHaveNoValidMoves()
     {
-        foreach (var kvp in UnitManager.Instance.currentStatus)
+        foreach (var kvp in Tutorial2_UnitManager.Instance.currentStatus)
         {
             Vector3 pos = kvp.Key;
-            BaseUnit unit = kvp.Value;
+            Tutorial2_BaseUnit unit = kvp.Value;
 
             if (unit != null && HasValidMoveForUnit(pos, unit))
             {
@@ -109,7 +104,7 @@ public class Timer : MonoBehaviour
         return true;
     }
 
-    bool HasValidMoveForUnit(Vector3 pos, BaseUnit unit)
+    bool HasValidMoveForUnit(Vector3 pos, Tutorial2_BaseUnit unit)
     {
         Vector3[] directions = {
             new Vector3(1.5f, 0.5f), new Vector3(1.5f, -0.5f),
@@ -136,18 +131,18 @@ public class Timer : MonoBehaviour
     {
         Debug.Log($"Checking move from {fromPos} to {toPos} for {faction}.");
 
-        if (UnitManager.Instance.currentStatus.ContainsKey(toPos))
+        if (Tutorial2_UnitManager.Instance.currentStatus.ContainsKey(toPos))
         {
-            if (UnitManager.Instance.currentStatus[toPos] == null)
+            if (Tutorial2_UnitManager.Instance.currentStatus[toPos] == null)
             {
                 Debug.Log($"Target tile at {toPos} is empty.");
 
                 Vector3 midPos = (fromPos + toPos) / 2;
                 Debug.Log($"Calculated mid position: {midPos}");
 
-                if (UnitManager.Instance.currentStatus.ContainsKey(midPos))
+                if (Tutorial2_UnitManager.Instance.currentStatus.ContainsKey(midPos))
                 {
-                    BaseUnit midUnit = UnitManager.Instance.currentStatus[midPos];
+                    Tutorial2_BaseUnit midUnit = Tutorial2_UnitManager.Instance.currentStatus[midPos];
                     if (midUnit != null)
                     {
                         Debug.Log($"Mid unit at {midPos} is a {midUnit.Faction}.");

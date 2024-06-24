@@ -25,7 +25,7 @@ public class UnitManager : MonoBehaviour
         units = Resources.LoadAll<ScriptableUnit>("Units").ToList();
     }
 
-    private T GetUnit<T>(Faction faction) where T : BaseUnit
+    public T GetUnit<T>(Faction faction) where T : BaseUnit
     {
         return (T)units.Where(u => u.Faction == faction).First().UnitPrefab;
     }

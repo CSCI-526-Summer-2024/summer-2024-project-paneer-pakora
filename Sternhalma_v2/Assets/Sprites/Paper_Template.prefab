@@ -514,6 +514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3976699124977499564}
   - component: {fileID: 6636882256305780520}
+  - component: {fileID: 6607846362111903095}
   m_Layer: 0
   m_Name: Paper_Template
   m_TagString: Paper
@@ -547,6 +548,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2ff61b7aabf04970bf1feacddd0c2d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OccupiedTile: {fileID: 0}
+  Faction: 1
+--- !u!114 &6607846362111903095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8138254266799659375}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54baebcbc58529648a42e124a3c64978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OccupiedTile: {fileID: 0}

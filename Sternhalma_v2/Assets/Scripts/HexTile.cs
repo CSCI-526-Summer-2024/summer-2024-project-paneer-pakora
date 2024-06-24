@@ -75,10 +75,10 @@ public class HexTile : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (GameManager.Instance.GameState != GameState.PlayerTurn)
-        {
-            return;
-        }
+        //if (GameManager.Instance.GameState != GameState.PlayerTurn)
+        //{
+        //    return;
+        //}
 
         HexTile selectedTile = UnitManager.Instance.selectedTile;
 
@@ -86,7 +86,7 @@ public class HexTile : MonoBehaviour
         {
             //Debug.Log("1");
             UnitManager.Instance.SetSelectedTile(null);
-            GameManager.Instance.rotateButton.SetActive(false);
+            MenuManager.Instance.rotateButton.SetActive(false);
             return;
         }
 
@@ -95,7 +95,7 @@ public class HexTile : MonoBehaviour
             Debug.Log("2");
             UnitManager.Instance.SetSelectedTile(null);
             selectedTile.highlightOnSelect.SetActive(false);
-            GameManager.Instance.rotateButton.SetActive(false);
+            MenuManager.Instance.rotateButton.SetActive(false);
             return;
         }
 
@@ -108,7 +108,7 @@ public class HexTile : MonoBehaviour
 
             if (this.isRotatable)
             {
-                GameManager.Instance.rotateButton.SetActive(true);
+                MenuManager.Instance.rotateButton.SetActive(true);
             }
             return;
         }
@@ -141,7 +141,7 @@ public class HexTile : MonoBehaviour
                         selectedTile.highlightOnSelect.SetActive(false);
                         this.SetColorToGreen();
                         UnitManager.Instance.isVisited.Add(this);
-                        GameManager.Instance.rotateButton.SetActive(false);
+                        MenuManager.Instance.rotateButton.SetActive(false);
 
                         // increment % tiles covered
                         UnitManager.Instance.tileCoverageMeter.SetProgress(UnitManager.Instance.isVisited.Count);
@@ -156,7 +156,7 @@ public class HexTile : MonoBehaviour
                         Debug.Log("8");
                         UnitManager.Instance.SetSelectedTile(null);
                         selectedTile.highlightOnSelect.SetActive(false);
-                        GameManager.Instance.rotateButton.SetActive(false);
+                        MenuManager.Instance.rotateButton.SetActive(false);
                         return;
                     }
                 }
@@ -177,7 +177,7 @@ public class HexTile : MonoBehaviour
                         selectedTile.highlightOnSelect.SetActive(false);
                         this.SetColorToGreen();
                         UnitManager.Instance.isVisited.Add(this);
-                        GameManager.Instance.rotateButton.SetActive(false);
+                        MenuManager.Instance.rotateButton.SetActive(false);
 
                         // increment % tiles covered
                         UnitManager.Instance.tileCoverageMeter.SetProgress(UnitManager.Instance.isVisited.Count);
@@ -192,7 +192,7 @@ public class HexTile : MonoBehaviour
                         Debug.Log("11");
                         UnitManager.Instance.SetSelectedTile(null);
                         selectedTile.highlightOnSelect.SetActive(false);
-                        GameManager.Instance.rotateButton.SetActive(false);
+                        MenuManager.Instance.rotateButton.SetActive(false);
                         return;
                     }
                 }
@@ -214,7 +214,7 @@ public class HexTile : MonoBehaviour
                         selectedTile.highlightOnSelect.SetActive(false);
                         this.SetColorToGreen();
                         UnitManager.Instance.isVisited.Add(this);
-                        GameManager.Instance.rotateButton.SetActive(false);
+                        MenuManager.Instance.rotateButton.SetActive(false);
 
                         // increment % tiles covered
                         UnitManager.Instance.tileCoverageMeter.SetProgress(UnitManager.Instance.isVisited.Count);
@@ -229,7 +229,7 @@ public class HexTile : MonoBehaviour
                         Debug.Log("14");
                         UnitManager.Instance.SetSelectedTile(null);
                         selectedTile.highlightOnSelect.SetActive(false);
-                        GameManager.Instance.rotateButton.SetActive(false);
+                        MenuManager.Instance.rotateButton.SetActive(false);
                         return;
                     }
                 }
@@ -239,7 +239,7 @@ public class HexTile : MonoBehaviour
                     Debug.Log("15");
                     UnitManager.Instance.SetSelectedTile(null);
                     selectedTile.highlightOnSelect.SetActive(false);
-                    GameManager.Instance.rotateButton.SetActive(false);
+                    MenuManager.Instance.rotateButton.SetActive(false);
                     return;
                 }
             }
@@ -248,7 +248,7 @@ public class HexTile : MonoBehaviour
                 Debug.Log("16");
                 UnitManager.Instance.SetSelectedTile(null);
                 selectedTile.highlightOnSelect.SetActive(false);
-                GameManager.Instance.rotateButton.SetActive(false);
+                MenuManager.Instance.rotateButton.SetActive(false);
                 return;
             }
         }
