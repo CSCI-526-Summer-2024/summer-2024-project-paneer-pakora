@@ -142,6 +142,13 @@ public class HexTile : MonoBehaviour
                         this.SetColorToGreen();
                         UnitManager.Instance.isVisited.Add(this);
                         GameManager.Instance.rotateButton.SetActive(false);
+
+                        // increment % tiles covered
+                        UnitManager.Instance.tileCoverageMeter.SetProgress(UnitManager.Instance.isVisited.Count);
+
+                        // update # pieces removed 
+                        UnitManager.Instance.piecesRemoved++;
+                        UnitManager.Instance.piecesRemovedMeter.SetProgress(UnitManager.Instance.piecesRemoved);
                     }
 
                     else
@@ -171,6 +178,13 @@ public class HexTile : MonoBehaviour
                         this.SetColorToGreen();
                         UnitManager.Instance.isVisited.Add(this);
                         GameManager.Instance.rotateButton.SetActive(false);
+
+                        // increment % tiles covered
+                        UnitManager.Instance.tileCoverageMeter.SetProgress(UnitManager.Instance.isVisited.Count);
+
+                        // update # pieces removed 
+                        UnitManager.Instance.piecesRemoved++;
+                        UnitManager.Instance.piecesRemovedMeter.SetProgress(UnitManager.Instance.piecesRemoved);
                     }
 
                     else
@@ -202,6 +216,12 @@ public class HexTile : MonoBehaviour
                         UnitManager.Instance.isVisited.Add(this);
                         GameManager.Instance.rotateButton.SetActive(false);
 
+                        // increment % tiles covered
+                        UnitManager.Instance.tileCoverageMeter.SetProgress(UnitManager.Instance.isVisited.Count);
+
+                        // update # pieces removed 
+                        UnitManager.Instance.piecesRemoved++;
+                        UnitManager.Instance.piecesRemovedMeter.SetProgress(UnitManager.Instance.piecesRemoved);
                     }
 
                     else
