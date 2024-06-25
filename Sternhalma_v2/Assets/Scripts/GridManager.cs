@@ -1,4 +1,6 @@
-using System.Collections;
+
+
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -8,6 +10,9 @@ public class GridManager : MonoBehaviour
     //[SerializeField] private HexTile _tile;
 
     public static GridManager Instance;
+
+    //changeds
+    
 
     public HexTile hexPrefab;
     public int gridWidth = 10;
@@ -31,44 +36,77 @@ public class GridManager : MonoBehaviour
 
     public void GenerateHexGrid()
     {
+        Debug.Log("Generating Hex Grid");
+
         float hexWidth = hexSize + 0.1f;
         float hexHeight = hexSize * Mathf.Sqrt(3) + 0.1f;
 
         posTile = new Dictionary<Vector3, HexTile>();
         posTranslator = new Dictionary<Vector3, Vector3>();
 
-        for (float x = -3; x <= 3; x += 1.5f)
+        for (float x = -3; x <= 1.5; x += 1.5f)   //overall range of x
         {
-            if (x == -3.0f || x == 3.0f)
+            if (x == -3.0f)
+            {
+                int y = -1;
+                {
+                    float xPos = x * hexWidth;
+                    float yPos = y * hexHeight;
+
+                    HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                    hex.transform.parent = this.transform;
+                    hex.name = $"Hex_{x}_{y}";
+
+                    hex.posEasy = new Vector3(x, y, 0);
+                    hex.posHard = new Vector3(xPos, yPos, 0);
+                    posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+                    posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+
+                    //Debug.Log("Pos");
+                    //Debug.Log(xPos + " " + yPos);
+
+                    //hex.isRotatable = false;
+                }
+            }
+
+            else if (x == -1.5f)
+            {
+                for (float y = -0.5f; y <= 0.5f; y++)
+                {
+                    float xPos = x * hexWidth;
+                    float yPos = y * hexHeight;
+
+                    HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                    hex.transform.parent = this.transform;
+                    hex.name = $"Hex_{x}_{y}";
+
+                    hex.posEasy = new Vector3(x, y, 0);
+                    hex.posHard = new Vector3(xPos, yPos, 0);
+                    posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+                    posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+
+                    //Debug.Log("Pos");
+                    //Debug.Log(xPos + " " + yPos);
+
+                    //if (y == -1.5f || y == 1.5f)
+                    //{
+                    //    hex.isRotatable = false;
+                    //}
+                    //else
+                    //{
+                    //    hex.isRotatable = true;
+                    //}
+                }
+            }
+
+            else if (x == 0)
             {
                 for (int y = -1; y <= 1; y++)
                 {
                     float xPos = x * hexWidth;
                     float yPos = y * hexHeight;
-                    
-                    HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
-                    hex.transform.parent = this.transform;
-                    hex.name = $"Hex_{x}_{y}";
-
-                    hex.posEasy = new Vector3(x, y, 0);
-                    hex.posHard = new Vector3(xPos, yPos, 0);
-                    posTile[new Vector3(xPos, yPos, 0)] = hex;
-
-                    posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
-
-                    //Debug.Log("Pos");
-                    //Debug.Log(xPos + " " + yPos);
-
-                    hex.isRotatable = false;
-                }
-            }
-
-            else if (x == -1.5f || x == 1.5f)
-            {
-                for (float y = -1.5f; y <= 1.5f; y++)
-                {
-                    float xPos = x * hexWidth;
-                    float yPos = y * hexHeight;
 
                     HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
                     hex.transform.parent = this.transform;
@@ -79,61 +117,53 @@ public class GridManager : MonoBehaviour
                     posTile[new Vector3(xPos, yPos, 0)] = hex;
 
                     posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
-
                     //Debug.Log("Pos");
                     //Debug.Log(xPos + " " + yPos);
 
-                    if (y == -1.5f || y == 1.5f)
-                    {
-                        hex.isRotatable = false;
-                    }
-                    else
-                    {
-                        hex.isRotatable = true;
-                    }
+                    //if (y == -2f || y == 2)
+                    //{
+                    //    hex.isRotatable = false;
+                    //}
+                    //else
+                    //{
+                    //    hex.isRotatable = true;
+                    //}
                 }
             }
+
 
             else
             {
-                for (int y = -2; y <= 2; y++)
-                {
-                    float xPos = x * hexWidth;
-                    float yPos = y * hexHeight;
+                float y = -1.5f;
+                float xPos = x * hexWidth;
+                float yPos = y * hexHeight;
 
-                    HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
-                    hex.transform.parent = this.transform;
-                    hex.name = $"Hex_{x}_{y}";
+                HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                hex.transform.parent = this.transform;
+                hex.name = $"Hex_{x}_{y}";
 
-                    hex.posEasy = new Vector3(x, y, 0);
-                    hex.posHard = new Vector3(xPos, yPos, 0);
-                    posTile[new Vector3(xPos, yPos, 0)] = hex;
+                hex.posEasy = new Vector3(x, y, 0);
+                hex.posHard = new Vector3(xPos, yPos, 0);
+                posTile[new Vector3(xPos, yPos, 0)] = hex;
 
-                    posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
-                    //Debug.Log("Pos");
-                    //Debug.Log(xPos + " " + yPos);
+                posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
 
-                    if (y == -2f || y == 2)
-                    {
-                        hex.isRotatable = false;
-                    }
-                    else
-                    {
-                        hex.isRotatable = true;
-                    }
-                }
             }
+
+
         }
+
+        Debug.Log("Hex Grid Generation Completed");
+
 
         GameManager.Instance.ChangeState(GameState.SpawnObjects);
     }
-
     public HexTile GetTileAtPos(Vector3 pos)
     {
-       if(posTile.TryGetValue(pos, out var tile))
-       {
+        if (posTile.TryGetValue(pos, out var tile))
+        {
             return tile;
-       }
+        }
         return null;
     }
 
@@ -155,3 +185,4 @@ public class GridManager : MonoBehaviour
         return new Vector3(-100, -100, 0);
     }
 }
+
