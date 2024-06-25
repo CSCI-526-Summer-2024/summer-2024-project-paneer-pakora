@@ -21,7 +21,8 @@ public class MenuManager : MonoBehaviour
     public void Tutorial1()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        SceneManager.LoadScene("Tutorial1");
+        //SceneManager.LoadScene("Tutorial1");
+        SceneManager.LoadScene("Tutorial1_new");
         //GameManager.Instance.ChangeState(GameState.GenerateGrid);
     }
 

@@ -615,8 +615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cffa06a25627a462a836edd327aec0df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeRemaining: 300
   initialTime: 300
+  timeRemaining: 300
   timeText: {fileID: 729227999}
   gameEndText: {fileID: 955710787}
 --- !u!1 &955710786
@@ -787,7 +787,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3812007224880912098, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4423201547147260318, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
       propertyPath: m_Pivot.x

@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Services.Analytics;
 public class Tut1_GameManager : MonoBehaviour
-
-
-
 {
-
     public static Tut1_GameManager Instance;
     public GameState GameState;
 
@@ -86,7 +82,6 @@ public class Tut1_GameManager : MonoBehaviour
             {
                 int y = -1;
 
-
                 float xPos = x * hexWidth;
                 float yPos = y * hexHeight;
 
@@ -128,14 +123,7 @@ public class Tut1_GameManager : MonoBehaviour
                     //Debug.Log("Pos");
                     //Debug.Log(xPos + " " + yPos);
 
-                    if (y == -1.5f || y == 0.5f)
-                    {
-                        hex.isRotatable = false;
-                    }
-                    else
-                    {
-                        hex.isRotatable = true;
-                    }
+                    hex.isRotatable = false;
                 }
             }
 
@@ -179,11 +167,11 @@ public class Tut1_GameManager : MonoBehaviour
 
                 posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
 
+                hex.isRotatable = false;
+
+
             }
 
-
-
-            
         } //for 
         Tut1_GameManager.Instance.ChangeState(GameState.SpawnObjects);
 
@@ -198,10 +186,7 @@ public class Tut1_GameManager : MonoBehaviour
             HexTile value = entry.Value;
             Debug.Log(GridManager.Instance.GetTranslatedPos(key)
             +" " +value.name);
-
-
         }
-
 
         // Initialize the currentStatus dictionary with null values
         for (float x = -3; x <= 1.5; x += 1.5f)   //overall range of x
