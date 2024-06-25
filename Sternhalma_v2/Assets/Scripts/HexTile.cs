@@ -80,7 +80,10 @@ public class HexTile : MonoBehaviour
         {
             return;
         }
-
+        if (GridManager.Instance.selectedLevel == 0 && Tut1_GameManager.Instance.GameState != GameState.PlayerTurn)
+        {
+            return;
+        }
         HexTile selectedTile = UnitManager.Instance.selectedTile;
 
         if (UnitManager.Instance.currentStatus[this.posEasy] == null && selectedTile == null)

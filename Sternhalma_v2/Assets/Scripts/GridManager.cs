@@ -365,6 +365,6 @@ public class GridManager : MonoBehaviour
         {
             return upPos;
         }
-        return new Vector3(-100, -100, 0);
+        return new Vector3(-100, -100, 0); //when pos not found
     }
 }
