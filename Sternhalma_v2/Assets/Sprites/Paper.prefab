@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3461684803452651399}
   - component: {fileID: 5029359149417081210}
   - component: {fileID: 1065944236424893699}
+  - component: {fileID: 825228938214159052}
   m_Layer: 0
   m_Name: Paper
   m_TagString: Paper
@@ -99,3 +100,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OccupiedTile: {fileID: 0}
   Faction: 1
+--- !u!114 &825228938214159052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6687388555153521133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54baebcbc58529648a42e124a3c64978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OccupiedTile: {fileID: 0}
+  Faction: 0
