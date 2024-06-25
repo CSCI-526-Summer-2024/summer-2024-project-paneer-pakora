@@ -277,6 +277,7 @@ MonoBehaviour:
   piecesRemoved: 0
   tileCoverageMeter: {fileID: 572462101}
   piecesRemovedMeter: {fileID: 79143581}
+  rotateButton: {fileID: 3812007224880912098, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
 --- !u!4 &132987140
 Transform:
   m_ObjectHideFlags: 0
@@ -1261,7 +1262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f586470390b46f3aee2a51d729471e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateButton: {fileID: 1412803591}
   GameState: 0
 --- !u!4 &1340604314
 Transform:

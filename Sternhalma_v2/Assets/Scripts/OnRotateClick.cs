@@ -50,18 +50,7 @@ public class OnRotateClick : MonoBehaviour
             if (topLeftTile == null) return;
             BaseUnit topLeftPiece = UnitManager.Instance.currentStatus[topLeft];
 
-            //Debug.Log("Dictionary begins");
-            //Debug.Log(UnitManager.Instance.currentStatus[new Vector3(selectedX, topY)]);
-            //Debug.Log(UnitManager.Instance.currentStatus[new Vector3(diagonalX, diagonalY)]);
-            //Debug.Log(UnitManager.Instance.currentStatus[new Vector3(diagonalX, -1f * diagonalY)]);
-            //Debug.Log(UnitManager.Instance.currentStatus[new Vector3(selectedX, -1.0f * topY)]);
-            //Debug.Log(UnitManager.Instance.currentStatus[new Vector3(-1.0f * diagonalX, -1.0f * diagonalY)]);
-            //Debug.Log(UnitManager.Instance.currentStatus[new Vector3(-1.0f * diagonalX, diagonalY)]);
-            //Debug.Log("Dictionary ends");
-
-            //Debug.Log("end of line");
-
-
+            RemovePotentialHighlight(selectedTile.posEasy);
 
             // Rotation
             topTile.SetUnitRotation(topLeftPiece);
@@ -78,15 +67,8 @@ public class OnRotateClick : MonoBehaviour
             UnitManager.Instance.UpdateCurrentStatusRotation(bottomRight, topRightPiece);
             UnitManager.Instance.UpdateCurrentStatusRotation(topRight, topPiece);
 
-
-            //Debug.Log("Dictionary begins");
-            //Debug.Log(UnitManager.Instance.currentStatus[new Vector3(selectedX, topY)]);
-            //Debug.Log(UnitManager.Instance.currentStatus[new Vector3(diagonalX, diagonalY)]);
-            //Debug.Log(UnitManager.Instance.currentStatus[new Vector3(diagonalX, -1f * diagonalY)]);
-            //Debug.Log(UnitManager.Instance.currentStatus[new Vector3(selectedX, -1.0f * topY)]);
-            //Debug.Log(UnitManager.Instance.currentStatus[new Vector3(-1.0f * diagonalX, -1.0f * diagonalY)]);
-            //Debug.Log(UnitManager.Instance.currentStatus[new Vector3(-1.0f * diagonalX, diagonalY)]);
-            //Debug.Log("Dictionary ends");
+            AddPotentialHighlight(selectedTile.posEasy);
+            return;
 
         }
         else
@@ -94,5 +76,71 @@ public class OnRotateClick : MonoBehaviour
             //Debug.Log("No Tile was selected!");
             return;
         }
+    }
+
+    private void RemovePotentialHighlight(Vector3 pos)
+    {
+        float x = pos.x;
+        float y = pos.y;
+
+        List<Vector3> potentialPos = new List<Vector3> { new Vector3(x, y+2.0f), new Vector3(x+3.0f, y+1.0f),
+                                                            new Vector3(x+3.0f, y-1.0f), new Vector3(x, y-2.0f),
+                                                            new Vector3(x-3.0f, y-1.0f), new Vector3(x-3.0f, y+1.0f)};
+
+        for (int i = 0; i < potentialPos.Count; i++)
+        {
+            if (UnitManager.Instance.currentStatus.ContainsKey(potentialPos[i]) && UnitManager.Instance.currentStatus[potentialPos[i]] == null)
+            {
+                Debug.Log(potentialPos[i]);
+                HexTile tileToHighlight = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(potentialPos[i]));
+                tileToHighlight.highlightOnSelect.SetActive(false);
+            }
+        }
+    }
+
+    private void AddPotentialHighlight(Vector3 pos)
+    {
+        float x = pos.x;
+        float y = pos.y;
+
+        List<Vector3> potentialPos = new List<Vector3> { new Vector3(x, y+2.0f), new Vector3(x+3.0f, y+1.0f),
+                                                            new Vector3(x+3.0f, y-1.0f), new Vector3(x, y-2.0f),
+                                                            new Vector3(x-3.0f, y-1.0f), new Vector3(x-3.0f, y+1.0f)};
+
+        for (int i = 0; i < potentialPos.Count; i++)
+        {
+            if (((i == 0) && (UnitManager.Instance.currentStatus.ContainsKey(new Vector3(x, y + 1.0f))) && (canJump(UnitManager.Instance.currentStatus[new Vector3(x, y)], UnitManager.Instance.currentStatus[new Vector3(x, y + 1.0f)]))) ||
+                    ((i == 1) && (UnitManager.Instance.currentStatus.ContainsKey(new Vector3(x + 1.5f, y + 0.5f))) && (canJump(UnitManager.Instance.currentStatus[new Vector3(x, y)], UnitManager.Instance.currentStatus[new Vector3(x + 1.5f, y + 0.5f)]))) ||
+                    ((i == 2) && (UnitManager.Instance.currentStatus.ContainsKey(new Vector3(x + 1.5f, y - 0.5f))) && (canJump(UnitManager.Instance.currentStatus[new Vector3(x, y)], UnitManager.Instance.currentStatus[new Vector3(x + 1.5f, y - 0.5f)]))) ||
+                    ((i == 3) && (UnitManager.Instance.currentStatus.ContainsKey(new Vector3(x, y - 1.0f))) && (canJump(UnitManager.Instance.currentStatus[new Vector3(x, y)], UnitManager.Instance.currentStatus[new Vector3(x, y - 1.0f)]))) ||
+                    ((i == 4) && (UnitManager.Instance.currentStatus.ContainsKey(new Vector3(x - 1.5f, y - 0.5f))) && (canJump(UnitManager.Instance.currentStatus[new Vector3(x, y)], UnitManager.Instance.currentStatus[new Vector3(x - 1.5f, y - 0.5f)]))) ||
+                    ((i == 5) && (UnitManager.Instance.currentStatus.ContainsKey(new Vector3(x - 1.5f, y + 0.5f))) && (canJump(UnitManager.Instance.currentStatus[new Vector3(x, y)], UnitManager.Instance.currentStatus[new Vector3(x - 1.5f, y + 0.5f)]))))
+            {
+                if (UnitManager.Instance.currentStatus.ContainsKey(potentialPos[i]) && UnitManager.Instance.currentStatus[potentialPos[i]] == null)
+                {
+                    HexTile tileToHighlight = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(potentialPos[i]));
+                    tileToHighlight.highlightOnSelect.SetActive(true);
+                }
+            }
+        }
+    }
+
+    private bool canJump(BaseUnit base1, BaseUnit base2)
+    {
+        if (base1.Faction == Faction.Rock && base2 != null && base2.Faction == Faction.Scissor)
+        {
+            return true;
+        }
+
+        if (base1.Faction == Faction.Scissor && base2 != null && base2.Faction == Faction.Paper)
+        {
+            return true;
+        }
+        if (base1.Faction == Faction.Paper && base2 != null && base2.Faction == Faction.Rock)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

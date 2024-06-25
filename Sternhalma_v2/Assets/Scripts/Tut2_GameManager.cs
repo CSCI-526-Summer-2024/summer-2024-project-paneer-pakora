@@ -25,6 +25,7 @@ public class Tut2_GameManager : MonoBehaviour
 
     private void Start()
     {
+        GridManager.Instance.selectedLevel = 1;
         ChangeState(GameState.GenerateGrid);
         //ChangeState(GameState.MainMenu);
         //ChangeState(GameState.Tutorial2);
@@ -33,7 +34,7 @@ public class Tut2_GameManager : MonoBehaviour
 
     public void ChangeState(GameState newState)
     {
-        Debug.Log($"Changing state from {GameState} to {newState}");
+        //Debug.Log($"Changing state from {GameState} to {newState}");
 
         GameState = newState;
         switch (newState)
@@ -41,11 +42,14 @@ public class Tut2_GameManager : MonoBehaviour
             //case GameState.MainMenu:
             //    break;
             case GameState.GenerateGrid:
-                Debug.Log("GenerateGrid.Instance is: ");
-                Debug.Log(GridManager.Instance);
-                //GridManager.Instance.GenerateHexGrid();
+                //Debug.Log("Before SetActive : " + GridManager.Instance.rotateButton.activeSelf);
+                //GridManager.Instance.rotateButton.SetActive(true);
+                //Debug.Log("After SetActive : " + GridManager.Instance.rotateButton.activeSelf);
+                 
+                // Check if the object is active in the hierarchy
+                //Debug.Log("Active In Hierarchy: " + GridManager.Instance.rotateButton.activeInHierarchy);
                 GenerateHexGrid(GridManager.Instance.hexSize, GridManager.Instance.posTile, GridManager.Instance.posTranslator, GridManager.Instance.hexPrefab);
-                MenuManager.Instance.rotateButton.SetActive(false);
+                GridManager.Instance.rotateButton.SetActive(false);
                 break;
             //case GameState.Tutorial2:
             //    GridManager.Instance.GenerateTutorial2_Grid();
@@ -59,11 +63,11 @@ public class Tut2_GameManager : MonoBehaviour
                 break;
             case GameState.WinState:
                 Debug.Log("Player Wins!");
-                SendAnalyticsEvent("win");
+                //SendAnalyticsEvent("win");
                 break;
             case GameState.LoseState:
                 Debug.Log("Player Loses!");
-                SendAnalyticsEvent("lose");
+                //SendAnalyticsEvent("lose");
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -302,7 +306,7 @@ public class Tut2_GameManager : MonoBehaviour
         {
             if (x == -4.5f)
             {
-                for (int y = -1; y <= 1; y++)
+                for (int y = -1; y <= 0; y++)
                 {
                     currentStatus[new Vector3(x, y)] = null;
                 }

@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 2381820082080489024}
   - component: {fileID: 1948278731248206620}
   - component: {fileID: -7691854385615051452}
+  - component: {fileID: 5173674173995802314}
   m_Layer: 5
   m_Name: RotateButton2
   m_TagString: Untagged
@@ -200,9 +201,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -7691854385615051452}
-        m_TargetAssemblyTypeName: KeyPressHandler, Assembly-CSharp
-        m_MethodName: OnClickRotate
+      - m_Target: {fileID: 3812007224880912098}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -210,7 +211,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &-7691854385615051452
 MonoBehaviour:
@@ -224,6 +225,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b379f3350648441e8aaac6c64694b5dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5173674173995802314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3812007224880912098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1709cf678f67d49289b7c5c8c8b1e1ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexPrefab: {fileID: 0}
+  gridWidth: 10
+  gridHeight: 10
+  hexSize: 1
+  selectedLevel: -1
+  rotateButton: {fileID: 3812007224880912098}
 --- !u!1 &4278822194821523716
 GameObject:
   m_ObjectHideFlags: 0

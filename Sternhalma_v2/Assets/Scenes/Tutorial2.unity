@@ -785,6 +785,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RotateButton2
       objectReference: {fileID: 0}
+    - target: {fileID: 3812007224880912098, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4423201547147260318, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -1051,7 +1055,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aac66691cef4de42ab1a8c30b47ac05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateButton: {fileID: 1412803591}
   GameState: 0
 --- !u!1 &1385763693
 GameObject:
@@ -1127,6 +1130,8 @@ MonoBehaviour:
   gridWidth: 10
   gridHeight: 10
   hexSize: 1
+  selectedLevel: -1
+  rotateButton: {fileID: 3812007224880912098, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
 --- !u!1 &1401810452
 GameObject:
   m_ObjectHideFlags: 0

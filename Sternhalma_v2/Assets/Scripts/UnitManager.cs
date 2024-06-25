@@ -74,7 +74,6 @@ public class UnitManager : MonoBehaviour
             currentStatus[scissorList[i]] = spawnedScissor;
             isVisited.Add(scissorTile);
             scissorTile.SetColorToGreen();
-
         }
 
         // Spawn rock units
@@ -92,7 +91,6 @@ public class UnitManager : MonoBehaviour
             currentStatus[rockList[i]] = spawnedRock;
             isVisited.Add(rockTile);
             rockTile.SetColorToGreen();
-
         }
 
         // Spawn paper units
@@ -112,7 +110,6 @@ public class UnitManager : MonoBehaviour
             currentStatus[paperList[i]] = spawnedPaper;
             isVisited.Add(paperTile);
             paperTile.SetColorToGreen();
-
         }
 
         // set tile coverage progress meter
@@ -281,8 +278,7 @@ public class UnitManager : MonoBehaviour
         HexTile newTile = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(addPos));
         if (newTile != null)
         {
-            isVisited.Add(newTile);  
-            // increment % tiles covered (?)
+            isVisited.Add(newTile);
         }
     }
 

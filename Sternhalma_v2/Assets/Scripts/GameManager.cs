@@ -25,10 +25,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        GridManager.Instance.selectedLevel = 2;
         ChangeState(GameState.GenerateGrid);
-        //ChangeState(GameState.MainMenu);
-        //ChangeState(GameState.Tutorial2);
-
     }
 
     public void ChangeState(GameState newState)
@@ -41,29 +39,21 @@ public class GameManager : MonoBehaviour
             //case GameState.MainMenu:
             //    break;
             case GameState.GenerateGrid:
-                Debug.Log("GenerateGrid.Instance is: ");
-                Debug.Log(GridManager.Instance);
-                //GridManager.Instance.GenerateHexGrid();
                 GenerateHexGrid(GridManager.Instance.hexSize, GridManager.Instance.posTile, GridManager.Instance.posTranslator, GridManager.Instance.hexPrefab);
-                MenuManager.Instance.rotateButton.SetActive(false);
-                break;
-            case GameState.Tutorial2:
-                GridManager.Instance.GenerateTutorial2_Grid();
+                //GridManager.Instance.rotateButton.SetActive(false);
                 break;
             case GameState.SpawnObjects:
                 SpawnObjects(UnitManager.Instance.currentStatus, UnitManager.Instance.tileToUnit, UnitManager.Instance.isVisited);
-                //UnitManager.Instance.SpawnObjects();
-                //UnitManager.Instance.SpawnTutorial2Objects();
                 break;
             case GameState.PlayerTurn:
                 break;
             case GameState.WinState:
                 Debug.Log("Player Wins!");
-                SendAnalyticsEvent("win");
+                //SendAnalyticsEvent("win");
                 break;
             case GameState.LoseState:
                 Debug.Log("Player Loses!");
-                SendAnalyticsEvent("lose");
+                //SendAnalyticsEvent("lose");
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -295,8 +285,5 @@ public enum GameState
     SpawnObjects = 1,
     PlayerTurn = 2,
     WinState = 3,
-    LoseState = 4,
-    Tutorial2 = 5
-    //    ,
-    //MainMenu = 6
+    LoseState = 4
 }

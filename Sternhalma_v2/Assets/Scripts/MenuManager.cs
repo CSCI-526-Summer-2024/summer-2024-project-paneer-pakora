@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
-    public GameObject rotateButton;
+    
 
     //public static GameManager Instance;
     //public string sceneName;
