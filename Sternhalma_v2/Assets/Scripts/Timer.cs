@@ -253,8 +253,8 @@ public class Timer : MonoBehaviour
             }
         }
 
-                return true;
-            }
+        return true;
+    }
 
     private bool CheckIsOnlyOnePiece(Dictionary<Vector3, BaseUnit> dict)
     {
@@ -372,72 +372,110 @@ public class Timer : MonoBehaviour
             //                                   new Vector3( -1.5f, 0.5f), new Vector3(0.0f, -1.0f),
             //                                   new Vector3(0.0f, 0.0f), new Vector3(0.0f, 1.0f),
             //                                   new Vector3(1.5f,-1.5f) };
-            perimeterPos = new List<Vector3> {          new Vector3(0.0f, 0.0f),
-                                                        new Vector3(0.0f, 1.0f),
-                                                         new Vector3(0.0f,-1.0f),
-                                                          new Vector3(1.5f,-1.5f),
+            //perimeterPos = new List<Vector3> {          new Vector3(0.0f, 0.0f),
+            //                                            new Vector3(0.0f, 1.0f),
+            //                                             new Vector3(0.0f,-1.0f),
+            //                                              new Vector3(1.5f,-1.5f),
 
 
-                                                        new Vector3(-1.5f, 0.5f),
-                                                         new Vector3( -1.5f,-0.5f),
+            //                                            new Vector3(-1.5f, 0.5f),
+            //                                             new Vector3( -1.5f,-0.5f),
 
-                                                         new Vector3(-3.0f, -1.5f)
-                                                        };
+            //                                             new Vector3(-3.0f, -1.5f)
+            //                                            };
+            perimeterPos = new List<Vector3> { new Vector3(0.0f, 1.0f), new Vector3(0.0f, 0.0f),
+                                                new Vector3(0.0f, -1.0f), new Vector3(1.5f,-1.5f),
+                                                new Vector3(-1.5f,-0.5f), new Vector3(-3.0f,-1.0f),
+                                                new Vector3(-1.5f,0.5f)};
+
         }
 
 
-
-
-            for (int i = 0; i < perimeterPos.Count - 1; i = i + 2)
+        for (int i=0; i< perimeterPos.Count; i++)
         {
-            if (i < 10)
+            if (dict[perimeterPos[i]]!= null)
             {
-                if (dict[perimeterPos[i]] != null && dict[perimeterPos[i + 1]] != null && dict[perimeterPos[i + 2]] == null)
-                {
-                    if (isMovePossible(dict, perimeterPos[i], perimeterPos[i + 1]))
-                    {
-                        return true;
-                    }
-                }
-            }
+                float posX = perimeterPos[i].x;
+                float posY = perimeterPos[i].y;
 
-            else
-            {
-                if (dict[perimeterPos[i]] != null && dict[perimeterPos[i + 1]] != null && dict[perimeterPos[0]] == null)
+                Vector3 topPos = new Vector3(posX, posY + 1.0f);
+                Vector3 topRightPos = new Vector3(posX + 1.5f, posY + 0.5f);
+                Vector3 bottomRightPos = new Vector3(posX + 1.5f, posY - 0.5f);
+                Vector3 bottomPos = new Vector3(posX, posY - 1.0f);
+                Vector3 bottomLeftPos = new Vector3(posX - 1.5f, posY - 0.5f);
+                Vector3 topLeftPos = new Vector3(posX - 1.5f, posY + 0.5f);
+
+                List<Vector3> potentialPos = new List<Vector3>{ topPos, topRightPos, bottomRightPos,
+                    bottomPos, bottomLeftPos, topLeftPos };
+
+                for (int j=0; j<potentialPos.Count; j++)
                 {
-                    if (isMovePossible(dict, perimeterPos[i], perimeterPos[i + 1]))
+                    Vector3 emptyPos = new Vector3(2 * potentialPos[j].x - perimeterPos[i].x,
+                                                    2*potentialPos[j].y - perimeterPos[i].y);
+
+                    if(dict.ContainsKey(potentialPos[j]) && dict[potentialPos[j]] != null && dict.ContainsKey(emptyPos) && dict[emptyPos] == null)
                     {
-                        return true;
+                        if (isMovePossible(dict, perimeterPos[i], potentialPos[j]))
+                        {
+                            return true;
+                        }
                     }
                 }
             }
         }
 
-        for (int i = perimeterPos.Count - 2; i >= 0; i = i - 2)
-                {
-            if (i > 1)
-            {
-                if (dict[perimeterPos[i]] != null && dict[perimeterPos[i - 1]] != null && dict[perimeterPos[i - 2]] == null)
-                {
-                    if (isMovePossible(dict, perimeterPos[i], perimeterPos[i - 1]))
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            else
-            {
-                if (dict[perimeterPos[i]] != null && dict[perimeterPos[11]] != null && dict[perimeterPos[10]] == null)
-                {
-                    if (isMovePossible(dict, perimeterPos[i], perimeterPos[perimeterPos.Count - 1]))
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
         return false;
+
+            //for (int i = 0; i < perimeterPos.Count - 1; i = i + 2)
+            //{
+            //    if (i < 10)
+            //    {
+            //        if (dict[perimeterPos[i]] != null && dict[perimeterPos[i + 1]] != null && dict[perimeterPos[i + 2]] == null)
+            //        {
+            //            if (isMovePossible(dict, perimeterPos[i], perimeterPos[i + 1]))
+            //            {
+            //                return true;
+            //            }
+            //        }
+            //    }
+
+            //    else
+            //    {
+            //        if (dict[perimeterPos[i]] != null && dict[perimeterPos[i + 1]] != null && dict[perimeterPos[0]] == null)
+            //        {
+            //            if (isMovePossible(dict, perimeterPos[i], perimeterPos[i + 1]))
+            //            {
+            //                return true;
+            //            }
+            //        }
+            //    }
+            //}
+
+        //for (int i = perimeterPos.Count - 2; i >= 0; i = i - 2)
+        //        {
+        //    if (i > 1)
+        //    {
+        //        if (dict[perimeterPos[i]] != null && dict[perimeterPos[i - 1]] != null && dict[perimeterPos[i - 2]] == null)
+        //        {
+        //            if (isMovePossible(dict, perimeterPos[i], perimeterPos[i - 1]))
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //    }
+
+        //    else
+        //    {
+        //        if (dict[perimeterPos[i]] != null && dict[perimeterPos[11]] != null && dict[perimeterPos[10]] == null)
+        //        {
+        //            if (isMovePossible(dict, perimeterPos[i], perimeterPos[perimeterPos.Count - 1]))
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //    }
+        //}
+        //return false; 
     }
 
     private bool isMovePossible(Dictionary<Vector3, BaseUnit> dict, Vector3 pos1, Vector3 pos2)
