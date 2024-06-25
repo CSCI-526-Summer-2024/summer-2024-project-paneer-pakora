@@ -768,7 +768,7 @@ PrefabInstance:
     - target: {fileID: 1948278731248206620, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1412803596}
+      objectReference: {fileID: 0}
     - target: {fileID: 1948278731248206620, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClick
@@ -871,12 +871,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7691854385615051452, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
+    - {fileID: 5173674173995802314, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3812007224880912098, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1412803596}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
 --- !u!1 &1230127762
 GameObject:
@@ -1268,28 +1266,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401810452}
   m_CullTransparentMesh: 1
---- !u!1 &1412803591 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3812007224880912098, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
-  m_PrefabInstance: {fileID: 1082218120}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1412803592 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4423201547147260318, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
   m_PrefabInstance: {fileID: 1082218120}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1412803596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412803591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c47623a1b96783a45af671d00f889a43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3902462593813041255 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8562924397628206765, guid: 45525efd53800044ebdb0ab87f9fd798, type: 3}
