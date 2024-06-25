@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
-    
+
 
     //public static GameManager Instance;
     //public string sceneName;
@@ -18,6 +18,12 @@ public class MenuManager : MonoBehaviour
     //    SceneManager.LoadScene("Level1");
     //    //GameManager.Instance.ChangeState(GameState.GenerateGrid);
     //}
+    public void Tutorial1()
+    {
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Tutorial1");
+        //GameManager.Instance.ChangeState(GameState.GenerateGrid);
+    }
 
     public void Tutorial2()
     {
