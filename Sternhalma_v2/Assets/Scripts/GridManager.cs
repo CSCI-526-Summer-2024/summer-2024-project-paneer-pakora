@@ -14,8 +14,11 @@ public class GridManager : MonoBehaviour
     public int gridHeight = 10;
     public float hexSize = 1f;
 
-    private Dictionary<Vector3, HexTile> posTile;
-    private Dictionary<Vector3, Vector3> posTranslator;
+    public Dictionary<Vector3, HexTile> posTile = new Dictionary<Vector3, HexTile>();
+    public Dictionary<Vector3, Vector3> posTranslator = new Dictionary<Vector3, Vector3>();
+
+    public int selectedLevel = -1;
+    [SerializeField] public GameObject rotateButton;
 
 
     // Start is called before the first frame update

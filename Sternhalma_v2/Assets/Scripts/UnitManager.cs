@@ -10,10 +10,14 @@ public class UnitManager : MonoBehaviour
     private List<ScriptableUnit> units;
     public HexTile selectedTile;
 
-    public Dictionary<HexTile, BaseUnit> tileToUnit;
-    public Dictionary<Vector3, BaseUnit> currentStatus;
+    public Dictionary<HexTile, BaseUnit> tileToUnit = new Dictionary<HexTile, BaseUnit>();
+    public Dictionary<Vector3, BaseUnit> currentStatus = new Dictionary<Vector3, BaseUnit>();
 
     public HashSet<HexTile> isVisited = new HashSet<HexTile>();
+
+    public int pieceCount, piecesRemoved;
+    public ProgressMeter tileCoverageMeter;
+    public ProgressMeter piecesRemovedMeter;
 
     private void Awake()
     {
@@ -21,16 +25,13 @@ public class UnitManager : MonoBehaviour
         units = Resources.LoadAll<ScriptableUnit>("Units").ToList();
     }
 
-    private T GetUnit<T>(Faction faction) where T : BaseUnit
+    public T GetUnit<T>(Faction faction) where T : BaseUnit
     {
         return (T)units.Where(u => u.Faction == faction).First().UnitPrefab;
     }
 
     public void SpawnObjects()
     {
-        tileToUnit = new Dictionary<HexTile, BaseUnit>();
-        currentStatus = new Dictionary<Vector3, BaseUnit>();
-
         // Initialize the currentStatus dictionary with null values
         for (float x = -3; x <= 3; x += 1.5f)
         {

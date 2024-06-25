@@ -33,7 +33,14 @@ public class Timer : MonoBehaviour
             {
                 timeRemaining = 0;
                 timeIsRunning = false;
-                GameManager.Instance.ChangeState(GameState.LoseState);
+                if(GridManager.Instance.selectedLevel == 1)
+                {
+                    Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
+                else if (GridManager.Instance.selectedLevel == 2)
+                {
+                    GameManager.Instance.ChangeState(GameState.LoseState);
+                }
                 DisplayEndGameText("You Lose!");
             }
         }
