@@ -99,7 +99,7 @@ public class HexTile : MonoBehaviour
             Debug.Log("2");
             if (selectedTile == this)
             {
-                Debug.Log("2.1");
+                //Debug.Log("2.1");
                 UnitManager.Instance.SetSelectedTile(null);
                 selectedTile.highlightOnSelect.SetActive(false);
                 // GameManager.Instance.rotateButton.SetActive(false);
@@ -124,6 +124,38 @@ public class HexTile : MonoBehaviour
                         tileToHighlight.highlightOnSelect.SetActive(false);
                     }
                 }
+            }
+
+            else
+            {
+                UnitManager.Instance.SetSelectedTile(null);
+                selectedTile.highlightOnSelect.SetActive(false);
+                // GameManager.Instance.rotateButton.SetActive(false);
+
+                float x = selectedTile.posEasy.x;
+                float y = selectedTile.posEasy.y;
+
+                List<Vector3> potentialPos = new List<Vector3> { new Vector3(x, y+2.0f), new Vector3(x+3.0f, y+1.0f),
+                                                            new Vector3(x+3.0f, y-1.0f), new Vector3(x, y-2.0f),
+                                                            new Vector3(x-3.0f, y-1.0f), new Vector3(x-3.0f, y+1.0f)};
+
+                Debug.Log("Count of current status: " + UnitManager.Instance.currentStatus.Count);
+
+                for (int i = 0; i < potentialPos.Count; i++)
+                {
+                    if (UnitManager.Instance.currentStatus.ContainsKey(potentialPos[i]) && UnitManager.Instance.currentStatus[potentialPos[i]] == null)
+                    {
+                        Debug.Log("Position: " + potentialPos[i]);
+                        HexTile tileToHighlight = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(potentialPos[i]));
+                        Debug.Log("TileToHighlight:");
+                        Debug.Log(tileToHighlight);
+                        tileToHighlight.highlightOnSelect.SetActive(false);
+                    }
+                }
+
+                UnitManager.Instance.SetSelectedTile(this);
+                this.highlightOnSelect.SetActive(true);
+                AddPotentialHighlight(this.posEasy);
 
             }
             return;
