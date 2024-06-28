@@ -22,7 +22,7 @@ public class MenuManager : MonoBehaviour
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         //SceneManager.LoadScene("Tutorial1");
-        SceneManager.LoadScene("Tutorial1_new");
+        SceneManager.LoadScene("Tutorial1");
         //GameManager.Instance.ChangeState(GameState.GenerateGrid);
     }
 
@@ -83,9 +83,4 @@ public class MenuManager : MonoBehaviour
     //    }
     //}
 
-    public void QuitGame()
-    {
-        UnityEngine.Debug.Log("Quitting Game...");
-        Application.Quit();
-    }
 }
