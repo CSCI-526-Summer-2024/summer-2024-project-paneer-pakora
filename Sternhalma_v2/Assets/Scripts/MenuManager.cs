@@ -18,6 +18,18 @@ public class MenuManager : MonoBehaviour
     //    SceneManager.LoadScene("Level1");
     //    //GameManager.Instance.ChangeState(GameState.GenerateGrid);
     //}
+
+    public void NextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+
+    }
+
     public void Tutorial1()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

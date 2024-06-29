@@ -7,6 +7,8 @@ public class Tut1_GameManager : MonoBehaviour
     public static Tut1_GameManager Instance;
     public GameState GameState;
 
+    public GameObject pauseMenu;
+
     private void Awake()
     {
         if (Instance == null)
@@ -17,6 +19,8 @@ public class Tut1_GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        //pauseMenu.SetActive(false);
 
         //DontDestroyOnLoad(gameObject);
 
