@@ -7,12 +7,16 @@ using System.Linq;
 
 public class Timer : MonoBehaviour
 {
+
+
     public static Timer Instance;
     public float initialTime = 300;
     public float timeRemaining = 180;  
     private bool timeIsRunning = true;
     public TMP_Text timeText;
     public TMP_Text gameEndText;
+    public GameObject levelClearMenu;
+    public GameObject levelFailMenu;
 
     // private void Awake()
     // {
@@ -30,6 +34,7 @@ public class Timer : MonoBehaviour
     {
         DisplayTime(timeRemaining);
         gameEndText.gameObject.SetActive(false);
+        levelClearMenu.SetActive(false);
     }
 
     void Update()
@@ -58,7 +63,8 @@ public class Timer : MonoBehaviour
                 {
                     Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
-                DisplayEndGameText("You Lose!");
+                //DisplayEndGameText("You Lose!");
+                DisplayLevelFailPanel();
             }
 
             CheckGameStatus();
@@ -95,7 +101,8 @@ public class Timer : MonoBehaviour
             {
                 Tut1_GameManager.Instance.ChangeState(GameState.WinState);
             }
-            DisplayEndGameText("You Win!");
+            //DisplayEndGameText("You Win!");
+            DisplayLevelClearPanel();
             return;
         }
 
@@ -125,7 +132,8 @@ public class Timer : MonoBehaviour
                 {
                     Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
-                DisplayEndGameText("You Lose!");
+                //DisplayEndGameText("You Lose!");
+                DisplayLevelFailPanel();
                 return;
             }
 
@@ -146,7 +154,8 @@ public class Timer : MonoBehaviour
                 {
                     Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
-                DisplayEndGameText("You Lose!");
+                //DisplayEndGameText("You Lose!");
+                DisplayLevelFailPanel();
                 return;
             }
 
@@ -173,13 +182,24 @@ public class Timer : MonoBehaviour
                     {
                         Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
                     }
-                    DisplayEndGameText("You Lose!");
+                    //DisplayEndGameText("You Lose!");
+                    DisplayLevelFailPanel();
                     return;
                 }
             }
 
             return;
         }
+    }
+
+    public void DisplayLevelClearPanel()
+    {
+        levelClearMenu.SetActive(true);
+    }
+
+    public void DisplayLevelFailPanel()
+    {
+        levelFailMenu.SetActive(true);
     }
 
     public void DisplayEndGameText(string message)
