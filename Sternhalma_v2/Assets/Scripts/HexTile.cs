@@ -96,6 +96,8 @@ public class HexTile : MonoBehaviour
 
         else if (UnitManager.Instance.currentStatus[this.posEasy] != null && selectedTile != null)
         {
+            //GridManager.Instance.rotateButton.SetActive(false);
+
             Debug.Log("2");
             if (selectedTile == this)
             {
@@ -124,6 +126,13 @@ public class HexTile : MonoBehaviour
                         tileToHighlight.highlightOnSelect.SetActive(false);
                     }
                 }
+
+                //if (this.isRotatable)
+                //{
+                //    //Debug.Log("Before Active: " + GridManager.Instance.rotateButton.activeSelf);
+                //    GridManager.Instance.rotateButton.SetActive(false);
+                //    //Debug.Log("After Active: " + GridManager.Instance.rotateButton.activeSelf);
+                //}
             }
 
             else
@@ -157,6 +166,13 @@ public class HexTile : MonoBehaviour
                 this.highlightOnSelect.SetActive(true);
                 AddPotentialHighlight(this.posEasy);
 
+                if (this.isRotatable)
+                {
+                    //Debug.Log("Before Active: " + GridManager.Instance.rotateButton.activeSelf);
+                    //GridManager.Instance.rotateButton.SetActive(true);
+                    //Debug.Log("After Active: " + GridManager.Instance.rotateButton.activeSelf);
+                }
+
             }
             return;
         }
@@ -168,7 +184,7 @@ public class HexTile : MonoBehaviour
             this.highlightOnSelect.SetActive(true);
             //Debug.Log("Highlight Hexagon active?");
             //Debug.Log(this.highlightOnSelect.active);
-
+            Debug.Log(this.isRotatable);
             if (this.isRotatable)
             {
                 //Debug.Log("Before Active: " + GridManager.Instance.rotateButton.activeSelf);

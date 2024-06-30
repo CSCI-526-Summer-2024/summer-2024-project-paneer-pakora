@@ -50,7 +50,7 @@ public class Tut1_GameManager : MonoBehaviour
                 // Check if the object is active in the hierarchy
                 //Debug.Log("Active In Hierarchy: " + GridManager.Instance.rotateButton.activeInHierarchy);
                 GenerateHexGrid(GridManager.Instance.hexSize, GridManager.Instance.posTile, GridManager.Instance.posTranslator, GridManager.Instance.hexPrefab);
-                GridManager.Instance.rotateButton.SetActive(false);
+                //GridManager.Instance.rotateButton.SetActive(false);
                 break;
             //case GameState.Tutorial2:
             //    GridManager.Instance.GenerateTutorial2_Grid();

@@ -246,7 +246,7 @@ public class Timer : MonoBehaviour
     {
         List<Vector3> internalPos = null;
         if (GridManager.Instance.selectedLevel == 2)
-        {
+        { 
             internalPos = new List<Vector3> { new Vector3(0, 1.0f), new Vector3(1.5f, 0.5f), new Vector3(1.5f, -0.5f),
                                                         new Vector3(0, -1.0f), new Vector3(-1.5f, -0.5f), new Vector3(-1.5f, 0.5f),
                                                         new Vector3(0, 0)};
@@ -260,7 +260,9 @@ public class Timer : MonoBehaviour
         {
             internalPos = new List<Vector3> {};
         }
-        
+
+        Debug.Log("seletedLevel is: " + GridManager.Instance.selectedLevel);
+        Debug.Log(internalPos);
 
         for (int i = 0; i < internalPos.Count; i++)
         {
