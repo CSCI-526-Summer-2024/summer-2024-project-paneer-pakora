@@ -28,7 +28,7 @@ public class Tut1_GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GridManager.Instance.selectedLevel = 0;
+        GridManager.selectedLevel = 0;
         ChangeState(GameState.GenerateGrid);
         //ChangeState(GameState.MainMenu);
         //ChangeState(GameState.Tutorial2);
@@ -50,7 +50,7 @@ public class Tut1_GameManager : MonoBehaviour
                 // Check if the object is active in the hierarchy
                 //Debug.Log("Active In Hierarchy: " + GridManager.Instance.rotateButton.activeInHierarchy);
                 GenerateHexGrid(GridManager.Instance.hexSize, GridManager.Instance.posTile, GridManager.Instance.posTranslator, GridManager.Instance.hexPrefab);
-                GridManager.Instance.rotateButton.SetActive(false);
+                //GridManager.Instance.rotateButton.SetActive(false);
                 break;
             //case GameState.Tutorial2:
             //    GridManager.Instance.GenerateTutorial2_Grid();
@@ -177,6 +177,8 @@ public class Tut1_GameManager : MonoBehaviour
             }
 
         } //for 
+        GridManager.Instance.posTranslator = posTranslator;
+        GridManager.Instance.posTile = posTile;
         Tut1_GameManager.Instance.ChangeState(GameState.SpawnObjects);
 
     }

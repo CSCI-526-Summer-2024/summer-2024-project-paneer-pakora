@@ -17,7 +17,7 @@ public class GridManager : MonoBehaviour
     public Dictionary<Vector3, HexTile> posTile = new Dictionary<Vector3, HexTile>();
     public Dictionary<Vector3, Vector3> posTranslator = new Dictionary<Vector3, Vector3>();
 
-    public int selectedLevel = -1;
+    public static int selectedLevel = -1;
     [SerializeField] public GameObject rotateButton;
 
 
@@ -366,5 +366,15 @@ public class GridManager : MonoBehaviour
             return upPos;
         }
         return new Vector3(-100, -100, 0); //when pos not found
+    }
+
+    public void setSelectedLevel(int level)
+    {
+        selectedLevel = level;
+    }
+
+    public void printSelectedLevel()
+    {
+        Debug.Log(selectedLevel);
     }
 }

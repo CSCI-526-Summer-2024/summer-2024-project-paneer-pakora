@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        GridManager.Instance.selectedLevel = 2;
+        GridManager.selectedLevel = 2;
         ChangeState(GameState.GenerateGrid);
     }
 
@@ -87,10 +87,12 @@ public class GameManager : MonoBehaviour
 
         for (float x = -3; x <= 3; x += 1.5f)
         {
+            Debug.Log("at x = " + x);
             if (x == -3.0f || x == 3.0f)
             {
                 for (int y = -1; y <= 1; y++)
                 {
+                    Debug.Log("at y = " + y);
                     float xPos = x * hexWidth;
                     float yPos = y * hexHeight;
 
@@ -102,7 +104,8 @@ public class GameManager : MonoBehaviour
                     hex.posHard = new Vector3(xPos, yPos, 0);
                     posTile[new Vector3(xPos, yPos, 0)] = hex;
 
-                    posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+                    posTranslator.Add(new Vector3(x, y, 0), new Vector3(xPos, yPos, 0));
+                    Debug.Log("PosTranslator length: " + posTranslator.Count);
 
                     //Debug.Log("Pos");
                     //Debug.Log(xPos + " " + yPos);
@@ -115,6 +118,7 @@ public class GameManager : MonoBehaviour
             {
                 for (float y = -1.5f; y <= 1.5f; y++)
                 {
+                    Debug.Log("at y = " + y);
                     float xPos = x * hexWidth;
                     float yPos = y * hexHeight;
 
@@ -126,8 +130,8 @@ public class GameManager : MonoBehaviour
                     hex.posHard = new Vector3(xPos, yPos, 0);
                     posTile[new Vector3(xPos, yPos, 0)] = hex;
 
-                    posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
-
+                    posTranslator.Add(new Vector3(x, y, 0), new Vector3(xPos, yPos, 0));
+                    Debug.Log("PosTranslator length inside loop: " + posTranslator.Count);
                     //Debug.Log("Pos");
                     //Debug.Log(xPos + " " + yPos);
 
@@ -146,6 +150,7 @@ public class GameManager : MonoBehaviour
             {
                 for (int y = -2; y <= 2; y++)
                 {
+                    Debug.Log("at y = " + y);
                     float xPos = x * hexWidth;
                     float yPos = y * hexHeight;
 
@@ -157,7 +162,8 @@ public class GameManager : MonoBehaviour
                     hex.posHard = new Vector3(xPos, yPos, 0);
                     posTile[new Vector3(xPos, yPos, 0)] = hex;
 
-                    posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+                    posTranslator.Add(new Vector3(x, y, 0), new Vector3(xPos, yPos, 0));
+                    Debug.Log("PosTranslator length: " + posTranslator.Count);
                     //Debug.Log("Pos");
                     //Debug.Log(xPos + " " + yPos);
 
@@ -172,13 +178,17 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-
+        Debug.Log("PosTranslator length: " + posTranslator.Count);
+        GridManager.Instance.posTranslator = posTranslator;
+        GridManager.Instance.posTile = posTile;
         GameManager.Instance.ChangeState(GameState.SpawnObjects);
     }
 
 
     public void SpawnObjects(Dictionary<Vector3, BaseUnit> currentStatus, Dictionary<HexTile, BaseUnit> tileToUnit, HashSet<HexTile> isVisited)
     {
+        Debug.Log("PosTranslator length in spawnObjects(): " + GridManager.Instance.posTranslator.Count);
+        Debug.Log("in spawn objects");
         // Initialize the currentStatus dictionary with null values
         for (float x = -3; x <= 3; x += 1.5f)
         {
@@ -214,8 +224,16 @@ public class GameManager : MonoBehaviour
         {
             var scissorPrefab = UnitManager.Instance.GetUnit<Scissor>(Faction.Scissor);
             BaseUnit spawnedScissor = Instantiate(scissorPrefab);
-            HexTile scissorTile = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(scissorList[i]));
-
+            Vector3 translatedPos = GridManager.Instance.GetTranslatedPos(scissorList[i]);
+            //Debug.Log(GridManager.Instance.posTranslator.Count);
+            foreach (var item in GridManager.Instance.posTranslator)
+            {
+                Debug.Log("key: " + item.Key + "," + " Value: " + item.Value);
+            }
+            Debug.Log(scissorList[i]);
+            Debug.Log(translatedPos);
+            HexTile scissorTile = GridManager.Instance.GetTileAtPos(translatedPos);
+            Debug.Log(scissorTile);
             scissorTile.SetUnit(spawnedScissor);
             tileToUnit[scissorTile] = spawnedScissor;
             currentStatus[scissorList[i]] = spawnedScissor;
