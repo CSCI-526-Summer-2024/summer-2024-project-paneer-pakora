@@ -17,8 +17,8 @@ public class GridManager : MonoBehaviour
     public Dictionary<Vector3, HexTile> posTile = new Dictionary<Vector3, HexTile>();
     public Dictionary<Vector3, Vector3> posTranslator = new Dictionary<Vector3, Vector3>();
 
-    public int selectedLevel = -1;
-    //[SerializeField] public GameObject rotateButton;
+    public static int selectedLevel = -1;
+    [SerializeField] public GameObject rotateButton;
 
 
     // Start is called before the first frame update

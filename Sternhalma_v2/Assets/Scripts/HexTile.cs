@@ -71,16 +71,16 @@ public class HexTile : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (GridManager.Instance.selectedLevel == 2 && GameManager.Instance.GameState != GameState.PlayerTurn)
+        if (GridManager.selectedLevel == 2 && GameManager.Instance.GameState != GameState.PlayerTurn)
         {
             return;
         }
 
-        if (GridManager.Instance.selectedLevel == 1 && Tut2_GameManager.Instance.GameState != GameState.PlayerTurn)
+        if (GridManager.selectedLevel == 1 && Tut2_GameManager.Instance.GameState != GameState.PlayerTurn)
         {
             return;
         }
-        if (GridManager.Instance.selectedLevel == 0 && Tut1_GameManager.Instance.GameState != GameState.PlayerTurn)
+        if (GridManager.selectedLevel == 0 && Tut1_GameManager.Instance.GameState != GameState.PlayerTurn)
         {
             return;
         }
@@ -90,13 +90,13 @@ public class HexTile : MonoBehaviour
         {
             Debug.Log("1");
             UnitManager.Instance.SetSelectedTile(null);
-            //GridManager.Instance.rotateButton.SetActive(false);
+            GridManager.Instance.rotateButton.SetActive(false);
             return;
         }
 
         else if (UnitManager.Instance.currentStatus[this.posEasy] != null && selectedTile != null)
         {
-            //GridManager.Instance.rotateButton.SetActive(false);
+            GridManager.Instance.rotateButton.SetActive(false);
 
             Debug.Log("2");
             if (selectedTile == this)
@@ -104,7 +104,7 @@ public class HexTile : MonoBehaviour
                 //Debug.Log("2.1");
                 UnitManager.Instance.SetSelectedTile(null);
                 selectedTile.highlightOnSelect.SetActive(false);
-                // GameManager.Instance.rotateButton.SetActive(false);
+                //GameManager.Instance.rotateButton.SetActive(false);
 
                 float x = this.posEasy.x;
                 float y = this.posEasy.y;
@@ -127,12 +127,12 @@ public class HexTile : MonoBehaviour
                     }
                 }
 
-                //if (this.isRotatable)
-                //{
-                //    //Debug.Log("Before Active: " + GridManager.Instance.rotateButton.activeSelf);
-                //    GridManager.Instance.rotateButton.SetActive(false);
-                //    //Debug.Log("After Active: " + GridManager.Instance.rotateButton.activeSelf);
-                //}
+                if (this.isRotatable)
+                {
+                    //Debug.Log("Before Active: " + GridManager.Instance.rotateButton.activeSelf);
+                    GridManager.Instance.rotateButton.SetActive(false);
+                    //Debug.Log("After Active: " + GridManager.Instance.rotateButton.activeSelf);
+                }
             }
 
             else
@@ -169,7 +169,7 @@ public class HexTile : MonoBehaviour
                 if (this.isRotatable)
                 {
                     //Debug.Log("Before Active: " + GridManager.Instance.rotateButton.activeSelf);
-                    //GridManager.Instance.rotateButton.SetActive(true);
+                    GridManager.Instance.rotateButton.SetActive(true);
                     //Debug.Log("After Active: " + GridManager.Instance.rotateButton.activeSelf);
                 }
 
@@ -187,9 +187,9 @@ public class HexTile : MonoBehaviour
             Debug.Log(this.isRotatable);
             if (this.isRotatable)
             {
-                //Debug.Log("Before Active: " + GridManager.Instance.rotateButton.activeSelf);
-                //GridManager.Instance.rotateButton.SetActive(true);
-                //Debug.Log("After Active: "+ GridManager.Instance.rotateButton.activeSelf);
+                Debug.Log("Before Active: " + GridManager.Instance.rotateButton.activeSelf);
+                GridManager.Instance.rotateButton.SetActive(true);
+                Debug.Log("After Active: " + GridManager.Instance.rotateButton.activeSelf);
             }
 
             AddPotentialHighlight(this.posEasy);
@@ -226,7 +226,7 @@ public class HexTile : MonoBehaviour
                         selectedTile.highlightOnSelect.SetActive(false);
                         this.SetColorToGreen();
                         UnitManager.Instance.isVisited.Add(this);
-                        //GridManager.Instance.rotateButton.SetActive(false);
+                        GridManager.Instance.rotateButton.SetActive(false);
 
                         // increment % tiles covered
                         UnitManager.Instance.tileCoverageMeter.SetProgress(UnitManager.Instance.isVisited.Count);
@@ -263,7 +263,7 @@ public class HexTile : MonoBehaviour
                         selectedTile.highlightOnSelect.SetActive(false);
                         this.SetColorToGreen();
                         UnitManager.Instance.isVisited.Add(this);
-                        //GridManager.Instance.rotateButton.SetActive(false);
+                        GridManager.Instance.rotateButton.SetActive(false);
 
                         // increment % tiles covered
                         UnitManager.Instance.tileCoverageMeter.SetProgress(UnitManager.Instance.isVisited.Count);
@@ -300,7 +300,7 @@ public class HexTile : MonoBehaviour
                         selectedTile.highlightOnSelect.SetActive(false);
                         this.SetColorToGreen();
                         UnitManager.Instance.isVisited.Add(this);
-                        //GridManager.Instance.rotateButton.SetActive(false);
+                        GridManager.Instance.rotateButton.SetActive(false);
 
                         // increment % tiles covered
                         UnitManager.Instance.tileCoverageMeter.SetProgress(UnitManager.Instance.isVisited.Count);

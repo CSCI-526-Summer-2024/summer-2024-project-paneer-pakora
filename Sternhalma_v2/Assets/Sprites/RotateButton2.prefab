@@ -88,8 +88,7 @@ GameObject:
   - component: {fileID: 4074793064893438849}
   - component: {fileID: 2381820082080489024}
   - component: {fileID: 1948278731248206620}
-  - component: {fileID: 5173674173995802314}
-  - component: {fileID: 6659878909286238758}
+  - component: {fileID: 3703796223322217438}
   m_Layer: 5
   m_Name: RotateButton2
   m_TagString: Untagged
@@ -201,7 +200,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6659878909286238758}
+      - m_Target: {fileID: 3703796223322217438}
         m_TargetAssemblyTypeName: OnRotateClick, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -213,25 +212,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
---- !u!114 &5173674173995802314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3812007224880912098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1709cf678f67d49289b7c5c8c8b1e1ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hexPrefab: {fileID: 0}
-  gridWidth: 10
-  gridHeight: 10
-  hexSize: 1
-  selectedLevel: -1
-  rotateButton: {fileID: 3812007224880912098}
---- !u!114 &6659878909286238758
+--- !u!114 &3703796223322217438
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -25,7 +25,7 @@ public class Tut2_GameManager : MonoBehaviour
 
     private void Start()
     {
-        GridManager.Instance.selectedLevel = 1;
+        GridManager.selectedLevel = 1;
         ChangeState(GameState.GenerateGrid);
         //ChangeState(GameState.MainMenu);
         //ChangeState(GameState.Tutorial2);
@@ -294,7 +294,8 @@ public class Tut2_GameManager : MonoBehaviour
                 }
             }
         }
-
+        GridManager.Instance.posTranslator = posTranslator;
+        GridManager.Instance.posTile = posTile;
         Tut2_GameManager.Instance.ChangeState(GameState.SpawnObjects);
     }
 

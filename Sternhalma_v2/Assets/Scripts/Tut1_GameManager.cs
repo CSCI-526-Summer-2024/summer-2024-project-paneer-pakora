@@ -28,7 +28,7 @@ public class Tut1_GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GridManager.Instance.selectedLevel = 0;
+        GridManager.selectedLevel = 0;
         ChangeState(GameState.GenerateGrid);
         //ChangeState(GameState.MainMenu);
         //ChangeState(GameState.Tutorial2);
@@ -177,6 +177,8 @@ public class Tut1_GameManager : MonoBehaviour
             }
 
         } //for 
+        GridManager.Instance.posTranslator = posTranslator;
+        GridManager.Instance.posTile = posTile;
         Tut1_GameManager.Instance.ChangeState(GameState.SpawnObjects);
 
     }

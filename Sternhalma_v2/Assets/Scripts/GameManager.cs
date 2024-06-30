@@ -25,10 +25,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //GridManager.Instance.selectedLevel = 2;
-        GridManager.Instance.setSelectedLevel(2);
-        Debug.Log("Selected level set to: ");
-        GridManager.Instance.printSelectedLevel();
+        GridManager.selectedLevel = 2;
         ChangeState(GameState.GenerateGrid);
     }
 

@@ -50,16 +50,16 @@ public class Timer : MonoBehaviour
             {
                 timeRemaining = 0;
                 timeIsRunning = false;
-                if(GridManager.Instance.selectedLevel == 1)  // TUt 3
+                if(GridManager.selectedLevel == 1)  // TUt 3
                 {
                     Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
-                else if (GridManager.Instance.selectedLevel == 2) //Tutorial 2
+                else if (GridManager.selectedLevel == 2) //Tutorial 2
                 {
                     GameManager.Instance.ChangeState(GameState.LoseState);
                 }
 
-                else if (GridManager.Instance.selectedLevel == 0) //Tutorial level 1
+                else if (GridManager.selectedLevel == 0) //Tutorial level 1
                 {
                     Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
@@ -88,16 +88,16 @@ public class Timer : MonoBehaviour
         {
             timeIsRunning = false;
 
-            if (GridManager.Instance.selectedLevel == 1)  // TUt 3
+            if (GridManager.selectedLevel == 1)  // TUt 3
             {
                 Tut2_GameManager.Instance.ChangeState(GameState.WinState);
             }
-            else if (GridManager.Instance.selectedLevel == 2) //Tutorial 2
+            else if (GridManager.selectedLevel == 2) //Tutorial 2
             {
                 GameManager.Instance.ChangeState(GameState.WinState);
             }
 
-            else if (GridManager.Instance.selectedLevel == 0) //Tutorial level 1
+            else if (GridManager.selectedLevel == 0) //Tutorial level 1
             {
                 Tut1_GameManager.Instance.ChangeState(GameState.WinState);
             }
@@ -119,16 +119,16 @@ public class Timer : MonoBehaviour
             {
                 timeIsRunning = false;
                 Debug.Log("In only one piece type lose condition");
-                if (GridManager.Instance.selectedLevel == 1)  // TUt 3
+                if (GridManager.selectedLevel == 1)  // TUt 3
                 {
                     Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
-                else if (GridManager.Instance.selectedLevel == 2) //Tutorial 2
+                else if (GridManager.selectedLevel == 2) //Tutorial 2
                 {
                     GameManager.Instance.ChangeState(GameState.LoseState);
                 }
 
-                else if (GridManager.Instance.selectedLevel == 0) //Tutorial level 1
+                else if (GridManager.selectedLevel == 0) //Tutorial level 1
                 {
                     Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
@@ -141,16 +141,16 @@ public class Timer : MonoBehaviour
             {
                 timeIsRunning = false;
                 Debug.Log("In Lone Island lose condition");
-                if (GridManager.Instance.selectedLevel == 1)  // TUt 3
+                if (GridManager.selectedLevel == 1)  // TUt 3
                 {
                     Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
-                else if (GridManager.Instance.selectedLevel == 2) //Tutorial 2
+                else if (GridManager.selectedLevel == 2) //Tutorial 2
                 {
                     GameManager.Instance.ChangeState(GameState.LoseState);
                 }
 
-                else if (GridManager.Instance.selectedLevel == 0) //Tutorial level 1
+                else if (GridManager.selectedLevel == 0) //Tutorial level 1
                 {
                     Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
@@ -169,16 +169,16 @@ public class Timer : MonoBehaviour
                 {
                     timeIsRunning = false;
                     Debug.Log("In no valid perimeter move condition");
-                    if (GridManager.Instance.selectedLevel == 1)  // TUt 3
+                    if (GridManager.selectedLevel == 1)  // TUt 3
                     {
                         Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
                     }
-                    else if (GridManager.Instance.selectedLevel == 2) //Tutorial 2
+                    else if (GridManager.selectedLevel == 2) //Tutorial 2
                     {
                         GameManager.Instance.ChangeState(GameState.LoseState);
                     }
 
-                    else if (GridManager.Instance.selectedLevel == 0) //Tutorial level 1
+                    else if (GridManager.selectedLevel == 0) //Tutorial level 1
                     {
                         Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
                     }
@@ -245,24 +245,21 @@ public class Timer : MonoBehaviour
     private bool CheckIsOnlyPerimeter(Dictionary<Vector3, BaseUnit> dict)
     {
         List<Vector3> internalPos = null;
-        if (GridManager.Instance.selectedLevel == 2)
+        if (GridManager.selectedLevel == 2)
         { 
             internalPos = new List<Vector3> { new Vector3(0, 1.0f), new Vector3(1.5f, 0.5f), new Vector3(1.5f, -0.5f),
                                                         new Vector3(0, -1.0f), new Vector3(-1.5f, -0.5f), new Vector3(-1.5f, 0.5f),
                                                         new Vector3(0, 0)};
         }
-        else if (GridManager.Instance.selectedLevel == 1)
+        else if (GridManager.selectedLevel == 1)
         {
             internalPos = new List<Vector3> { new Vector3(-3.0f, -0.5f), new Vector3(0.0f, -0.5f), new Vector3(1.5f, 0.0f),
                                                         new Vector3(3.0f, 0.5f)};
         }
-        else if(GridManager.Instance.selectedLevel == 0)
+        else if(GridManager.selectedLevel == 0)
         {
             internalPos = new List<Vector3> {};
         }
-
-        Debug.Log("seletedLevel is: " + GridManager.Instance.selectedLevel);
-        Debug.Log(internalPos);
 
         for (int i = 0; i < internalPos.Count; i++)
         {
@@ -305,16 +302,16 @@ public class Timer : MonoBehaviour
 
         if (rockCount == 0 && paperCount == 0 && scissorCount != 0)
         {
-            if (GridManager.Instance.selectedLevel == 1)
+            if (GridManager.selectedLevel == 1)
             {
                 Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
             }
-            else if (GridManager.Instance.selectedLevel == 2)
+            else if (GridManager.selectedLevel == 2)
             {
                 GameManager.Instance.ChangeState(GameState.LoseState);
             }
 
-            else if (GridManager.Instance.selectedLevel == 0)
+            else if (GridManager.selectedLevel == 0)
             {
                 Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
 
@@ -324,15 +321,15 @@ public class Timer : MonoBehaviour
         }
         else if (rockCount == 0 && paperCount != 0 && scissorCount == 0)
         {
-            if (GridManager.Instance.selectedLevel == 1)
+            if (GridManager.selectedLevel == 1)
             {
                 Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
             }
-            else if (GridManager.Instance.selectedLevel == 2)
+            else if (GridManager.selectedLevel == 2)
             {
                 GameManager.Instance.ChangeState(GameState.LoseState);
             }
-            else if (GridManager.Instance.selectedLevel == 0)
+            else if (GridManager.selectedLevel == 0)
             {
                 Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
 
@@ -341,15 +338,15 @@ public class Timer : MonoBehaviour
         }
         else if (rockCount != 0 && paperCount == 0 && scissorCount == 0)
         {
-            if (GridManager.Instance.selectedLevel == 1)
+            if (GridManager.selectedLevel == 1)
             {
                 Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
             }
-            else if (GridManager.Instance.selectedLevel == 2)
+            else if (GridManager.selectedLevel == 2)
             {
                 GameManager.Instance.ChangeState(GameState.LoseState);
             }
-            else if (GridManager.Instance.selectedLevel == 0)
+            else if (GridManager.selectedLevel == 0)
             {
                 Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
 
@@ -365,7 +362,7 @@ public class Timer : MonoBehaviour
     private bool CheckValidMoveOnPerimeter(Dictionary<Vector3, BaseUnit> dict)
     {
         List<Vector3> perimeterPos = null;
-        if (GridManager.Instance.selectedLevel == 2)
+        if (GridManager.selectedLevel == 2)
         {
             perimeterPos = new List<Vector3> { new Vector3(0f, 2.0f), new Vector3(1.5f, 1.5f),
                                                          new Vector3(3.0f, 1.0f), new Vector3(3.0f, 0f),
@@ -376,7 +373,7 @@ public class Timer : MonoBehaviour
                                                         };
         }
 
-        else if ( GridManager.Instance.selectedLevel == 1)
+        else if ( GridManager.selectedLevel == 1)
         {
             perimeterPos = new List<Vector3> { new Vector3(-4.5f, -1.0f), new Vector3(-4.5f, 0.0f),
                                                          new Vector3(-3.0f, -1.5f), new Vector3(-3.0f, 0.5f),
@@ -388,7 +385,7 @@ public class Timer : MonoBehaviour
                                                         };
         }
 
-        else if (GridManager.Instance.selectedLevel == 0)
+        else if (GridManager.selectedLevel == 0)
         {
             //perimeterPos = new List<Vector3> { new Vector3(-3.0f, -1.0f), new Vector3(-1.5f, -0.5f),
             //                                   new Vector3( -1.5f, 0.5f), new Vector3(0.0f, -1.0f),
@@ -543,18 +540,18 @@ public class Timer : MonoBehaviour
     private bool CheckLoneIslandInterior(Dictionary<Vector3, BaseUnit> dict)
     {
         List<Vector3> internalPos = null;
-        if (GridManager.Instance.selectedLevel == 2)
+        if (GridManager.selectedLevel == 2)
         {
             internalPos = new List<Vector3> { new Vector3(0, 1.0f), new Vector3(1.5f, 0.5f), new Vector3(1.5f, -0.5f),
                                                         new Vector3(0, -1.0f), new Vector3(-1.5f, -0.5f), new Vector3(-1.5f, 0.5f),
                                                         new Vector3(0, 0)};
         }
-        else if (GridManager.Instance.selectedLevel == 1)
+        else if (GridManager.selectedLevel == 1)
         {
             internalPos = new List<Vector3> { new Vector3(-3.0f, -0.5f), new Vector3(0.0f, -0.5f), new Vector3(1.5f, 0.0f),
                                                         new Vector3(3.0f, 0.5f)};
         }
-        else if (GridManager.Instance.selectedLevel == 0)
+        else if (GridManager.selectedLevel == 0)
         {
 
             internalPos = new List<Vector3> { };

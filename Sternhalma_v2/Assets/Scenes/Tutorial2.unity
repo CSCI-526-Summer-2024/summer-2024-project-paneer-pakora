@@ -999,7 +999,7 @@ PrefabInstance:
     - target: {fileID: 1948278731248206620, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1412803596}
+      objectReference: {fileID: 1412803593}
     - target: {fileID: 1948278731248206620, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClick
@@ -1101,14 +1101,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: -7691854385615051452, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
-    - {fileID: 5173674173995802314, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3812007224880912098, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1412803596}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
 --- !u!1 &1230127762
 GameObject:
@@ -1362,7 +1358,6 @@ MonoBehaviour:
   gridWidth: 10
   gridHeight: 10
   hexSize: 1
-  selectedLevel: -1
   rotateButton: {fileID: 1031849456}
 --- !u!1 &1401810452
 GameObject:
@@ -1505,11 +1500,10 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4423201547147260318, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
   m_PrefabInstance: {fileID: 1082218120}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1412803596
+--- !u!114 &1412803593 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3703796223322217438, guid: 62c6bf9784b93af4b82a90c4a62f8f6a, type: 3}
+  m_PrefabInstance: {fileID: 1082218120}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031849456}
   m_Enabled: 1
