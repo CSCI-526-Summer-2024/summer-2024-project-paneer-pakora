@@ -34,6 +34,11 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    public void onClickPause()
+    {
+        Pause();
+    }
+
     public void Pause()
     {
         Time.timeScale = 0f;
