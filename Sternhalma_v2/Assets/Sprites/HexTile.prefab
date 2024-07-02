@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5856554162668880430}
   - component: {fileID: -3550875666010929582}
   - component: {fileID: 7542617901106019086}
+  - component: {fileID: 5942307073867144294}
   m_Layer: 0
   m_Name: HexTile
   m_TagString: Untagged
@@ -153,6 +154,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.8828125}
   m_EdgeRadius: 0
+--- !u!114 &5942307073867144294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2963896647914561653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b72601658a51ca74b91fb9f029c01d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedTile: {fileID: 0}
 --- !u!1 &6561406089753926245
 GameObject:
   m_ObjectHideFlags: 0
