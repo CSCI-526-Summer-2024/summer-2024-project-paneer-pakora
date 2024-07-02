@@ -340,10 +340,10 @@ RectTransform:
   - {fileID: 729227997}
   - {fileID: 1412803592}
   - {fileID: 1230127763}
+  - {fileID: 481056584}
   - {fileID: 1736185349}
   - {fileID: 547506516}
   - {fileID: 1630627833}
-  - {fileID: 481056584}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2362,10 +2362,10 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 2090250996}
   - {fileID: 306585516}
   - {fileID: 519420032}
   - {fileID: 1340604314}
   - {fileID: 1385763695}
   - {fileID: 132987140}
   - {fileID: 192293341}
+  - {fileID: 2090250996}
