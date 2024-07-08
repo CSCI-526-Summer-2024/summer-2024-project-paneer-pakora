@@ -156,6 +156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2738820622149975780}
+  - component: {fileID: 3124436899766151187}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -180,6 +181,27 @@ Transform:
   - {fileID: 3213809305006010442}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3124436899766151187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6082749431478861301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ba9c67fb5a941e49b9e02f0174d835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedTile: {fileID: 0}
+  pieceCount: 0
+  piecesRemoved: 0
+  tileCoverageMeter: {fileID: 0}
+  piecesRemovedMeter: {fileID: 0}
+  scissorsLeft: 0
+  rocksLeft: 0
+  papersLeft: 0
+  rockTMPText: {fileID: 0}
 --- !u!1 &7125917410419914080
 GameObject:
   m_ObjectHideFlags: 0

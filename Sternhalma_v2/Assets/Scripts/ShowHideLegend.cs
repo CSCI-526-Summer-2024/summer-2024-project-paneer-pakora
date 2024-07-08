@@ -13,15 +13,17 @@ public class ShowHideLegend : MonoBehaviour
     {
         //Image tempLegend = GameObject.Find("tempLegend").GetComponent<Image>();
         //tempLegend.enabled = false;
+        if (GridManager.selectedLevel == 0)
+        {
+            var paperLeg = GameObject.Find("PaperLegend");
+            paperLeg.transform.localScale = new Vector3(0, 0, 0);
 
-        var paperLeg = GameObject.Find("PaperLegend");
-        paperLeg.transform.localScale = new Vector3(0, 0, 0);
+            var rockLeg = GameObject.Find("RockLegend");
+            rockLeg.transform.localScale = new Vector3(0, 0, 0);
 
-        var rockLeg = GameObject.Find("RockLegend");
-        rockLeg.transform.localScale = new Vector3(0, 0, 0);
-
-        var scissorLeg = GameObject.Find("ScissorLegend");
-        scissorLeg.transform.localScale = new Vector3(0, 0, 0);
+            var scissorLeg = GameObject.Find("ScissorLegend");
+            scissorLeg.transform.localScale = new Vector3(0, 0, 0);
+        }
     }
 
     // Update is called once per frame

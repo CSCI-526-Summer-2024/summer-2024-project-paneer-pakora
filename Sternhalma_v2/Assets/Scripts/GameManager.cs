@@ -87,12 +87,12 @@ public class GameManager : MonoBehaviour
 
         for (float x = -3; x <= 3; x += 1.5f)
         {
-            Debug.Log("at x = " + x);
+            //Debug.Log("at x = " + x);
             if (x == -3.0f || x == 3.0f)
             {
                 for (int y = -1; y <= 1; y++)
                 {
-                    Debug.Log("at y = " + y);
+                    //Debug.Log("at y = " + y);
                     float xPos = x * hexWidth;
                     float yPos = y * hexHeight;
 
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
                     posTile[new Vector3(xPos, yPos, 0)] = hex;
 
                     posTranslator.Add(new Vector3(x, y, 0), new Vector3(xPos, yPos, 0));
-                    Debug.Log("PosTranslator length: " + posTranslator.Count);
+                    //Debug.Log("PosTranslator length: " + posTranslator.Count);
 
                     //Debug.Log("Pos");
                     //Debug.Log(xPos + " " + yPos);
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
             {
                 for (float y = -1.5f; y <= 1.5f; y++)
                 {
-                    Debug.Log("at y = " + y);
+                    //Debug.Log("at y = " + y);
                     float xPos = x * hexWidth;
                     float yPos = y * hexHeight;
 
@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
                     posTile[new Vector3(xPos, yPos, 0)] = hex;
 
                     posTranslator.Add(new Vector3(x, y, 0), new Vector3(xPos, yPos, 0));
-                    Debug.Log("PosTranslator length inside loop: " + posTranslator.Count);
+                    //Debug.Log("PosTranslator length inside loop: " + posTranslator.Count);
                     //Debug.Log("Pos");
                     //Debug.Log(xPos + " " + yPos);
 
@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    Debug.Log("at y = " + y);
+                    //Debug.Log("at y = " + y);
                     float xPos = x * hexWidth;
                     float yPos = y * hexHeight;
 
@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
                     posTile[new Vector3(xPos, yPos, 0)] = hex;
 
                     posTranslator.Add(new Vector3(x, y, 0), new Vector3(xPos, yPos, 0));
-                    Debug.Log("PosTranslator length: " + posTranslator.Count);
+                    //Debug.Log("PosTranslator length: " + posTranslator.Count);
                     //Debug.Log("Pos");
                     //Debug.Log(xPos + " " + yPos);
 
@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        Debug.Log("PosTranslator length: " + posTranslator.Count);
+        //Debug.Log("PosTranslator length: " + posTranslator.Count);
         GridManager.Instance.posTranslator = posTranslator;
         GridManager.Instance.posTile = posTile;
         GameManager.Instance.ChangeState(GameState.SpawnObjects);
@@ -187,8 +187,8 @@ public class GameManager : MonoBehaviour
 
     public void SpawnObjects(Dictionary<Vector3, BaseUnit> currentStatus, Dictionary<HexTile, BaseUnit> tileToUnit, HashSet<HexTile> isVisited)
     {
-        Debug.Log("PosTranslator length in spawnObjects(): " + GridManager.Instance.posTranslator.Count);
-        Debug.Log("in spawn objects");
+        //Debug.Log("PosTranslator length in spawnObjects(): " + GridManager.Instance.posTranslator.Count);
+        //Debug.Log("in spawn objects");
         // Initialize the currentStatus dictionary with null values
         for (float x = -3; x <= 3; x += 1.5f)
         {
@@ -219,6 +219,7 @@ public class GameManager : MonoBehaviour
         //List<Vector3> scissorList = new List<Vector3> { new Vector3(0, 0) };
         List<Vector3> scissorList = new List<Vector3> { new Vector3(-3.0f, 1.0f), new Vector3(0, -1.0f) };
         var scissorCount = scissorList.Count;
+        UnitManager.Instance.currentScissorCount = scissorCount;
 
         for (int i = 0; i < scissorCount; i++)
         {
@@ -226,14 +227,14 @@ public class GameManager : MonoBehaviour
             BaseUnit spawnedScissor = Instantiate(scissorPrefab);
             Vector3 translatedPos = GridManager.Instance.GetTranslatedPos(scissorList[i]);
             //Debug.Log(GridManager.Instance.posTranslator.Count);
-            foreach (var item in GridManager.Instance.posTranslator)
-            {
-                Debug.Log("key: " + item.Key + "," + " Value: " + item.Value);
-            }
-            Debug.Log(scissorList[i]);
-            Debug.Log(translatedPos);
+            //foreach (var item in GridManager.Instance.posTranslator)
+            //{
+            //    Debug.Log("key: " + item.Key + "," + " Value: " + item.Value);
+            //}
+            //Debug.Log(scissorList[i]);
+            //Debug.Log(translatedPos);
             HexTile scissorTile = GridManager.Instance.GetTileAtPos(translatedPos);
-            Debug.Log(scissorTile);
+            //Debug.Log(scissorTile);
             scissorTile.SetUnit(spawnedScissor);
             tileToUnit[scissorTile] = spawnedScissor;
             currentStatus[scissorList[i]] = spawnedScissor;
@@ -246,6 +247,7 @@ public class GameManager : MonoBehaviour
         //List<Vector3> rockList = new List<Vector3> { new Vector3(1.5f, -0.5f), new Vector3(-1.5f, -0.5f) };
         List<Vector3> rockList = new List<Vector3> { new Vector3(-1.5f, -1.5f), new Vector3(-1.5f, 0.5f), new Vector3(0.0f, 1.0f), new Vector3(1.5f, -0.5f), new Vector3(3.0f, 0) };
         var rockCount = rockList.Count;
+        UnitManager.Instance.currentRockCount = rockCount;
 
         for (int i = 0; i < rockCount; i++)
         {
@@ -264,6 +266,7 @@ public class GameManager : MonoBehaviour
         //List<Vector3> paperList = new List<Vector3> { new Vector3(1.5f, 0.5f), new Vector3(0, -1), new Vector3(-1.5f, 0.5f) };
         List<Vector3> paperList = new List<Vector3> { new Vector3(-3.0f, 0f), new Vector3(-1.5f, 1.5f), new Vector3(1.5f, 1.5f), new Vector3(1.5f, -1.5f), new Vector3(3.0f, -1.0f) };
         var paperCount = paperList.Count;
+        UnitManager.Instance.currentPaperCount = paperCount;
 
         for (int i = 0; i < paperCount; i++)
         {
@@ -291,6 +294,11 @@ public class GameManager : MonoBehaviour
         UnitManager.Instance.piecesRemoved = 0;                                      // start with all pieces on board; none removed
         UnitManager.Instance.piecesRemovedMeter.SetMaxProgress(UnitManager.Instance.pieceCount - 1);      // win condition requires 1 piece remaining
         UnitManager.Instance.piecesRemovedMeter.SetProgress(UnitManager.Instance.piecesRemoved);
+
+        UnitManager.Instance.rocksLeft.text = UnitManager.Instance.currentRockCount.ToString();
+        UnitManager.Instance.papersLeft.text = UnitManager.Instance.currentPaperCount.ToString();
+        UnitManager.Instance.scissorsLeft.text = UnitManager.Instance.currentScissorCount.ToString();
+
 
         // Change the game state to PlayerTurn after spawning objects
         GameManager.Instance.ChangeState(GameState.PlayerTurn);

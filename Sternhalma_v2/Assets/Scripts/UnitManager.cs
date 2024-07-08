@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using TMPro;
 
 public class UnitManager : MonoBehaviour
 {
@@ -18,6 +19,14 @@ public class UnitManager : MonoBehaviour
     public int pieceCount, piecesRemoved;
     public ProgressMeter tileCoverageMeter;
     public ProgressMeter piecesRemovedMeter;
+
+    public TMP_Text rocksLeft;
+    public TMP_Text papersLeft;
+    public TMP_Text scissorsLeft;
+
+    public int currentRockCount = 0;
+    public int currentPaperCount = 0;
+    public int currentScissorCount = 0;
 
     private void Awake()
     {
@@ -111,6 +120,8 @@ public class UnitManager : MonoBehaviour
             isVisited.Add(paperTile);
             paperTile.SetColorToGreen();
         }
+
+        //papersLeft = paperCount;
 
         // set tile coverage progress meter
         var tileCount = currentStatus.Count;
