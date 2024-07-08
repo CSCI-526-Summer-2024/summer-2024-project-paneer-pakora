@@ -14,7 +14,7 @@ public class Timer : MonoBehaviour
     public float timeRemaining = 180;  
     private bool timeIsRunning = true;
     public TMP_Text timeText;
-    public TMP_Text gameEndText;
+    public TMP_Text gameEndText;  //flashes game has ended 
     public GameObject levelClearMenu;
     public GameObject levelFailMenu;
 
@@ -63,28 +63,35 @@ public class Timer : MonoBehaviour
                 {
                     Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
+
+                else if (GridManager.selectedLevel == 3) //Tutorial level 3
+                {
+                    Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
+
                 //DisplayEndGameText("You Lose!");
                 DisplayLevelFailPanel();
             }
 
-            CheckGameStatus();
+            CheckGameStatus();  //This is called to see if the game should end early based on other conditions
 
         }
     }
 
     void DisplayTime(float timeToDisplay)
     {
+        //Formatting time for display
         timeToDisplay = Mathf.Max(timeToDisplay, 0);
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);  //textTime UI element updated for display
     }
 
     void CheckGameStatus()
     {
         int nonNullCount = UnitManager.Instance.currentStatus.Values.Count(value => value != null);
         int visitedTileCount = UnitManager.Instance.isVisited.Count;
-        if (nonNullCount == 1 || visitedTileCount == 19)
+        if (nonNullCount == 1 || visitedTileCount == 19)   //If only one unit is left OR all 19 tiles are visited, the player wins and the level clear message is shown
         {
             timeIsRunning = false;
 
@@ -101,6 +108,11 @@ public class Timer : MonoBehaviour
             {
                 Tut1_GameManager.Instance.ChangeState(GameState.WinState);
             }
+
+            else if (GridManager.selectedLevel == 3) //Tutorial level 1
+            {
+                Tut3_GameManager.Instance.ChangeState(GameState.WinState);
+            }
             //DisplayEndGameText("You Win!");
             DisplayLevelClearPanel();
             return;
@@ -108,10 +120,10 @@ public class Timer : MonoBehaviour
 
         else
         {
-
+            //Checks for various lose conditions and display level failed
             Dictionary<Vector3, BaseUnit> dict = UnitManager.Instance.currentStatus;
             bool onlyLoneIsland = CheckIsOnlyLoneIsland(dict);
-            bool onlyPerimeter = CheckIsOnlyPerimeter(dict);
+            bool onlyPerimeter = CheckIsOnlyPerimeter(dict);  //no valid moves on the perimeter
             bool onlyOnePieceType = CheckIsOnlyOnePiece(dict);
             //bool onlyLoneIslandInterior = CheckLoneIslandInterior(dict);
         
@@ -131,6 +143,11 @@ public class Timer : MonoBehaviour
                 else if (GridManager.selectedLevel == 0) //Tutorial level 1
                 {
                     Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
+
+                else if (GridManager.selectedLevel == 3) //Tutorial level 3
+                {
+                    Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
                 //DisplayEndGameText("You Lose!");
                 DisplayLevelFailPanel();
@@ -153,6 +170,10 @@ public class Timer : MonoBehaviour
                 else if (GridManager.selectedLevel == 0) //Tutorial level 1
                 {
                     Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
+                else if (GridManager.selectedLevel == 3) //Tutorial level 3
+                {
+                    Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
                 //DisplayEndGameText("You Lose!");
                 DisplayLevelFailPanel();
@@ -182,6 +203,10 @@ public class Timer : MonoBehaviour
                     {
                         Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
                     }
+                    else if (GridManager.selectedLevel == 3) //Tutorial level 1
+                    {
+                        Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
+                    }
                     //DisplayEndGameText("You Lose!");
                     DisplayLevelFailPanel();
                     return;
@@ -208,17 +233,20 @@ public class Timer : MonoBehaviour
         gameEndText.gameObject.SetActive(true);
     }
 
-    private bool CheckIsOnlyLoneIsland(Dictionary<Vector3, BaseUnit> dict)
-    {
-        List<Vector3> keys = new List<Vector3>(dict.Keys);
 
-        foreach (Vector3 pos in keys)
+
+    private bool CheckIsOnlyLoneIsland(Dictionary<Vector3, BaseUnit> dict)   //checks if all the units on the game board are isolated- each unit has no neighbour units
+    {
+        //If every unit is isolated, return true else return false
+        List<Vector3> keys = new List<Vector3>(dict.Keys);  //extract all keys and store em in a lsit
+
+        foreach (Vector3 pos in keys)  //iterarte over each position
         {
-            if (dict[pos] != null)
+            if (dict[pos] != null)  //if position has a unit
             {
                 float posX = pos.x;
                 float posY = pos.y;
-
+                //Calculate all 6 neighbors
                 Vector3 topPos = new Vector3(posX, posY + 1.0f);
                 Vector3 topRightPos = new Vector3(posX + 1.5f, posY + 0.5f);
                 Vector3 bottomRightPos = new Vector3(posX + 1.5f, posY - 0.5f);
@@ -226,6 +254,8 @@ public class Timer : MonoBehaviour
                 Vector3 bottomLeftPos = new Vector3(posX - 1.5f, posY - 0.5f);
                 Vector3 topLeftPos = new Vector3(posX - 1.5f, posY + 0.5f);
 
+
+                //Check if any neighboring position has a unit
                 if ((keys.Contains(topPos) && dict[topPos] != null) ||
                     (keys.Contains(topRightPos) && dict[topRightPos] != null) ||
                     (keys.Contains(bottomRightPos) && dict[bottomRightPos] != null) ||
@@ -242,8 +272,10 @@ public class Timer : MonoBehaviour
         return true;
     }
 
-    private bool CheckIsOnlyPerimeter(Dictionary<Vector3, BaseUnit> dict)
+    private bool CheckIsOnlyPerimeter(Dictionary<Vector3, BaseUnit> dict)  //checks if there are any units on the internal, non-perimeter tiles of the game board
     {
+
+        //We first set the internal tiles here as per the level
         List<Vector3> internalPos = null;
         if (GridManager.selectedLevel == 2)
         { 
@@ -261,23 +293,31 @@ public class Timer : MonoBehaviour
             internalPos = new List<Vector3> {};
         }
 
+        else if (GridManager.selectedLevel == 3)
+        {
+            internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) };
+        }
+
+        //iterate over internal positions
         for (int i = 0; i < internalPos.Count; i++)
         {
-            if (dict[internalPos[i]] != null)
+            if (dict[internalPos[i]] != null)   //Checks if there is a unit at the current internal position
             {
-                if (!IsLonePiece(dict, internalPos[i]))
+                if (!IsLonePiece(dict, internalPos[i]))   //Check if the Unit is isolated
                 {
                     return false;
                 }
             }
         }
 
-        return true;
+        return true;  //return true if all units are isolated
     }
 
-    private bool CheckIsOnlyOnePiece(Dictionary<Vector3, BaseUnit> dict)
-    {
 
+
+    private bool CheckIsOnlyOnePiece(Dictionary<Vector3, BaseUnit> dict)  //This method is checking if all the units remaining on the board belong to the same typr of faction
+    {
+        //Input to this fn is a dictionary where keys are positions and values are units at these positions
         int paperCount = 0;
         int scissorCount = 0;
         int rockCount = 0;
@@ -300,6 +340,8 @@ public class Timer : MonoBehaviour
             }
         }
 
+
+        //Check if only One Faction remains
         if (rockCount == 0 && paperCount == 0 && scissorCount != 0)
         {
             if (GridManager.selectedLevel == 1)
@@ -317,8 +359,16 @@ public class Timer : MonoBehaviour
 
             }
 
+            else if (GridManager.selectedLevel == 3)
+            {
+                Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
+
+            }
+
             return true;
         }
+
+
         else if (rockCount == 0 && paperCount != 0 && scissorCount == 0)
         {
             if (GridManager.selectedLevel == 1)
@@ -334,8 +384,17 @@ public class Timer : MonoBehaviour
                 Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
 
             }
+
+            else if (GridManager.selectedLevel == 3)
+            {
+                Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
+
+            }
+
             return true;
         }
+
+
         else if (rockCount != 0 && paperCount == 0 && scissorCount == 0)
         {
             if (GridManager.selectedLevel == 1)
@@ -351,6 +410,12 @@ public class Timer : MonoBehaviour
                 Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
 
             }
+
+            else if (GridManager.selectedLevel == 3)
+            {
+                Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
+
+            }
             return true;
         }
         else
@@ -359,8 +424,14 @@ public class Timer : MonoBehaviour
     }
     }
 
-    private bool CheckValidMoveOnPerimeter(Dictionary<Vector3, BaseUnit> dict)
+
+
+
+    private bool CheckValidMoveOnPerimeter(Dictionary<Vector3, BaseUnit> dict)  //This method checks if her is a valid move available for any unit on "perimeter" of the board. There should also be a empty unit being able to jump over another unit to an empty position on the opposite side
     {
+
+        //Define  perimeter tiles  based on the Level
+
         List<Vector3> perimeterPos = null;
         if (GridManager.selectedLevel == 2)
         {
@@ -411,6 +482,22 @@ public class Timer : MonoBehaviour
         }
 
 
+
+        else if (GridManager.selectedLevel == 3)
+        {
+            perimeterPos = new List<Vector3> {           new Vector3(0.0f, -1.0f), new Vector3(0.0f, -2.0f),
+                                                         new Vector3(0.0f, 1.0f), new Vector3(1.5f, 0.5f),
+                                                         new Vector3(1.5f,-0.5f),new Vector3(1.5f, -1.5f),
+
+                                                         new Vector3(-1.5f,0.5f), new Vector3(-1.5f,1.5f),
+                                                         new Vector3(-1.5f,-0.5f), new Vector3(3.0f,-2.0f)
+
+                                                        };
+        }
+
+        //Iterate over perimeter tiles
+
+
         for (int i=0; i< perimeterPos.Count; i++)
         {
             if (dict[perimeterPos[i]]!= null)
@@ -418,6 +505,8 @@ public class Timer : MonoBehaviour
                 float posX = perimeterPos[i].x;
                 float posY = perimeterPos[i].y;
 
+
+                //iterate over neighbors, calculate the position on opposite side of the neighbour to check if it is empty
                 Vector3 topPos = new Vector3(posX, posY + 1.0f);
                 Vector3 topRightPos = new Vector3(posX + 1.5f, posY + 0.5f);
                 Vector3 bottomRightPos = new Vector3(posX + 1.5f, posY - 0.5f);
@@ -428,7 +517,7 @@ public class Timer : MonoBehaviour
                 List<Vector3> potentialPos = new List<Vector3>{ topPos, topRightPos, bottomRightPos,
                     bottomPos, bottomLeftPos, topLeftPos };
 
-                for (int j=0; j<potentialPos.Count; j++)
+                for (int j=0; j<potentialPos.Count; j++)   
                 {
                     Vector3 emptyPos = new Vector3(2 * potentialPos[j].x - perimeterPos[i].x,
                                                     2*potentialPos[j].y - perimeterPos[i].y);
@@ -498,6 +587,11 @@ public class Timer : MonoBehaviour
         //return false; 
     }
 
+
+
+
+
+
     private bool isMovePossible(Dictionary<Vector3, BaseUnit> dict, Vector3 pos1, Vector3 pos2)
     {
         if (dict[pos1].Faction == Faction.Rock)
@@ -537,8 +631,12 @@ public class Timer : MonoBehaviour
         }
     }
 
-    private bool CheckLoneIslandInterior(Dictionary<Vector3, BaseUnit> dict)
+
+
+    private bool CheckLoneIslandInterior(Dictionary<Vector3, BaseUnit> dict)  //checks if all units at specific internal (non peim) positions on the game board are isolated
     {
+
+        //We are defining internal poisitons based on level here:
         List<Vector3> internalPos = null;
         if (GridManager.selectedLevel == 2)
         {
@@ -557,7 +655,15 @@ public class Timer : MonoBehaviour
             internalPos = new List<Vector3> { };
         }
 
-            for (int i = 0; i < internalPos.Count; i++)
+        else if (GridManager.selectedLevel == 3)
+        {
+
+            internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) };
+        }
+
+
+
+        for (int i = 0; i < internalPos.Count; i++)
         {
 
             Vector3 pos = internalPos[i];
@@ -589,11 +695,16 @@ public class Timer : MonoBehaviour
         return true;
     }
 
-    private bool IsLonePiece(Dictionary<Vector3, BaseUnit> dict, Vector3 pos)
+
+
+
+
+    private bool IsLonePiece(Dictionary<Vector3, BaseUnit> dict, Vector3 pos)   //method wghich checks if a unit at a given position is isolated
     {
         float posX = pos.x;
         float posY = pos.y;
 
+        //Calculate 6 neighbors
         Vector3 topPos = new Vector3(posX, posY + 1.0f);
         Vector3 topRightPos = new Vector3(posX + 1.5f, posY + 0.5f);
         Vector3 bottomRightPos = new Vector3(posX + 1.5f, posY - 0.5f);

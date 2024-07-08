@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class HexTile : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer _renderer;
-    [SerializeField] private GameObject _highlight;
+    [SerializeField] private SpriteRenderer _renderer; //manages rendering of the Hex tile's sprite
+    [SerializeField] private GameObject _highlight;   //This game obj is used to highlight the tile when mouse hvers over it
     [SerializeField] public GameObject highlightOnSelect;
 
-    public BaseUnit OccupiedUnit;
-    public bool isEmpty => this.OccupiedUnit == null;
+    public BaseUnit OccupiedUnit;   //currently occupied?
+    public bool isEmpty => this.OccupiedUnit == null;  //checks if tile is empty by seieng if Occupied unit is null
 
     public Vector3 posEasy;
     public Vector3 posHard;
@@ -31,7 +31,7 @@ public class HexTile : MonoBehaviour
         _highlight.SetActive(false);
     }
 
-    public void SetUnit(BaseUnit unit)
+    public void SetUnit(BaseUnit unit)      //Assigns a unit to the tile updating the unit's position and linking the unit back to this tile
     {
         if (unit.OccupiedTile != null)
         {
@@ -42,7 +42,7 @@ public class HexTile : MonoBehaviour
         unit.OccupiedTile = this;
     }
 
-    public void SetUnitRotation(BaseUnit unit)
+    public void SetUnitRotation(BaseUnit unit)  
     {
         if (unit != null && unit.OccupiedTile != null)
         {
@@ -62,7 +62,7 @@ public class HexTile : MonoBehaviour
         
     }
 
-    public void RemoveUnit(BaseUnit unit)
+    public void RemoveUnit(BaseUnit unit)  //does the oposite of the setUnit function
     {
         unit.OccupiedTile = null;
         this.OccupiedUnit = null;
@@ -71,6 +71,9 @@ public class HexTile : MonoBehaviour
 
     private void OnMouseDown()
     {
+
+        //Check the current Game State
+
         if (GridManager.selectedLevel == 2 && GameManager.Instance.GameState != GameState.PlayerTurn)
         {
             return;
@@ -81,6 +84,10 @@ public class HexTile : MonoBehaviour
             return;
         }
         if (GridManager.selectedLevel == 0 && Tut1_GameManager.Instance.GameState != GameState.PlayerTurn)
+        {
+            return;
+        }
+        if (GridManager.selectedLevel == 3 && Tut3_GameManager.Instance.GameState != GameState.PlayerTurn)
         {
             return;
         }
