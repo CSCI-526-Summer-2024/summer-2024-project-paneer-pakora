@@ -5,7 +5,10 @@ using Unity.Services.Analytics;
 
 public class GameManager : MonoBehaviour
 {
+    public static int retryCount = 0;
+    public static string userId = "user_unique_id";
     public static GameManager Instance;
+
     public GameState GameState;
     FirebaseHandler firebaseHandler;
 
