@@ -95,6 +95,8 @@ public class Level0_5_GameManager : MonoBehaviour
         AnalyticsService.Instance.Flush();
     }
 
+
+
     public void GenerateHexGrid(float hexSize, Dictionary<Vector3, HexTile> posTile, Dictionary<Vector3, Vector3> posTranslator, HexTile hexPrefab)
     {
         float hexWidth = hexSize + 0.1f;
@@ -122,7 +124,7 @@ public class Level0_5_GameManager : MonoBehaviour
                     //Debug.Log("Pos");
                     //Debug.Log(xPos + " " + yPos);
 
-                    if (y == 0||y==1)
+                    if (y == 0|| y==1)
                     {
                         hex.isRotatable = true;
                     }
@@ -219,7 +221,7 @@ public class Level0_5_GameManager : MonoBehaviour
     public void SpawnObjects(Dictionary<Vector3, BaseUnit> currentStatus, Dictionary<HexTile, BaseUnit> tileToUnit, HashSet<HexTile> isVisited)
     {
         // Initialize the currentStatus dictionary with null values
-        for (float x = -3.0f; x <=3.0f; x += 1.5f)  //range of x
+        for (float x = -1.5f; x <=3.0f; x += 1.5f)  //range of x
         {
             if (x == 0)
             {
