@@ -353,6 +353,11 @@ public class Timer : MonoBehaviour
             internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) };
         }
 
+        else if (GridManager.selectedLevel == 4)
+        {
+            internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) };
+        }
+
         else if (GridManager.selectedLevel == 5)
         {
             internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) , new Vector3(0.0f, 1.0f) };
