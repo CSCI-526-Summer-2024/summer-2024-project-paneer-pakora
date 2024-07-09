@@ -84,7 +84,9 @@ public class Timer : MonoBehaviour
     {
         int nonNullCount = UnitManager.Instance.currentStatus.Values.Count(value => value != null);
         int visitedTileCount = UnitManager.Instance.isVisited.Count;
-        if (nonNullCount == 1 || visitedTileCount == 19)
+        int totalTileCount = UnitManager.Instance.currentStatus.Count;
+
+        if (nonNullCount == 1 || visitedTileCount == totalTileCount)
         {
             timeIsRunning = false;
 
