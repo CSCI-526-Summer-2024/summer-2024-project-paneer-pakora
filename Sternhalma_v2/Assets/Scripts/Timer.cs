@@ -7,34 +7,22 @@ using System.Linq;
 
 public class Timer : MonoBehaviour
 {
-
-
     public static Timer Instance;
     public float initialTime = 300;
-    public float timeRemaining = 180;  
+    public float timeRemaining = 300;
     private bool timeIsRunning = true;
     public TMP_Text timeText;
     public TMP_Text gameEndText;  //flashes game has ended 
     public GameObject levelClearMenu;
     public GameObject levelFailMenu;
-
-    // private void Awake()
-    // {
-    //     if (Instance == null)
-    //     {
-    //         Instance = this;
-    //     }
-    //     else
-    //     {
-    //         Destroy(gameObject);
-    //     }
-    // }
+    private FirebaseHandler firebaseHandler;
 
     void Start()
     {
         DisplayTime(timeRemaining);
         gameEndText.gameObject.SetActive(false);
         levelClearMenu.SetActive(false);
+        firebaseHandler = FindObjectOfType<FirebaseHandler>();
     }
 
     void Update()
@@ -50,36 +38,10 @@ public class Timer : MonoBehaviour
             {
                 timeRemaining = 0;
                 timeIsRunning = false;
-                if(GridManager.selectedLevel == 1)  // Tutorial level 2
-                {
-                    Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
-                }
-                else if (GridManager.selectedLevel == 2) // Level 1
-                {
-                    GameManager.Instance.ChangeState(GameState.LoseState);
-                }
-
-                else if (GridManager.selectedLevel == 0) // Tutorial level 1
-                {
-                    Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
-                }
-
-                else if (GridManager.selectedLevel == 3) // Tutorial level 3
-                {
-                    Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
-                }
-
-                else if (GridManager.selectedLevel == 4) // Level 0 (Technically level 1)
-                {
-                    Level0_GameManager.Instance.ChangeState(GameState.LoseState);
-                }
-
-                //DisplayEndGameText("You Lose!");
-                DisplayLevelFailPanel();
+                HandleLoseState();
             }
 
             CheckGameStatus();  //This is called to see if the game should end early based on other conditions
-
         }
     }
 
@@ -97,155 +59,97 @@ public class Timer : MonoBehaviour
         int nonNullCount = UnitManager.Instance.currentStatus.Values.Count(value => value != null);
         int visitedTileCount = UnitManager.Instance.isVisited.Count;
         int totalTileCount = UnitManager.Instance.currentStatus.Count;
+
         if (nonNullCount == 1 || visitedTileCount == totalTileCount)   //If only one unit is left OR all 19 tiles are visited, the player wins and the level clear message is shown
         {
             timeIsRunning = false;
-
-            if (GridManager.selectedLevel == 1)  // Tutorial level 2
-            {
-                Tut2_GameManager.Instance.ChangeState(GameState.WinState);
-            }
-            else if (GridManager.selectedLevel == 2) // Level 1
-            {
-                GameManager.Instance.ChangeState(GameState.WinState);
-            }
-
-            else if (GridManager.selectedLevel == 0) // Tutorial level 1
-            {
-                Tut1_GameManager.Instance.ChangeState(GameState.WinState);
-            }
-
-            else if (GridManager.selectedLevel == 3) // Tutorial level 3
-            {
-                Tut3_GameManager.Instance.ChangeState(GameState.WinState);
-            }
-
-            else if (GridManager.selectedLevel == 4) // Level 0 (Technically level 1)
-            {
-                Level0_GameManager.Instance.ChangeState(GameState.WinState);
-            }
-
-            //DisplayEndGameText("You Win!");
+            HandleWinState();
             DisplayLevelClearPanel();
             return;
         }
-
         else
         {
-            //Checks for various lose conditions and display level failed
-            Dictionary<Vector3, BaseUnit> dict = UnitManager.Instance.currentStatus;
-            bool onlyLoneIsland = CheckIsOnlyLoneIsland(dict);
-            bool onlyPerimeter = CheckIsOnlyPerimeter(dict);  //no valid moves on the perimeter
-            bool onlyOnePieceType = CheckIsOnlyOnePiece(dict);
-            //bool onlyLoneIslandInterior = CheckLoneIslandInterior(dict);
-        
-            if (onlyOnePieceType)
-            {
-                timeIsRunning = false;
-                Debug.Log("In only one piece type lose condition");
-                if (GridManager.selectedLevel == 1)  // Tutorial level 2
-                {
-                    Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
-                }
-                else if (GridManager.selectedLevel == 2) // Level 1
-                {
-                    GameManager.Instance.ChangeState(GameState.LoseState);
-                }
+            HandleLoseConditions();
+        }
+    }
 
-                else if (GridManager.selectedLevel == 0) // Tutorial level 1
-                {
-                    Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
-                }
+    private void HandleWinState()
+    {
+        float timeTaken = initialTime - timeRemaining;
+        Debug.Log("Level Won in " + timeTaken + " seconds");
 
-                else if (GridManager.selectedLevel == 3) // Tutorial level 3
-                {
-                    Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
-                }
+        if (firebaseHandler != null)
+        {
+            firebaseHandler.UpdateSessionStatus("Win", timeTaken);
+        }
 
-                else if (GridManager.selectedLevel == 4) // Level 0 (Technically level 1)
-                {
-                    Level0_GameManager.Instance.ChangeState(GameState.LoseState);
-                }
+        if (GridManager.selectedLevel == 1)  // Tutorial level 2
+        {
+            Tut2_GameManager.Instance.ChangeState(GameState.WinState);
+        }
+        else if (GridManager.selectedLevel == 2) // Level 1
+        {
+            GameManager.Instance.ChangeState(GameState.WinState);
+        }
+        else if (GridManager.selectedLevel == 0) // Tutorial level 1
+        {
+            Tut1_GameManager.Instance.ChangeState(GameState.WinState);
+        }
+        else if (GridManager.selectedLevel == 3) // Tutorial level 3
+        {
+            Tut3_GameManager.Instance.ChangeState(GameState.WinState);
+        }
+        else if (GridManager.selectedLevel == 4) // Level 0 (Technically level 1)
+        {
+            Level0_GameManager.Instance.ChangeState(GameState.WinState);
+        }
+    }
 
-                //DisplayEndGameText("You Lose!");
-                DisplayLevelFailPanel();
-                return;
-            }
+    private void HandleLoseState()
+    {
+        float timeTaken = initialTime - timeRemaining;
+        Debug.Log("Level Lost in " + timeTaken + " seconds");
 
-            if (onlyLoneIsland)
-            {
-                timeIsRunning = false;
-                Debug.Log("In Lone Island lose condition");
-                if (GridManager.selectedLevel == 1)  // Level 1
-                {
-                    Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
-                }
-                else if (GridManager.selectedLevel == 2) // Level 1
-                {
-                    GameManager.Instance.ChangeState(GameState.LoseState);
-                }
+        if (firebaseHandler != null)
+        {
+            firebaseHandler.UpdateSessionStatus("Lose", timeTaken);
+        }
 
-                else if (GridManager.selectedLevel == 0) // Tutorial level 1
-                {
-                    Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
-                }
+        if (GridManager.selectedLevel == 1)  // Tutorial level 2
+        {
+            Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
+        }
+        else if (GridManager.selectedLevel == 2) // Level 1
+        {
+            GameManager.Instance.ChangeState(GameState.LoseState);
+        }
+        else if (GridManager.selectedLevel == 0) // Tutorial level 1
+        {
+            Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
+        }
+        else if (GridManager.selectedLevel == 3) // Tutorial level 3
+        {
+            Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
+        }
+        else if (GridManager.selectedLevel == 4) // Level 0 (Technically level 1)
+        {
+            Level0_GameManager.Instance.ChangeState(GameState.LoseState);
+        }
 
-               else if (GridManager.selectedLevel == 3) // Tutorial level 3
-                {
-                    Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
-                }
+        DisplayLevelFailPanel();
+    }
 
-                else if (GridManager.selectedLevel == 4) // Level 0 (Technically level 1)
-                {
-                    Level0_GameManager.Instance.ChangeState(GameState.LoseState);
-                }
+    private void HandleLoseConditions()
+    {
+        Dictionary<Vector3, BaseUnit> dict = UnitManager.Instance.currentStatus;
+        bool onlyLoneIsland = CheckIsOnlyLoneIsland(dict);
+        bool onlyPerimeter = CheckIsOnlyPerimeter(dict);  //no valid moves on the perimeter
+        bool onlyOnePieceType = CheckIsOnlyOnePiece(dict);
 
-                //DisplayEndGameText("You Lose!");
-                DisplayLevelFailPanel();
-                return;
-            }
-
-            if (onlyPerimeter)
-            {
-                if (CheckValidMoveOnPerimeter(dict))
-                {
-                    return;
-                }
-                else
-                {
-                    timeIsRunning = false;
-                    Debug.Log("In no valid perimeter move condition");
-                    if (GridManager.selectedLevel == 1)  // Tutorial level 2
-                    {
-                        Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
-                    }
-                    else if (GridManager.selectedLevel == 2) // Level 1
-                    {
-                        GameManager.Instance.ChangeState(GameState.LoseState);
-                    }
-
-                    else if (GridManager.selectedLevel == 0) // Tutorial level 1
-                    {
-                        Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
-                    }
-
-                    else if (GridManager.selectedLevel == 3) // Tutorial level 3
-                    {
-                        Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
-                    }
-
-                    else if (GridManager.selectedLevel == 4) // Level 0 (Technically level 1)
-                    {
-                        Level0_GameManager.Instance.ChangeState(GameState.LoseState);
-                    }
-
-                    //DisplayEndGameText("You Lose!");
-                    DisplayLevelFailPanel();
-                    return;
-                }
-            }
-
-            return;
+        if (onlyOnePieceType || onlyLoneIsland || (!onlyPerimeter && !CheckValidMoveOnPerimeter(dict)))
+        {
+            timeIsRunning = false;
+            HandleLoseState();
         }
     }
 

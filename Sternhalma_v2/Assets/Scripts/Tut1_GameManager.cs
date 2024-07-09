@@ -1,13 +1,13 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Services.Analytics;
+
 public class Tut1_GameManager : MonoBehaviour
 {
     public static Tut1_GameManager Instance;
     public GameState GameState;
-
-    public GameObject pauseMenu;
+    FirebaseHandler firebaseHandler;
+    Timer timer;
 
     private void Awake()
     {
@@ -19,59 +19,67 @@ public class Tut1_GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        //pauseMenu.SetActive(false);
-
-        //DontDestroyOnLoad(gameObject);
-
     }
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
         GridManager.selectedLevel = 0;
         ChangeState(GameState.GenerateGrid);
-        //ChangeState(GameState.MainMenu);
-        //ChangeState(GameState.Tutorial2);
+        firebaseHandler = FindObjectOfType<FirebaseHandler>();
+        timer = FindObjectOfType<Timer>();
+        UnityEngine.Debug.Log("FirebaseHandler found: " + (firebaseHandler != null));
+        UnityEngine.Debug.Log("Timer found: " + (timer != null));
+        UnityEngine.Debug.Log("Current Level at Start: " + MenuManager.currentLevel);
     }
+
     public void ChangeState(GameState newState)
     {
-        //Debug.Log($"Changing state from {GameState} to {newState}");
-
         GameState = newState;
         switch (newState)
         {
-            //case GameState.MainMenu:
-            //    break;
             case GameState.GenerateGrid:
-                //Debug.Log("Before SetActive : " + GridManager.Instance.rotateButton.activeSelf);
-                //GridManager.Instance.rotateButton.SetActive(true);
-                //Debug.Log("After SetActive : " + GridManager.Instance.rotateButton.activeSelf);
-
-                // Check if the object is active in the hierarchy
-                //Debug.Log("Active In Hierarchy: " + GridManager.Instance.rotateButton.activeInHierarchy);
                 GenerateHexGrid(GridManager.Instance.hexSize, GridManager.Instance.posTile, GridManager.Instance.posTranslator, GridManager.Instance.hexPrefab);
-                //GridManager.Instance.rotateButton.SetActive(false);
                 break;
-            //case GameState.Tutorial2:
-            //    GridManager.Instance.GenerateTutorial2_Grid();
-            //    break;
             case GameState.SpawnObjects:
                 SpawnObjects(UnitManager.Instance.currentStatus, UnitManager.Instance.tileToUnit, UnitManager.Instance.isVisited);
-                //UnitManager.Instance.SpawnObjects();
-                //UnitManager.Instance.SpawnTutorial2Objects();
                 break;
             case GameState.PlayerTurn:
                 break;
             case GameState.WinState:
-                Debug.Log("Player Wins!");
-                //SendAnalyticsEvent("win");
+                HandleWinState();
                 break;
             case GameState.LoseState:
-                Debug.Log("Player Loses!");
-                //SendAnalyticsEvent("lose");
+                HandleLoseState();
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+                throw new System.ArgumentOutOfRangeException(nameof(newState), newState, null);
+        }
+    }
+
+    private void HandleWinState()
+    {
+        UnityEngine.Debug.Log("Player Wins!");
+        float timeTaken = timer.initialTime - timer.timeRemaining;
+        firebaseHandler.UpdateSessionStatus("Win", timeTaken);
+    }
+
+    private void HandleLoseState()
+    {
+        UnityEngine.Debug.Log("Player Loses!");
+        float timeTaken = timer.initialTime - timer.timeRemaining;
+        firebaseHandler.UpdateSessionStatus("Lose", timeTaken);
+    }
+
+    private void LogTime(string result)
+    {
+        if (timer != null)
+        {
+            float timeTaken = timer.initialTime - timer.timeRemaining;
+            UnityEngine.Debug.Log("Level: " + MenuManager.currentLevel + " Result: " + result + " Time Taken: " + timeTaken + " seconds");
+        }
+        else
+        {
+            UnityEngine.Debug.Log("Timer not found!");
         }
     }
     // Update is called once per frame
@@ -304,4 +312,5 @@ public class Tut1_GameManager : MonoBehaviour
         Tut1_GameManager.Instance.ChangeState(GameState.PlayerTurn);
     }
 }
+
 
