@@ -63,6 +63,19 @@ public class Timer : MonoBehaviour
                 {
                     Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
+//<<<<<<< Updated upstream
+//=======
+
+                else if (GridManager.selectedLevel == 3) //Tutorial level 3
+                {
+                    Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
+                else if (GridManager.selectedLevel == 4) //Level0
+                {
+                    Level0_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
+
+//>>>>>>> Stashed changes
                 //DisplayEndGameText("You Lose!");
                 DisplayLevelFailPanel();
             }
@@ -101,6 +114,20 @@ public class Timer : MonoBehaviour
             {
                 Tut1_GameManager.Instance.ChangeState(GameState.WinState);
             }
+//<<<<<<< Updated upstream
+//=======
+
+            else if (GridManager.selectedLevel == 3) //Tutorial level 1
+            {
+                Tut3_GameManager.Instance.ChangeState(GameState.WinState);
+            }
+
+
+            else if (GridManager.selectedLevel == 4) //level0
+            {
+                Level0_GameManager.Instance.ChangeState(GameState.WinState);
+            }
+//>>>>>>> Stashed changes
             //DisplayEndGameText("You Win!");
             DisplayLevelClearPanel();
             return;
@@ -132,6 +159,19 @@ public class Timer : MonoBehaviour
                 {
                     Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
+//<<<<<<< Updated upstream
+//=======
+
+                else if (GridManager.selectedLevel == 3) //Tutorial level 3
+                {
+                    Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
+
+                else if (GridManager.selectedLevel == 4) //Level0
+                {
+                    Level0_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
+//>>>>>>> Stashed changes
                 //DisplayEndGameText("You Lose!");
                 DisplayLevelFailPanel();
                 return;
@@ -154,6 +194,18 @@ public class Timer : MonoBehaviour
                 {
                     Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
+//<<<<<<< Updated upstream
+//=======
+               else if (GridManager.selectedLevel == 3) //Tutorial level 3
+                {
+                    Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
+
+                else if (GridManager.selectedLevel == 4) //Level0
+                {
+                    Level0_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
+//>>>>>>> Stashed changes
                 //DisplayEndGameText("You Lose!");
                 DisplayLevelFailPanel();
                 return;
@@ -182,6 +234,18 @@ public class Timer : MonoBehaviour
                     {
                         Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
                     }
+//<<<<<<< Updated upstream
+//=======
+                    else if (GridManager.selectedLevel == 3) //Tutorial level 1
+                    {
+                        Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
+                    }
+
+                    else if (GridManager.selectedLevel == 4) //Level0
+                    {
+                        Level0_GameManager.Instance.ChangeState(GameState.LoseState);
+                    }
+//>>>>>>> Stashed changes
                     //DisplayEndGameText("You Lose!");
                     DisplayLevelFailPanel();
                     return;
@@ -261,6 +325,20 @@ public class Timer : MonoBehaviour
             internalPos = new List<Vector3> {};
         }
 
+//<<<<<<< Updated upstream
+//=======
+        else if (GridManager.selectedLevel == 3)
+        {
+            internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) };
+        }
+
+        else if (GridManager.selectedLevel == 4)
+        {
+            internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) };
+        }
+
+        //iterate over internal positions
+//>>>>>>> Stashed changes
         for (int i = 0; i < internalPos.Count; i++)
         {
             if (dict[internalPos[i]] != null)
@@ -317,6 +395,21 @@ public class Timer : MonoBehaviour
 
             }
 
+//<<<<<<< Updated upstream
+//=======
+            else if (GridManager.selectedLevel == 3)
+            {
+                Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
+
+            }
+
+            else if (GridManager.selectedLevel == 4)
+            {
+                Level0_GameManager.Instance.ChangeState(GameState.LoseState);
+
+            }
+
+//>>>>>>> Stashed changes
             return true;
         }
         else if (rockCount == 0 && paperCount != 0 && scissorCount == 0)
@@ -334,6 +427,22 @@ public class Timer : MonoBehaviour
                 Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
 
             }
+//<<<<<<< Updated upstream
+//=======
+
+            else if (GridManager.selectedLevel == 3)
+            {
+                Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
+
+            }
+
+            else if (GridManager.selectedLevel == 4)
+            {
+                Level0_GameManager.Instance.ChangeState(GameState.LoseState);
+
+            }
+
+//>>>>>>> Stashed changes
             return true;
         }
         else if (rockCount != 0 && paperCount == 0 && scissorCount == 0)
@@ -351,6 +460,21 @@ public class Timer : MonoBehaviour
                 Tut1_GameManager.Instance.ChangeState(GameState.LoseState);
 
             }
+//<<<<<<< Updated upstream
+//=======
+
+            else if (GridManager.selectedLevel == 3)
+            {
+                Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
+
+            }
+
+            else if (GridManager.selectedLevel == 4)
+            {
+                Level0_GameManager.Instance.ChangeState(GameState.LoseState);
+
+            }
+//>>>>>>> Stashed changes
             return true;
         }
         else
@@ -361,6 +485,12 @@ public class Timer : MonoBehaviour
 
     private bool CheckValidMoveOnPerimeter(Dictionary<Vector3, BaseUnit> dict)
     {
+//<<<<<<< Updated upstream
+//=======
+
+        //Define  perimeter tiles  based on the Level of the Game
+
+//>>>>>>> Stashed changes
         List<Vector3> perimeterPos = null;
         if (GridManager.selectedLevel == 2)
         {
@@ -411,6 +541,41 @@ public class Timer : MonoBehaviour
         }
 
 
+//<<<<<<< Updated upstream
+//=======
+
+        else if (GridManager.selectedLevel == 3)
+        {
+            perimeterPos = new List<Vector3> {           new Vector3(0.0f, -1.0f), new Vector3(0.0f, -2.0f),
+                                                         new Vector3(0.0f, 1.0f), new Vector3(1.5f, 0.5f),
+                                                         new Vector3(1.5f,-0.5f),new Vector3(1.5f, -1.5f),
+
+                                                         new Vector3(-1.5f,0.5f), new Vector3(-1.5f,1.5f),
+                                                         new Vector3(-1.5f,-0.5f), new Vector3(3.0f,-2.0f)
+
+                                                        };
+        }
+
+        else if (GridManager.selectedLevel == 4)
+        {
+            perimeterPos = new List<Vector3> {           new Vector3(-3.0f,0.0f),
+
+                                                         new Vector3(-1.5f, -1.5f), new Vector3(-1.5f, -0.5f), new Vector3(-1.5f, 0.5f),
+
+                                                         new Vector3(0.0f,-2.0f),new Vector3(0.0f, -1.0f),new Vector3(0.0f,1.0f), new Vector3(0.0f,2.0f),
+
+
+                                                         new Vector3(1.5f,-0.5f), new Vector3(1.5f,0.5f),new Vector3(1.5f,1.5f),
+
+                                                         new Vector3(3.0f,0.0f)
+
+                                                        };
+        }
+
+        //Iterate over perimeter tiles
+
+
+//>>>>>>> Stashed changes
         for (int i=0; i< perimeterPos.Count; i++)
         {
             if (dict[perimeterPos[i]]!= null)
@@ -557,7 +722,25 @@ public class Timer : MonoBehaviour
             internalPos = new List<Vector3> { };
         }
 
+//<<<<<<< Updated upstream
             for (int i = 0; i < internalPos.Count; i++)
+//=======
+        else if (GridManager.selectedLevel == 3)
+        {
+
+            internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) };
+        }
+
+        else if (GridManager.selectedLevel == 4)
+        {
+
+            internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) };
+        }
+
+
+
+        for (int i = 0; i < internalPos.Count; i++)
+//>>>>>>> Stashed changes
         {
 
             Vector3 pos = internalPos[i];
