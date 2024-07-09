@@ -55,9 +55,25 @@ public class MenuManager : MonoBehaviour
     public void Level1()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Level0");
+        //GameManager.Instance.ChangeState(GameState.GenerateGrid);
+    }
+
+    public void Level2()
+    {
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Level0_5");
+        //GameManager.Instance.ChangeState(GameState.GenerateGrid);
+    }
+
+    public void Level3()
+    {
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.LoadScene("Level1");
         //GameManager.Instance.ChangeState(GameState.GenerateGrid);
     }
+
+
 
     private void Awake()
     {

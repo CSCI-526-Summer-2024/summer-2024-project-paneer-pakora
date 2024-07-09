@@ -91,7 +91,8 @@ public class Timer : MonoBehaviour
     {
         int nonNullCount = UnitManager.Instance.currentStatus.Values.Count(value => value != null);
         int visitedTileCount = UnitManager.Instance.isVisited.Count;
-        if (nonNullCount == 1 || visitedTileCount == 19)   //If only one unit is left OR all 19 tiles are visited, the player wins and the level clear message is shown
+        int totalTileCount = UnitManager.Instance.currentStatus.Count;
+        if (nonNullCount == 1 || visitedTileCount == totalTileCount)   //If only one unit is left OR all 19 tiles are visited, the player wins and the level clear message is shown
         {
             timeIsRunning = false;
 
