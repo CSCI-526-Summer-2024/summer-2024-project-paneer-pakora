@@ -6,6 +6,7 @@ public class SessionData
 {
     public string result;
     public float timeTaken;
+    public int retries; // New field to store the number of retries
     public List<Dictionary<string, object>> movements;
 }
 
@@ -21,8 +22,11 @@ public class FirebaseHandler : MonoBehaviour
         {
             result = result,
             timeTaken = timeTaken,
+            retries = GameManager.retryCount, // Add retry count to the session data
             //movements = movements.ConvertAll(movement => movement.ToDictionary())
         };
+
+        Debug.Log("Sending retries: " + data.retries); // Add this line
 
         RestClient.Post(databaseURL + "/Levels/" + MenuManager.currentLevel + ".json", data).Then(response => {
             Debug.Log("Message sent successfully");

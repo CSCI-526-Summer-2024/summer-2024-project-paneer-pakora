@@ -10,7 +10,6 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake()
     {
-        //pauseMenu.SetActive(false);
         gameIsPaused = false;
         Time.timeScale = 1.0f;
     }
@@ -19,18 +18,14 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            Debug.Log("Tab pressed!");
-            Debug.Log(gameIsPaused);
             if (gameIsPaused)
             {
                 Resume();
             }
             else
             {
-                Debug.Log("game is Paused = true!");
                 Pause();
             }
-
         }
     }
 
@@ -58,14 +53,14 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1.0f;
         gameIsPaused = false;
         SceneManager.LoadScene("MainMenu");
-
     }
 
     public void Restart()
     {
+        GameManager.retryCount++; // Increment retry count each time the game is reset
+        Debug.Log("Retry Count: " + GameManager.retryCount); // Debug log to check the count
         Time.timeScale = 1.0f;
         gameIsPaused = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
     }
 }
