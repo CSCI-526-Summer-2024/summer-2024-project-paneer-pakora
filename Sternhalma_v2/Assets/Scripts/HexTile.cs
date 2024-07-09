@@ -251,6 +251,9 @@ public class HexTile : MonoBehaviour
                         // update # pieces removed 
                         UnitManager.Instance.piecesRemoved++;
                         UnitManager.Instance.piecesRemovedMeter.SetProgress(UnitManager.Instance.piecesRemoved);
+
+                        UnitManager.Instance.currentScissorCount -= 1;
+                        UnitManager.Instance.scissorsLeft.text = UnitManager.Instance.currentScissorCount.ToString();
                     }
 
                     else
@@ -288,6 +291,9 @@ public class HexTile : MonoBehaviour
                         // update # pieces removed 
                         UnitManager.Instance.piecesRemoved++;
                         UnitManager.Instance.piecesRemovedMeter.SetProgress(UnitManager.Instance.piecesRemoved);
+
+                        UnitManager.Instance.currentRockCount -= 1;
+                        UnitManager.Instance.rocksLeft.text = UnitManager.Instance.currentRockCount.ToString();
                     }
 
                     else
@@ -325,6 +331,9 @@ public class HexTile : MonoBehaviour
                         // update # pieces removed 
                         UnitManager.Instance.piecesRemoved++;
                         UnitManager.Instance.piecesRemovedMeter.SetProgress(UnitManager.Instance.piecesRemoved);
+
+                        UnitManager.Instance.currentPaperCount -= 1;
+                        UnitManager.Instance.papersLeft.text = UnitManager.Instance.currentPaperCount.ToString();
                     }
 
                     else

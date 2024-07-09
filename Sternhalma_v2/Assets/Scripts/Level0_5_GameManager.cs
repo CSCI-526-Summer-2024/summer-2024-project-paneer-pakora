@@ -1,7 +1,3 @@
-
-
-
-
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -268,6 +264,7 @@ public class Level0_5_GameManager : MonoBehaviour
 
         List<Vector3> scissorList = new List<Vector3> { new Vector3(-1.5f, -1.5f), new Vector3(3.0f, 0.0f) };
         var scissorCount = scissorList.Count;
+        UnitManager.Instance.currentScissorCount = scissorCount;
 
         for (int i = 0; i < scissorCount; i++)
         {
@@ -289,6 +286,7 @@ public class Level0_5_GameManager : MonoBehaviour
 
         List<Vector3> rockList = new List<Vector3> { new Vector3(0.0f,0.0f), new Vector3(1.5f, 1.5f) , new Vector3(1.5f, -0.5f) };
         var rockCount = rockList.Count;
+        UnitManager.Instance.currentRockCount = rockCount;
 
         for (int i = 0; i < rockCount; i++)
         {
@@ -308,6 +306,7 @@ public class Level0_5_GameManager : MonoBehaviour
         //List<Vector3> paperList = new List<Vector3> { new Vector3(-3.0f, 0f), new Vector3(-1.5f, 1.5f), new Vector3(1.5f, 1.5f), new Vector3(1.5f, -1.5f), new Vector3(3.0f, -1.0f) };
         List<Vector3> paperList = new List<Vector3> { new Vector3(-1.5f, 1.5f), new Vector3(0.0f, -1.0f), new Vector3(1.5f, -1.5f) };
         var paperCount = paperList.Count;
+        UnitManager.Instance.currentPaperCount = paperCount;
 
         for (int i = 0; i < paperCount; i++)
         {
@@ -335,6 +334,10 @@ public class Level0_5_GameManager : MonoBehaviour
         UnitManager.Instance.piecesRemoved = 0;                                      // start with all pieces on board; none removed
         UnitManager.Instance.piecesRemovedMeter.SetMaxProgress(UnitManager.Instance.pieceCount - 1);      // win condition requires 1 piece remaining
         UnitManager.Instance.piecesRemovedMeter.SetProgress(UnitManager.Instance.piecesRemoved);
+
+        UnitManager.Instance.rocksLeft.text = UnitManager.Instance.currentRockCount.ToString();
+        UnitManager.Instance.papersLeft.text = UnitManager.Instance.currentPaperCount.ToString();
+        UnitManager.Instance.scissorsLeft.text = UnitManager.Instance.currentScissorCount.ToString();
 
         // Change the game state to PlayerTurn after spawning objects
         Level0_5_GameManager.Instance.ChangeState(GameState.PlayerTurn);
