@@ -91,8 +91,6 @@ public class HexTile : MonoBehaviour
         {
             return;
         }
-<<<<<<< Updated upstream
-=======
         if (GridManager.selectedLevel == 4 && Level0_GameManager.Instance.GameState != GameState.PlayerTurn)
         {
             return;
@@ -103,7 +101,6 @@ public class HexTile : MonoBehaviour
             return;
         }
 
->>>>>>> Stashed changes
         HexTile selectedTile = UnitManager.Instance.selectedTile;
 
         if (UnitManager.Instance.currentStatus[this.posEasy] == null && selectedTile == null)

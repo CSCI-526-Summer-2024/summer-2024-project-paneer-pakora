@@ -69,8 +69,6 @@ public class Timer : MonoBehaviour
                     Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
 
-<<<<<<< Updated upstream
-=======
                 else if (GridManager.selectedLevel == 4) // Level 0 (Technically level 1)
                 {
                     Level0_GameManager.Instance.ChangeState(GameState.LoseState);
@@ -81,7 +79,6 @@ public class Timer : MonoBehaviour
                     Level0_5_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
 
->>>>>>> Stashed changes
                 //DisplayEndGameText("You Lose!");
                 DisplayLevelFailPanel();
             }
@@ -127,8 +124,6 @@ public class Timer : MonoBehaviour
             {
                 Tut3_GameManager.Instance.ChangeState(GameState.WinState);
             }
-<<<<<<< Updated upstream
-=======
 
             else if (GridManager.selectedLevel == 4) // Level 0 (Technically level 1)
             {
@@ -139,7 +134,6 @@ public class Timer : MonoBehaviour
                 Level0_5_GameManager.Instance.ChangeState(GameState.WinState);
             }
 
->>>>>>> Stashed changes
             //DisplayEndGameText("You Win!");
             DisplayLevelClearPanel();
             return;
@@ -177,8 +171,6 @@ public class Timer : MonoBehaviour
                 {
                     Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
-<<<<<<< Updated upstream
-=======
 
                 else if (GridManager.selectedLevel == 4) // Level 0 (Technically level 1)
                 {
@@ -190,7 +182,6 @@ public class Timer : MonoBehaviour
                     Level0_5_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
 
->>>>>>> Stashed changes
                 //DisplayEndGameText("You Lose!");
                 DisplayLevelFailPanel();
                 return;
@@ -217,8 +208,6 @@ public class Timer : MonoBehaviour
                 {
                     Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
-<<<<<<< Updated upstream
-=======
 
                 else if (GridManager.selectedLevel == 4) // Level 0 (Technically level 1)
                 {
@@ -230,7 +219,6 @@ public class Timer : MonoBehaviour
                     Level0_5_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
 
->>>>>>> Stashed changes
                 //DisplayEndGameText("You Lose!");
                 DisplayLevelFailPanel();
                 return;
@@ -263,8 +251,6 @@ public class Timer : MonoBehaviour
                     {
                         Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
                     }
-<<<<<<< Updated upstream
-=======
 
                     else if (GridManager.selectedLevel == 4) // Level 0 (Technically level 1)
                     {
@@ -276,7 +262,6 @@ public class Timer : MonoBehaviour
                         Level0_5_GameManager.Instance.ChangeState(GameState.LoseState);
                     }
 
->>>>>>> Stashed changes
                     //DisplayEndGameText("You Lose!");
                     DisplayLevelFailPanel();
                     return;
@@ -440,8 +425,6 @@ public class Timer : MonoBehaviour
 
             }
 
-<<<<<<< Updated upstream
-=======
             else if (GridManager.selectedLevel == 4)
             {
                 Level0_GameManager.Instance.ChangeState(GameState.LoseState);
@@ -454,7 +437,6 @@ public class Timer : MonoBehaviour
 
             }
 
->>>>>>> Stashed changes
             return true;
         }
 
@@ -481,8 +463,6 @@ public class Timer : MonoBehaviour
 
             }
 
-<<<<<<< Updated upstream
-=======
             else if (GridManager.selectedLevel == 4)
             {
                 Level0_GameManager.Instance.ChangeState(GameState.LoseState);
@@ -494,7 +474,6 @@ public class Timer : MonoBehaviour
 
             }
 
->>>>>>> Stashed changes
             return true;
         }
 
@@ -520,8 +499,7 @@ public class Timer : MonoBehaviour
                 Tut3_GameManager.Instance.ChangeState(GameState.LoseState);
 
             }
-<<<<<<< Updated upstream
-=======
+
             else if (GridManager.selectedLevel == 4)
             {
                 Level0_GameManager.Instance.ChangeState(GameState.LoseState);
@@ -533,7 +511,7 @@ public class Timer : MonoBehaviour
                 Level0_5_GameManager.Instance.ChangeState(GameState.LoseState);
 
             }
->>>>>>> Stashed changes
+
             return true;
         }
         else
@@ -613,8 +591,6 @@ public class Timer : MonoBehaviour
                                                         };
         }
 
-<<<<<<< Updated upstream
-=======
         else if (GridManager.selectedLevel == 4)
         {
             perimeterPos = new List<Vector3> {           new Vector3(-3.0f,0.0f),
@@ -648,10 +624,6 @@ public class Timer : MonoBehaviour
                                                         };
         }
 
-
-
-
->>>>>>> Stashed changes
         //Iterate over perimeter tiles
 
 
