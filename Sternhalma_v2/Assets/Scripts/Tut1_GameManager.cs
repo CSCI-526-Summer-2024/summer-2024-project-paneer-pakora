@@ -4,7 +4,10 @@ using Unity.Services.Analytics;
 
 public class Tut1_GameManager : MonoBehaviour
 {
+    public static int retryCount = 0;
+    public static string userId = "user_unique_id";
     public static Tut1_GameManager Instance;
+
     public GameState GameState;
     FirebaseHandler firebaseHandler;
     Timer timer;
@@ -19,6 +22,7 @@ public class Tut1_GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        firebaseHandler = FindObjectOfType<FirebaseHandler>();
     }
 
     private void Start()
@@ -34,6 +38,8 @@ public class Tut1_GameManager : MonoBehaviour
 
     public void ChangeState(GameState newState)
     {
+        Debug.Log($"Changing state from {GameState} to {newState}");
+
         GameState = newState;
         switch (newState)
         {
