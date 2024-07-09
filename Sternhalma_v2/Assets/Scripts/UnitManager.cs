@@ -18,6 +18,8 @@ public class UnitManager : MonoBehaviour
     public int pieceCount, piecesRemoved;
     public ProgressMeter tileCoverageMeter;
     public ProgressMeter piecesRemovedMeter;
+     private static List<Dictionary<string, object>> movements = new List<Dictionary<string, object>>();
+
 
     private void Awake()
     {
@@ -262,6 +264,31 @@ public class UnitManager : MonoBehaviour
         // Change the game state to PlayerTurn after spawning objects
         GameManager.Instance.ChangeState(GameState.PlayerTurn);
     }
+    public void LogMovement(string action, Vector3 from, Vector3 to)
+    {
+        var movementData = new Dictionary<string, object>
+        {
+            { "action", action },
+            { "from", new Dictionary<string, float> { { "x", from.x }, { "y", from.y }, { "z", from.z } } },
+            { "to", new Dictionary<string, float> { { "x", to.x }, { "y", to.y }, { "z", to.z } } },
+            { "timestamp", Time.time }
+        };
+        movements.Add(movementData);
+        Debug.Log( $"movementData {from} {to}");
+        Debug.Log($"Logged movement: {action} from {from} to {to} at {Time.time}");
+        Debug.Log(movements);
+    }
+    private Dictionary<string, float> Vector3ToDictionary(Vector3 vector)
+    {
+        return new Dictionary<string, float>
+        {
+            { "x", vector.x },
+            { "y", vector.y },
+            { "z", vector.z }
+        };
+    }
+
+
 
     public void SetSelectedTile(HexTile tile)
     {
@@ -280,10 +307,24 @@ public class UnitManager : MonoBehaviour
         {
             isVisited.Add(newTile);
         }
+        LogMovement("move", rem1Pos, addPos);
     }
 
     public void UpdateCurrentStatusRotation(Vector3 pos, BaseUnit unit)
     {
         currentStatus[pos] = unit;
+        LogMovement("rotate", pos, pos);
     }
+    public List<Dictionary<string, object>> GetMovements()
+    {
+        Debug.Log("Returning movements list with count: " + movements.Count);
+        foreach (var movement in movements)
+        {
+            Debug.Log("Movement: " + JsonUtility.ToJson(movement));
+        }
+        return movements;
+    }
+
+
+
 }
