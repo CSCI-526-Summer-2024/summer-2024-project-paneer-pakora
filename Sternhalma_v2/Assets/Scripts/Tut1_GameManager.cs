@@ -59,6 +59,7 @@ public class Tut1_GameManager : MonoBehaviour
     private void HandleWinState()
     {
         UnityEngine.Debug.Log("Player Wins!");
+        Debug.Log("timeTaken " + timer.initialTime + " " + timer.timeRemaining);
         float timeTaken = timer.initialTime - timer.timeRemaining;
         firebaseHandler.UpdateSessionStatus("Win", timeTaken);
     }

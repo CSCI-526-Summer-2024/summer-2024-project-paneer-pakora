@@ -174,7 +174,7 @@ public class Timer : MonoBehaviour
 
                 //DisplayEndGameText("You Lose!");
                 //DisplayLevelFailPanel();
-                HandleLoseCondition();
+                HandleLoseConditions();
                 return;
             }
 
@@ -212,7 +212,7 @@ public class Timer : MonoBehaviour
 
                 //DisplayEndGameText("You Lose!");
                 //DisplayLevelFailPanel();
-                HandleLoseCondition();
+                HandleLoseConditions();
                 return;
             }
 
@@ -256,7 +256,7 @@ public class Timer : MonoBehaviour
 
                     //DisplayEndGameText("You Lose!");
                     //DisplayLevelFailPanel();
-                    HandleLoseCondition();
+                    HandleLoseConditions();
                     return;
                 }
             }
