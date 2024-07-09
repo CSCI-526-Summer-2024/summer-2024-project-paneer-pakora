@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public GameState GameState;
+    FirebaseHandler firebaseHandler;
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        firebaseHandler = FindObjectOfType<FirebaseHandler>();
 
         //DontDestroyOnLoad(gameObject);
 

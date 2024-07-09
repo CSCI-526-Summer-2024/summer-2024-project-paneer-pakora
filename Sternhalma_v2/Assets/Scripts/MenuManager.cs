@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
+    public static string currentLevel = "MainMenu";
+   
 
 
     //public static GameManager Instance;
@@ -21,12 +23,16 @@ public class MenuManager : MonoBehaviour
 
     public void NextLevel()
     {
+        currentLevel =  SceneManager.GetSceneByBuildIndex( SceneManager.GetActiveScene().buildIndex + 1).name;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        
     }
 
     public void MainMenu()
     {
+        currentLevel = "MainMenu";
         SceneManager.LoadScene("MainMenu");
+        UnityEngine.Debug.Log("Current Level: " + currentLevel);
 
     }
 
@@ -34,6 +40,8 @@ public class MenuManager : MonoBehaviour
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         //SceneManager.LoadScene("Tutorial1");
+        currentLevel = "Tutorial1";
+        UnityEngine.Debug.Log("Tutorial 1: " + currentLevel);
         SceneManager.LoadScene("Tutorial1");
         //GameManager.Instance.ChangeState(GameState.GenerateGrid);
     }
@@ -41,6 +49,9 @@ public class MenuManager : MonoBehaviour
     public void Tutorial2()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        currentLevel = "Tutorial2";
+        UnityEngine.Debug.Log("Tutorial 2 Method Called");
+        UnityEngine.Debug.Log("Tutorial 2: " + currentLevel);
         SceneManager.LoadScene("Tutorial2");
         //GameManager.Instance.ChangeState(GameState.GenerateGrid);
     }
@@ -48,6 +59,7 @@ public class MenuManager : MonoBehaviour
     public void Tutorial3()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        currentLevel = "Tutorial3";
         SceneManager.LoadScene("Tutorial3");
         //GameManager.Instance.ChangeState(GameState.GenerateGrid);
     }
@@ -55,6 +67,7 @@ public class MenuManager : MonoBehaviour
     public void Level1()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        currentLevel = "Level1";
         SceneManager.LoadScene("Level0");
         //GameManager.Instance.ChangeState(GameState.GenerateGrid);
     }
@@ -62,6 +75,7 @@ public class MenuManager : MonoBehaviour
     public void Level2()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        currentLevel = "Level2";
         SceneManager.LoadScene("Level0_5");
         //GameManager.Instance.ChangeState(GameState.GenerateGrid);
     }
@@ -69,7 +83,9 @@ public class MenuManager : MonoBehaviour
     public void Level3()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        currentLevel = "Level3";
         SceneManager.LoadScene("Level1");
+    
         //GameManager.Instance.ChangeState(GameState.GenerateGrid);
     }
 
