@@ -69,8 +69,8 @@ public class Timer : MonoBehaviour
                 }
 
                 //DisplayEndGameText("You Lose!");
-                DisplayLevelFailPanel();
-                HandleLoseState();
+                //DisplayLevelFailPanel();
+                HandleLoseConditions();
             }
 
             CheckGameStatus();  //This is called to see if the game should end early based on other conditions
@@ -340,16 +340,16 @@ public class Timer : MonoBehaviour
 
     private void HandleLoseConditions()
     {
-        Dictionary<Vector3, BaseUnit> dict = UnitManager.Instance.currentStatus;
-        bool onlyLoneIsland = CheckIsOnlyLoneIsland(dict);
-        bool onlyPerimeter = CheckIsOnlyPerimeter(dict);  //no valid moves on the perimeter
-        bool onlyOnePieceType = CheckIsOnlyOnePiece(dict);
+        //Dictionary<Vector3, BaseUnit> dict = UnitManager.Instance.currentStatus;
+        //bool onlyLoneIsland = CheckIsOnlyLoneIsland(dict);
+        //bool onlyPerimeter = CheckIsOnlyPerimeter(dict);  //no valid moves on the perimeter
+        //bool onlyOnePieceType = CheckIsOnlyOnePiece(dict);
 
-        if (onlyOnePieceType || onlyLoneIsland || (!onlyPerimeter && !CheckValidMoveOnPerimeter(dict)))
-        {
+        //if (onlyOnePieceType || onlyLoneIsland || (!onlyPerimeter && !CheckValidMoveOnPerimeter(dict)))
+        //{
             timeIsRunning = false;
             HandleLoseState();
-        }
+        //}
     }
 
     public void DisplayLevelClearPanel()
