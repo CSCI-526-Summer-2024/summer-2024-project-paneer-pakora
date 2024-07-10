@@ -5,8 +5,13 @@ using Unity.Services.Analytics;
 
 public class Level0_5_GameManager : MonoBehaviour
 {
+    public static int retryCount = 0;
+    public static string userId = "user_unique_id";
     public static Level0_5_GameManager Instance;
+
     public GameState GameState;
+    FirebaseHandler firebaseHandler;
+    Timer timer;
 
     private void Awake()
     {
@@ -19,6 +24,7 @@ public class Level0_5_GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        firebaseHandler = FindObjectOfType<FirebaseHandler>();
         //DontDestroyOnLoad(gameObject);
 
     }
@@ -29,6 +35,11 @@ public class Level0_5_GameManager : MonoBehaviour
         ChangeState(GameState.GenerateGrid);
         //ChangeState(GameState.MainMenu);
         //ChangeState(GameState.Tutorial2);
+        firebaseHandler = FindObjectOfType<FirebaseHandler>();
+        timer = FindObjectOfType<Timer>();
+        UnityEngine.Debug.Log("FirebaseHandler found: " + (firebaseHandler != null));
+        UnityEngine.Debug.Log("Timer found: " + (timer != null));
+        UnityEngine.Debug.Log("Current Level at Start: " + MenuManager.currentLevel);
 
     }
 
@@ -62,15 +73,47 @@ public class Level0_5_GameManager : MonoBehaviour
             case GameState.PlayerTurn:
                 break;
             case GameState.WinState:
+                HandleWinState();
                 Debug.Log("Player Wins!");
                 //SendAnalyticsEvent("win");
                 break;
             case GameState.LoseState:
+                HandleLoseState();
                 Debug.Log("Player Loses!");
                 //SendAnalyticsEvent("lose");
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+        }
+    }
+
+
+
+    private void HandleWinState()
+    {
+        UnityEngine.Debug.Log("Player Wins!");
+        Debug.Log("timeTaken " + timer.initialTime + " " + timer.timeRemaining);
+        float timeTaken = timer.initialTime - timer.timeRemaining;
+        firebaseHandler.UpdateSessionStatus("Win", timeTaken);
+    }
+
+    private void HandleLoseState()
+    {
+        UnityEngine.Debug.Log("Player Loses!");
+        float timeTaken = timer.initialTime - timer.timeRemaining;
+        firebaseHandler.UpdateSessionStatus("Lose", timeTaken);
+    }
+
+    private void LogTime(string result)
+    {
+        if (timer != null)
+        {
+            float timeTaken = timer.initialTime - timer.timeRemaining;
+            UnityEngine.Debug.Log("Level: " + MenuManager.currentLevel + " Result: " + result + " Time Taken: " + timeTaken + " seconds");
+        }
+        else
+        {
+            UnityEngine.Debug.Log("Timer not found!");
         }
     }
 
