@@ -77,7 +77,7 @@ public class Timer : MonoBehaviour
         }
     }
 
-    void DisplayTime(float timeToDisplay)
+    public void DisplayTime(float timeToDisplay)
     {
         //Formatting time for display
         timeToDisplay = Mathf.Max(timeToDisplay, 0);
@@ -345,11 +345,11 @@ public class Timer : MonoBehaviour
         bool onlyPerimeter = CheckIsOnlyPerimeter(dict);  //no valid moves on the perimeter
         bool onlyOnePieceType = CheckIsOnlyOnePiece(dict);
 
-        if (onlyOnePieceType || onlyLoneIsland || (!onlyPerimeter && !CheckValidMoveOnPerimeter(dict)))
-        {
+        //if (onlyOnePieceType || onlyLoneIsland || (!onlyPerimeter && !CheckValidMoveOnPerimeter(dict)))
+        //{
             timeIsRunning = false;
             HandleLoseState();
-        }
+        //}
     }
 
     public void DisplayLevelClearPanel()

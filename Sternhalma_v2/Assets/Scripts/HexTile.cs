@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class HexTile : MonoBehaviour
 {
@@ -19,6 +20,12 @@ public class HexTile : MonoBehaviour
     {
         _renderer = GetComponent<SpriteRenderer>();
         _renderer.color = new Color32(172, 250, 211, 200);
+    }
+
+    public void SetColorToWhite()
+    {
+        _renderer = GetComponent<SpriteRenderer>();
+        _renderer.color = new Color32(255, 255, 255, 255);
     }
 
     private void OnMouseEnter()
@@ -235,6 +242,13 @@ public class HexTile : MonoBehaviour
                     if (UnitManager.Instance.currentStatus[midPos] != null && UnitManager.Instance.currentStatus[midPos].Faction == Faction.Scissor)
                     {
                         Debug.Log("7");
+
+                        //Tuple<String, Vector3, Vector3, Vector3> tuple = new Tuple<String, Vector3, Vector3, Vector3>("rock", selectedPos, midPos, currentPos);
+                        Dictionary<Vector3, String> tempDict = GetTempDict(UnitManager.Instance.currentStatus);
+                        UnitManager.Instance.pastStates.Push(tempDict);
+                        UnitManager.Instance.lastTurnedGreen.Push(currentPos);
+                        UnitManager.Instance.movedUnit.Push("r");
+
                         RemovePotentialHighlight(selectedPos);
                         this.SetUnit(UnitManager.Instance.currentStatus[selectedPos]);
                         midTile.RemoveUnit(UnitManager.Instance.currentStatus[midPos]);
@@ -275,6 +289,14 @@ public class HexTile : MonoBehaviour
                     if (UnitManager.Instance.currentStatus[midPos] != null && UnitManager.Instance.currentStatus[midPos].Faction == Faction.Rock)
                     {
                         Debug.Log("10");
+
+                        //Tuple<String, Vector3, Vector3, Vector3> tuple = new Tuple<String, Vector3, Vector3, Vector3>("paper", selectedPos, midPos, currentPos);
+                        //UnitManager.Instance.pastStates.Push(tuple);
+                        Dictionary<Vector3, String> tempDict = GetTempDict(UnitManager.Instance.currentStatus);
+                        UnitManager.Instance.pastStates.Push(tempDict);
+                        UnitManager.Instance.lastTurnedGreen.Push(currentPos);
+                        UnitManager.Instance.movedUnit.Push("p");
+
                         RemovePotentialHighlight(selectedPos);
                         this.SetUnit(UnitManager.Instance.currentStatus[selectedPos]);
                         midTile.RemoveUnit(UnitManager.Instance.currentStatus[midPos]);
@@ -315,6 +337,17 @@ public class HexTile : MonoBehaviour
                     if (UnitManager.Instance.currentStatus[midPos] != null && UnitManager.Instance.currentStatus[midPos].Faction == Faction.Paper)
                     {
                         Debug.Log("13");
+
+                        //var scissorPrefab = UnitManager.Instance.GetUnit<Scissor>(Faction.Scissor);
+                        //BaseUnit spawnedScissor = Instantiate(scissorPrefab);
+                        //Tuple<String, Vector3, Vector3, Vector3> tuple = new Tuple<String, Vector3, Vector3, Vector3>("scissor", selectedPos, midPos, currentPos);
+                        //UnitManager.Instance.pastStates.Push(tuple);
+
+                        Dictionary<Vector3, String> tempDict = GetTempDict(UnitManager.Instance.currentStatus);
+                        UnitManager.Instance.pastStates.Push(tempDict);
+                        UnitManager.Instance.lastTurnedGreen.Push(currentPos);
+                        UnitManager.Instance.movedUnit.Push("s");
+
                         RemovePotentialHighlight(selectedPos);
                         this.SetUnit(UnitManager.Instance.currentStatus[selectedPos]);
                         midTile.RemoveUnit(UnitManager.Instance.currentStatus[midTile.posEasy]);
@@ -430,5 +463,39 @@ public class HexTile : MonoBehaviour
                 }
             }
         }
+    }
+
+    public Dictionary<Vector3, String> GetTempDict(Dictionary<Vector3, BaseUnit> currentStatus)
+    {
+        Dictionary<Vector3, String> tempDict = new Dictionary<Vector3, string>();
+
+        foreach (KeyValuePair<Vector3, BaseUnit> kvp in currentStatus)
+        {
+            if (kvp.Value != null)
+            {
+                if (kvp.Value.Faction == Faction.Rock)
+                {
+                    tempDict[kvp.Key] = "r";
+                }
+
+                else if (kvp.Value.Faction == Faction.Paper)
+                {
+                    tempDict[kvp.Key] = "p";
+                }
+
+                if (kvp.Value.Faction == Faction.Scissor)
+                {
+                    tempDict[kvp.Key] = "s";
+                }
+            }
+
+            else
+            {
+                tempDict[kvp.Key] = null;
+            }
+            
+        }
+
+        return tempDict;
     }
 }

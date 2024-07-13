@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class KeyPressHandler : MonoBehaviour
 {
@@ -11,6 +12,12 @@ public class KeyPressHandler : MonoBehaviour
         {
             OnRKeyPressed();
         }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            OnUKeyPressed();
+        }
+
     }
 
     void OnRKeyPressed()
@@ -145,5 +152,198 @@ public class KeyPressHandler : MonoBehaviour
         }
 
         return false;
+    }
+
+    void OnUKeyPressed()
+    {
+        if (UnitManager.Instance.pastStates.Count > 0)
+        {
+            //foreach (Tuple<String, Vector3, Vector3, Vector3> item in UnitManager.Instance.pastStates)
+            //{
+            //    Debug.Log(item);
+            //}
+            //Debug.Log("");
+
+            Dictionary<Vector3, String> lastMove = UnitManager.Instance.pastStates.Pop();
+            String lastMovedUnit = UnitManager.Instance.movedUnit.Pop();
+            Vector3 lastGreen = UnitManager.Instance.lastTurnedGreen.Pop();
+
+            UnitManager.Instance.SetSelectedTile(null);
+
+            foreach (KeyValuePair<Vector3, String> kvp in lastMove)
+            {
+
+                var prefab = (BaseUnit)null;
+                BaseUnit spawnedObj = null;
+
+                RemovePotentialHighlight(kvp.Key);
+
+                if (lastMove[kvp.Key] != null)
+                {
+                    if (lastMove[kvp.Key].Equals("s"))
+                    {
+                        prefab = UnitManager.Instance.GetUnit<Scissor>(Faction.Scissor);
+                        spawnedObj = Instantiate(prefab);
+
+                        //UnitManager.Instance.currentPaperCount += 1;
+                        //UnitManager.Instance.papersLeft.text = UnitManager.Instance.currentPaperCount.ToString();
+
+                    }
+
+                    else if (lastMove[kvp.Key].Equals("r"))
+                    {
+                        prefab = UnitManager.Instance.GetUnit<Rock>(Faction.Rock);
+                        spawnedObj = Instantiate(prefab);
+
+                        //UnitManager.Instance.currentScissorCount += 1;
+                        //UnitManager.Instance.scissorsLeft.text = UnitManager.Instance.currentScissorCount.ToString();
+                    }
+
+                    else
+                    {
+                        prefab = UnitManager.Instance.GetUnit<Paper>(Faction.Paper);
+                        spawnedObj = Instantiate(prefab);
+
+                        //UnitManager.Instance.currentRockCount -= 1;
+                        //UnitManager.Instance.rocksLeft.text = UnitManager.Instance.currentRockCount.ToString();
+                    }
+
+                    Vector3 translatedPos = GridManager.Instance.GetTranslatedPos(kvp.Key);
+                    HexTile tile = GridManager.Instance.GetTileAtPos(translatedPos);
+                    tile.highlightOnSelect.SetActive(false);
+
+
+                    if (UnitManager.Instance.currentStatus[kvp.Key] == null)
+                    {
+                        tile.SetUnit(spawnedObj);
+                    }
+
+                    else
+                    {
+                        tile.RemoveUnit(UnitManager.Instance.currentStatus[kvp.Key]);
+                        tile.SetUnit(spawnedObj);
+                    }
+
+                    UnitManager.Instance.tileToUnit[tile] = spawnedObj;
+                    UnitManager.Instance.currentStatus[kvp.Key] = spawnedObj;
+                }
+
+                else
+                {
+                    Vector3 translatedPos = GridManager.Instance.GetTranslatedPos(kvp.Key);
+                    HexTile tile = GridManager.Instance.GetTileAtPos(translatedPos);
+
+                    if (UnitManager.Instance.currentStatus[kvp.Key] != null)
+                    {
+                        tile.RemoveUnit(UnitManager.Instance.currentStatus[kvp.Key]);
+                        UnitManager.Instance.currentStatus[kvp.Key] = null;
+                        UnitManager.Instance.tileToUnit[tile] = null;
+                    }
+                }
+            }
+
+            //if (lastMove.Item1.Equals("scissor"))
+            //{
+            //    prefab1 = UnitManager.Instance.GetUnit<Scissor>(Faction.Scissor);
+            //    spawnedObj1 = Instantiate(prefab1);
+
+            //    prefab2 = UnitManager.Instance.GetUnit<Paper>(Faction.Paper);
+            //    spawnedObj2 = Instantiate(prefab2);
+
+            //    UnitManager.Instance.currentPaperCount += 1;
+            //    UnitManager.Instance.papersLeft.text = UnitManager.Instance.currentPaperCount.ToString();
+
+            //}
+
+            //else if(lastMove.Item1.Equals("rock"))
+            //{
+            //    prefab1 = UnitManager.Instance.GetUnit<Rock>(Faction.Rock);
+            //    spawnedObj1 = Instantiate(prefab1);
+
+            //    prefab2 = UnitManager.Instance.GetUnit<Scissor>(Faction.Scissor);
+            //    spawnedObj2 = Instantiate(prefab2);
+
+            //    UnitManager.Instance.currentScissorCount += 1;
+            //    UnitManager.Instance.scissorsLeft.text = UnitManager.Instance.currentScissorCount.ToString();
+            //}
+
+            //else
+            //{
+            //    prefab1 = UnitManager.Instance.GetUnit<Paper>(Faction.Paper);
+            //    spawnedObj1 = Instantiate(prefab1);
+
+            //    prefab2 = UnitManager.Instance.GetUnit<Rock>(Faction.Rock);
+            //    spawnedObj2 = Instantiate(prefab2);
+
+            //    UnitManager.Instance.currentRockCount -= 1;
+            //    UnitManager.Instance.rocksLeft.text = UnitManager.Instance.currentRockCount.ToString();
+            //}
+
+
+
+            //Vector3 translatedPos1 = GridManager.Instance.GetTranslatedPos(lastMove.Item2);
+            //Vector3 translatedPos2 = GridManager.Instance.GetTranslatedPos(lastMove.Item3);
+            //Vector3 translatedPos3 = GridManager.Instance.GetTranslatedPos(lastMove.Item4);
+
+            //HexTile tile1 = GridManager.Instance.GetTileAtPos(translatedPos1);
+            //HexTile tile2 = GridManager.Instance.GetTileAtPos(translatedPos2);
+            //HexTile tile3 = GridManager.Instance.GetTileAtPos(translatedPos3);
+
+            //tile1.SetUnit(spawnedObj1);
+            //tile2.SetUnit(spawnedObj2);
+            //tile3.RemoveUnit(UnitManager.Instance.currentStatus[lastMove.Item4]);
+
+            //UnitManager.Instance.tileToUnit[tile1] = spawnedObj1;
+            //UnitManager.Instance.currentStatus[lastMove.Item2] = spawnedObj1;
+
+            //UnitManager.Instance.tileToUnit[tile2] = spawnedObj2;
+            //UnitManager.Instance.currentStatus[lastMove.Item3] = spawnedObj2;
+
+            //tile3.SetColorToWhite();
+            //UnitManager.Instance.isVisited.Remove(tile3);
+
+            if (lastMovedUnit.Equals("r"))
+            {
+                UnitManager.Instance.currentScissorCount += 1;
+                UnitManager.Instance.scissorsLeft.text = UnitManager.Instance.currentScissorCount.ToString();
+            }
+
+            else if(lastMovedUnit.Equals("p"))
+            {
+                UnitManager.Instance.currentRockCount += 1;
+                UnitManager.Instance.rocksLeft.text = UnitManager.Instance.currentRockCount.ToString();
+            }
+
+            else
+            {
+                UnitManager.Instance.currentPaperCount += 1;
+                UnitManager.Instance.papersLeft.text = UnitManager.Instance.currentPaperCount.ToString();
+            }
+
+            Vector3 lastGreenTranslatedPos = GridManager.Instance.GetTranslatedPos(lastGreen);
+            HexTile lastGreenTile = GridManager.Instance.GetTileAtPos(lastGreenTranslatedPos);
+            lastGreenTile.SetColorToWhite();
+
+            UnitManager.Instance.isVisited.Remove(lastGreenTile);
+            UnitManager.Instance.tileCoverageMeter.SetProgress(UnitManager.Instance.isVisited.Count);
+
+            UnitManager.Instance.piecesRemoved--;
+            UnitManager.Instance.piecesRemovedMeter.SetProgress(UnitManager.Instance.piecesRemoved);
+
+            Timer timer = FindObjectOfType<Timer>();
+            timer.timeRemaining -= 30.0f;
+
+            if (timer.timeRemaining <= 0.0f)
+            {
+                timer.DisplayTime(timer.timeRemaining);
+            }
+
+        }
+
+        else
+        {
+            Debug.Log("Cannot Undo - Undo Limit Reached");
+        }
+
     }
 }
