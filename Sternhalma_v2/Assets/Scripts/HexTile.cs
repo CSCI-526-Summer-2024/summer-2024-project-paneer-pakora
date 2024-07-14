@@ -28,6 +28,15 @@ public class HexTile : MonoBehaviour
         _renderer.color = new Color32(255, 255, 255, 255);
     }
 
+    public String GetColor()
+    {
+        if (_renderer.color == new Color32(172, 250, 211, 200))
+        {
+            return "green";
+        }
+        return "white";
+    }
+
     private void OnMouseEnter()
     {
         _highlight.SetActive(true);
@@ -246,8 +255,9 @@ public class HexTile : MonoBehaviour
                         //Tuple<String, Vector3, Vector3, Vector3> tuple = new Tuple<String, Vector3, Vector3, Vector3>("rock", selectedPos, midPos, currentPos);
                         Dictionary<Vector3, String> tempDict = GetTempDict(UnitManager.Instance.currentStatus);
                         UnitManager.Instance.pastStates.Push(tempDict);
-                        UnitManager.Instance.lastTurnedGreen.Push(currentPos);
+                        UnitManager.Instance.lastTurnedGreen.Push(GetPastColorDict(UnitManager.Instance.currentStatus));
                         UnitManager.Instance.movedUnit.Push("r");
+                        UnitManager.Instance.lastGreenPos.Push(currentPos);
 
                         RemovePotentialHighlight(selectedPos);
                         this.SetUnit(UnitManager.Instance.currentStatus[selectedPos]);
@@ -294,8 +304,9 @@ public class HexTile : MonoBehaviour
                         //UnitManager.Instance.pastStates.Push(tuple);
                         Dictionary<Vector3, String> tempDict = GetTempDict(UnitManager.Instance.currentStatus);
                         UnitManager.Instance.pastStates.Push(tempDict);
-                        UnitManager.Instance.lastTurnedGreen.Push(currentPos);
+                        UnitManager.Instance.lastTurnedGreen.Push(GetPastColorDict(UnitManager.Instance.currentStatus));
                         UnitManager.Instance.movedUnit.Push("p");
+                        UnitManager.Instance.lastGreenPos.Push(currentPos);
 
                         RemovePotentialHighlight(selectedPos);
                         this.SetUnit(UnitManager.Instance.currentStatus[selectedPos]);
@@ -345,8 +356,9 @@ public class HexTile : MonoBehaviour
 
                         Dictionary<Vector3, String> tempDict = GetTempDict(UnitManager.Instance.currentStatus);
                         UnitManager.Instance.pastStates.Push(tempDict);
-                        UnitManager.Instance.lastTurnedGreen.Push(currentPos);
+                        UnitManager.Instance.lastTurnedGreen.Push(GetPastColorDict(UnitManager.Instance.currentStatus));
                         UnitManager.Instance.movedUnit.Push("s");
+                        UnitManager.Instance.lastGreenPos.Push(currentPos);
 
                         RemovePotentialHighlight(selectedPos);
                         this.SetUnit(UnitManager.Instance.currentStatus[selectedPos]);
@@ -497,5 +509,20 @@ public class HexTile : MonoBehaviour
         }
 
         return tempDict;
+    }
+
+    public Dictionary<Vector3, String> GetPastColorDict(Dictionary<Vector3, BaseUnit> currentStatus)
+    {
+        Dictionary<Vector3, String> pastColorDict = new Dictionary<Vector3, string>();
+
+        foreach (KeyValuePair<Vector3, BaseUnit> kvp in currentStatus)
+        {
+            Vector3 translatedPos = GridManager.Instance.GetTranslatedPos(kvp.Key);
+            HexTile tile = GridManager.Instance.GetTileAtPos(translatedPos);
+
+            pastColorDict[kvp.Key] = tile.GetColor();
+        }
+
+        return pastColorDict;
     }
 }

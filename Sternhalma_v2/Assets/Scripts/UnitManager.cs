@@ -31,7 +31,8 @@ public class UnitManager : MonoBehaviour
 
     public Stack<Dictionary<Vector3, String>> pastStates = new Stack<Dictionary<Vector3, String>>();
     public Stack<String> movedUnit = new Stack<String>();
-    public Stack<Vector3> lastTurnedGreen = new Stack<Vector3>();
+    public Stack<Dictionary<Vector3, String>> lastTurnedGreen = new Stack<Dictionary<Vector3, String>>();
+    public Stack<Vector3> lastGreenPos = new Stack<Vector3>();
 
     private void Awake()
     {

@@ -166,7 +166,8 @@ public class KeyPressHandler : MonoBehaviour
 
             Dictionary<Vector3, String> lastMove = UnitManager.Instance.pastStates.Pop();
             String lastMovedUnit = UnitManager.Instance.movedUnit.Pop();
-            Vector3 lastGreen = UnitManager.Instance.lastTurnedGreen.Pop();
+            Dictionary<Vector3, String> lastGreen = UnitManager.Instance.lastTurnedGreen.Pop();
+            Vector3 lastPos = UnitManager.Instance.lastGreenPos.Pop();
 
             UnitManager.Instance.SetSelectedTile(null);
 
@@ -216,12 +217,32 @@ public class KeyPressHandler : MonoBehaviour
                     if (UnitManager.Instance.currentStatus[kvp.Key] == null)
                     {
                         tile.SetUnit(spawnedObj);
+                        if (lastGreen[kvp.Key].Equals("green"))
+                        {
+                            Debug.Log("Vector: "+ kvp.Key + " HERERERERRERER");
+                            tile.SetColorToGreen();
+                        }
+
+                        else
+                        {
+                            tile.SetColorToWhite();
+                        }
+                        
                     }
 
                     else
                     {
                         tile.RemoveUnit(UnitManager.Instance.currentStatus[kvp.Key]);
                         tile.SetUnit(spawnedObj);
+
+                        if (lastGreen[kvp.Key].Equals("green"))
+                        {
+                            tile.SetColorToGreen();
+                        }
+                        else
+                        {
+                            tile.SetColorToWhite();
+                        }
                     }
 
                     UnitManager.Instance.tileToUnit[tile] = spawnedObj;
@@ -238,6 +259,15 @@ public class KeyPressHandler : MonoBehaviour
                         tile.RemoveUnit(UnitManager.Instance.currentStatus[kvp.Key]);
                         UnitManager.Instance.currentStatus[kvp.Key] = null;
                         UnitManager.Instance.tileToUnit[tile] = null;
+
+                        if (lastGreen[kvp.Key].Equals("green"))
+                        {
+                            tile.SetColorToGreen();
+                        }
+                        else
+                        {
+                            tile.SetColorToWhite();
+                        }
                     }
                 }
             }
@@ -320,11 +350,16 @@ public class KeyPressHandler : MonoBehaviour
                 UnitManager.Instance.papersLeft.text = UnitManager.Instance.currentPaperCount.ToString();
             }
 
-            Vector3 lastGreenTranslatedPos = GridManager.Instance.GetTranslatedPos(lastGreen);
-            HexTile lastGreenTile = GridManager.Instance.GetTileAtPos(lastGreenTranslatedPos);
-            lastGreenTile.SetColorToWhite();
+            //Vector3 lastGreenTranslatedPos = GridManager.Instance.GetTranslatedPos(lastGreen.Item1);
+            //HexTile lastGreenTile = GridManager.Instance.GetTileAtPos(lastGreenTranslatedPos);
 
-            UnitManager.Instance.isVisited.Remove(lastGreenTile);
+            //if (lastGreen.Item2.Equals("white"))
+            //{
+            //    lastGreenTile.SetColorToWhite();
+            //}
+
+            HexTile lastPosTile = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(lastPos));
+            UnitManager.Instance.isVisited.Remove(lastPosTile);
             UnitManager.Instance.tileCoverageMeter.SetProgress(UnitManager.Instance.isVisited.Count);
 
             UnitManager.Instance.piecesRemoved--;
