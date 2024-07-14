@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
+
 
 public class GridManager : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class GridManager : MonoBehaviour
 
     public static int selectedLevel = -1;
     [SerializeField] public GameObject rotateButton;
+    [SerializeField] public GameObject undoButton;
 
 
     // Start is called before the first frame update
@@ -340,6 +343,42 @@ public class GridManager : MonoBehaviour
 
     //     GameManager.Instance.ChangeState(GameState.SpawnObjects);
     // }
+
+    public void disableUndo()
+    {
+        Image buttonOutline = undoButton.GetComponent<Image>();
+        Image undoIcon = undoButton.transform.GetChild(0).GetComponent<Image>();
+        Image hotkeyOutline = undoButton.transform.GetChild(1).GetComponent<Image>();
+
+
+        buttonOutline.color = new Color(buttonOutline.color.r, buttonOutline.color.g, buttonOutline.color.b, 0.5f);
+        undoIcon.color = new Color(undoIcon.color.r, undoIcon.color.g, undoIcon.color.b, 0.5f);
+        hotkeyOutline.color = new Color(hotkeyOutline.color.r, hotkeyOutline.color.g, hotkeyOutline.color.b, 0.5f);
+    }
+
+    public void enableUndo()
+    {
+        Timer timer = FindObjectOfType<Timer>();
+        float timeLeft = timer.timeRemaining - 30.0f;
+
+        // do a check before enabling the Undo button
+        // if the time left after making a move is insufficient for an undo, keep Undo disabled
+        if (timeLeft <= 0.0f)
+        {
+            disableUndo();
+            return;
+        }
+
+        Image buttonOutline = undoButton.GetComponent<Image>();
+        Image undoIcon = undoButton.transform.GetChild(0).GetComponent<Image>();
+        Image hotkeyOutline = undoButton.transform.GetChild(1).GetComponent<Image>();
+
+
+        buttonOutline.color = new Color(buttonOutline.color.r, buttonOutline.color.g, buttonOutline.color.b, 1f);
+        undoIcon.color = new Color(undoIcon.color.r, undoIcon.color.g, undoIcon.color.b, 1f);
+        hotkeyOutline.color = new Color(hotkeyOutline.color.r, hotkeyOutline.color.g, hotkeyOutline.color.b, 1f);
+
+    }
 
     public HexTile GetTileAtPos(Vector3 pos)
     {

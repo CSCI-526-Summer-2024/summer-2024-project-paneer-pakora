@@ -156,6 +156,8 @@ public class KeyPressHandler : MonoBehaviour
 
     void OnUKeyPressed()
     {
+        Debug.Log("pastStates.Count = " + UnitManager.Instance.pastStates.Count);
+
         if (UnitManager.Instance.pastStates.Count > 0)
         {
             //foreach (Tuple<String, Vector3, Vector3, Vector3> item in UnitManager.Instance.pastStates)
@@ -365,8 +367,16 @@ public class KeyPressHandler : MonoBehaviour
             UnitManager.Instance.piecesRemoved--;
             UnitManager.Instance.piecesRemovedMeter.SetProgress(UnitManager.Instance.piecesRemoved);
 
+            Debug.Log("pastStates.Count before disable = " + UnitManager.Instance.pastStates.Count);
+            if (UnitManager.Instance.pastStates.Count == 0)
+            {
+                Debug.Log("pastStates = 0; undo disabled");
+                GridManager.Instance.disableUndo();
+            }
+
             Timer timer = FindObjectOfType<Timer>();
             timer.timeRemaining -= 30.0f;
+            timer.DisplayTimeReduction();
 
             if (timer.timeRemaining <= 0.0f)
             {

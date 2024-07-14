@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using System;
 
 public class Timer : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class Timer : MonoBehaviour
     public TMP_Text gameEndText;  //flashes game has ended 
     public GameObject levelClearMenu;
     public GameObject levelFailMenu;
+
+    public GameObject timeReductionLocation; // a blank game object used to anchor the location of the prefab
+    public GameObject minusTimePrefab;
+
     private FirebaseHandler firebaseHandler;
 
     void Start()
@@ -84,6 +89,12 @@ public class Timer : MonoBehaviour
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);  //textTime UI element updated for display
+    }
+
+    public void DisplayTimeReduction()
+    {
+        Debug.Log(timeReductionLocation.transform);
+        Instantiate(minusTimePrefab, timeReductionLocation.transform);
     }
 
     void CheckGameStatus()
