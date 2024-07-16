@@ -87,6 +87,10 @@ public class HexTile : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (PauseMenu.gameIsPaused)
+        {
+            return;
+        }
 
         //Check the current Game State
 

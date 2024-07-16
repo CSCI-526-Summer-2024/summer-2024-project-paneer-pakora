@@ -26,6 +26,11 @@ public class OnUndoClick : MonoBehaviour
 
     void OnUKeyPressed()
     {
+         if (UnitManager.Instance.isGameEnded)
+        {
+            Debug.Log("Cannot Undo - Game has ended");
+            return;
+        }
         Debug.Log("pastStates.Count = " + UnitManager.Instance.pastStates.Count);
         if (UnitManager.Instance.pastStates.Count > 0)
         {

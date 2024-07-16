@@ -282,6 +282,7 @@ public class Timer : MonoBehaviour
 
     private void HandleWinState()
     {
+        UnitManager.Instance.isGameEnded = true;
         float timeTaken = initialTime - timeRemaining;
         Debug.Log("Level Won in " + timeTaken + " seconds");
 
@@ -318,6 +319,7 @@ public class Timer : MonoBehaviour
 
         private void HandleLoseState()
     {
+        UnitManager.Instance.isGameEnded = true;
         float timeTaken = initialTime - timeRemaining;
         Debug.Log("Level Lost in " + timeTaken + " seconds");
 
