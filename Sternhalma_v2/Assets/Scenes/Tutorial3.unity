@@ -1140,8 +1140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cffa06a25627a462a836edd327aec0df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialTime: 100
-  timeRemaining: 100
+  initialTime: 180
+  timeRemaining: 180
   timeText: {fileID: 729227999}
   gameEndText: {fileID: 955710787}
   levelClearMenu: {fileID: 980205929}
