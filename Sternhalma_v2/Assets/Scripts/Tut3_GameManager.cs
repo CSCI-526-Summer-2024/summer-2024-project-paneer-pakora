@@ -195,7 +195,7 @@ public class Tut3_GameManager : MonoBehaviour
                 }
             }
 
-            else  if(x==-1.5f)
+            else if (x == -1.5f)
             {
                 for (float y = -0.5f; y <= 1.5f; y++)
                 {
@@ -254,7 +254,7 @@ public class Tut3_GameManager : MonoBehaviour
     public void SpawnObjects(Dictionary<Vector3, BaseUnit> currentStatus, Dictionary<HexTile, BaseUnit> tileToUnit, HashSet<HexTile> isVisited)
     {
         // Initialize the currentStatus dictionary with null values
-        for (float x = -1.5f; x <=3.0f; x += 1.5f)  //range of x
+        for (float x = -1.5f; x <= 3.0f; x += 1.5f)  //range of x
         {
             if (x == 0)
             {
@@ -283,8 +283,8 @@ public class Tut3_GameManager : MonoBehaviour
             {
 
                 int y = -2;
-                    currentStatus[new Vector3(x, y)] = null;
-                
+                currentStatus[new Vector3(x, y)] = null;
+
             }
 
 
@@ -296,7 +296,7 @@ public class Tut3_GameManager : MonoBehaviour
         //List<Vector3> scissorList = new List<Vector3> { new Vector3(0, 0) };
         //List<Vector3> scissorList = new List<Vector3> { new Vector3(-3.0f, 1.0f), new Vector3(0, -1.0f) };
 
-        List<Vector3> scissorList = new List<Vector3> { new Vector3(-1.5f, -0.5f), new Vector3(1.5f,-1.5f) };
+        List<Vector3> scissorList = new List<Vector3> { new Vector3(-1.5f, -0.5f), new Vector3(1.5f, -1.5f) };
         var scissorCount = scissorList.Count;
         UnitManager.Instance.currentScissorCount = scissorCount;
 
@@ -338,7 +338,7 @@ public class Tut3_GameManager : MonoBehaviour
         // Spawn paper units
         //List<Vector3> paperList = new List<Vector3> { new Vector3(1.5f, 0.5f), new Vector3(0, -1), new Vector3(-1.5f, 0.5f) };
         //List<Vector3> paperList = new List<Vector3> { new Vector3(-3.0f, 0f), new Vector3(-1.5f, 1.5f), new Vector3(1.5f, 1.5f), new Vector3(1.5f, -1.5f), new Vector3(3.0f, -1.0f) };
-        List<Vector3> paperList = new List<Vector3> { new Vector3(0.0f,1.0f), new Vector3(0.0f, -1.0f), new Vector3(-1.5f, 0.5f) };
+        List<Vector3> paperList = new List<Vector3> { new Vector3(0.0f, 1.0f), new Vector3(0.0f, -1.0f), new Vector3(-1.5f, 0.5f) };
         var paperCount = paperList.Count;
         UnitManager.Instance.currentPaperCount = paperCount;
 
