@@ -89,6 +89,12 @@ public class MenuManager : MonoBehaviour
         //GameManager.Instance.ChangeState(GameState.GenerateGrid);
     }
 
+    public void Level0_25()
+    {
+        currentLevel = "Level0_25";
+        SceneManager.LoadScene("Level0_25");
+    }
+
 
 
     private void Awake()
