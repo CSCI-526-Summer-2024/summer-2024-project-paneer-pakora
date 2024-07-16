@@ -1,13 +1,15 @@
+
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Services.Analytics;
 
-public class Tut3_GameManager : MonoBehaviour
+public class Level0_25_GameManager : MonoBehaviour
 {
     public static int retryCount = 0;
     public static string userId = "user_unique_id";
-    public static Tut3_GameManager Instance;
+    public static Level0_25_GameManager Instance;
 
     public GameState GameState;
     FirebaseHandler firebaseHandler;
@@ -31,7 +33,7 @@ public class Tut3_GameManager : MonoBehaviour
 
     private void Start()
     {
-        GridManager.selectedLevel = 3;
+        GridManager.selectedLevel = 6;
         ChangeState(GameState.GenerateGrid);
         //ChangeState(GameState.MainMenu);
         //ChangeState(GameState.Tutorial2);
@@ -142,7 +144,7 @@ public class Tut3_GameManager : MonoBehaviour
         {
             if (x == 0)
             {
-                for (int y = -1; y <= 1; y++)
+                for (int y = -2; y <= 1; y++)
                 {
                     float xPos = x * hexWidth;
                     float yPos = y * hexHeight;
@@ -247,7 +249,7 @@ public class Tut3_GameManager : MonoBehaviour
         } //for ends here
         GridManager.Instance.posTranslator = posTranslator;
         GridManager.Instance.posTile = posTile;
-        Tut3_GameManager.Instance.ChangeState(GameState.SpawnObjects);
+        Level0_25_GameManager.Instance.ChangeState(GameState.SpawnObjects);
     }
 
 
@@ -258,14 +260,14 @@ public class Tut3_GameManager : MonoBehaviour
         {
             if (x == 0)
             {
-                for (int y = -1; y <= 1; y++)
+                for (int y = -2; y <= 1; y++)
                 {
                     currentStatus[new Vector3(x, y)] = null;
                 }
             }
             else if (x == 1.5f)
             {
-                for (float y = -1.5f; y <= 0.5f; y++)
+                for (float y = -0.5f; y <= 0.5f; y++)
                 {
                     currentStatus[new Vector3(x, y)] = null;
                 }
@@ -296,7 +298,7 @@ public class Tut3_GameManager : MonoBehaviour
         //List<Vector3> scissorList = new List<Vector3> { new Vector3(0, 0) };
         //List<Vector3> scissorList = new List<Vector3> { new Vector3(-3.0f, 1.0f), new Vector3(0, -1.0f) };
 
-        List<Vector3> scissorList = new List<Vector3> { new Vector3(-1.5f, -0.5f), new Vector3(1.5f,-1.5f) };
+        List<Vector3> scissorList = new List<Vector3> { new Vector3(-1.5f, -0.5f), new Vector3(0.0f, -1.0f) };
         var scissorCount = scissorList.Count;
         UnitManager.Instance.currentScissorCount = scissorCount;
 
@@ -338,7 +340,7 @@ public class Tut3_GameManager : MonoBehaviour
         // Spawn paper units
         //List<Vector3> paperList = new List<Vector3> { new Vector3(1.5f, 0.5f), new Vector3(0, -1), new Vector3(-1.5f, 0.5f) };
         //List<Vector3> paperList = new List<Vector3> { new Vector3(-3.0f, 0f), new Vector3(-1.5f, 1.5f), new Vector3(1.5f, 1.5f), new Vector3(1.5f, -1.5f), new Vector3(3.0f, -1.0f) };
-        List<Vector3> paperList = new List<Vector3> { new Vector3(0.0f,1.0f), new Vector3(0.0f, -1.0f), new Vector3(-1.5f, 0.5f) };
+        List<Vector3> paperList = new List<Vector3> { new Vector3(-1.5f, 0.5f), new Vector3(0.0f, 1.0f), new Vector3(1.5f, -1.5f) };
         var paperCount = paperList.Count;
         UnitManager.Instance.currentPaperCount = paperCount;
 
@@ -374,7 +376,7 @@ public class Tut3_GameManager : MonoBehaviour
         UnitManager.Instance.scissorsLeft.text = UnitManager.Instance.currentScissorCount.ToString();
 
         // Change the game state to PlayerTurn after spawning objects
-        Tut3_GameManager.Instance.ChangeState(GameState.PlayerTurn);
+        Level0_25_GameManager.Instance.ChangeState(GameState.PlayerTurn);
     }
 }
 
