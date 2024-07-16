@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using System;
 
 public class Timer : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class Timer : MonoBehaviour
     public TMP_Text gameEndText;  //flashes game has ended 
     public GameObject levelClearMenu;
     public GameObject levelFailMenu;
+
+    public GameObject timeReductionLocation; // a blank game object used to anchor the location of the prefab
+    public GameObject minusTimePrefab;
+
     private FirebaseHandler firebaseHandler;
 
     void Start()
@@ -69,6 +74,8 @@ public class Timer : MonoBehaviour
                 }
 
                 //DisplayEndGameText("You Lose!");
+
+                setLevelFailReason("No time remaining.");
                 DisplayLevelFailPanel();
                 HandleLoseState();
             }
@@ -77,13 +84,19 @@ public class Timer : MonoBehaviour
         }
     }
 
-    void DisplayTime(float timeToDisplay)
+    public void DisplayTime(float timeToDisplay)
     {
         //Formatting time for display
         timeToDisplay = Mathf.Max(timeToDisplay, 0);
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);  //textTime UI element updated for display
+    }
+
+    public void DisplayTimeReduction()
+    {
+        Debug.Log(timeReductionLocation.transform);
+        Instantiate(minusTimePrefab, timeReductionLocation.transform);
     }
 
     void CheckGameStatus()
@@ -174,6 +187,7 @@ public class Timer : MonoBehaviour
 
                 //DisplayEndGameText("You Lose!");
                 //DisplayLevelFailPanel();
+                setLevelFailReason("Only one type of piece remaining.");
                 HandleLoseConditions();
                 return;
             }
@@ -212,6 +226,7 @@ public class Timer : MonoBehaviour
 
                 //DisplayEndGameText("You Lose!");
                 //DisplayLevelFailPanel();
+                setLevelFailReason("No available moves or rotations left.");
                 HandleLoseConditions();
                 return;
             }
@@ -256,6 +271,7 @@ public class Timer : MonoBehaviour
 
                     //DisplayEndGameText("You Lose!");
                     //DisplayLevelFailPanel();
+                    setLevelFailReason("No available moves or rotations left.");
                     HandleLoseConditions();
                     return;
                 }
@@ -345,11 +361,11 @@ public class Timer : MonoBehaviour
         bool onlyPerimeter = CheckIsOnlyPerimeter(dict);  //no valid moves on the perimeter
         bool onlyOnePieceType = CheckIsOnlyOnePiece(dict);
 
-        if (onlyOnePieceType || onlyLoneIsland || (!onlyPerimeter && !CheckValidMoveOnPerimeter(dict)))
-        {
+        //if (onlyOnePieceType || onlyLoneIsland || (!onlyPerimeter && !CheckValidMoveOnPerimeter(dict)))
+        //{
             timeIsRunning = false;
             HandleLoseState();
-        }
+        //}
     }
 
     public void DisplayLevelClearPanel()
@@ -360,6 +376,12 @@ public class Timer : MonoBehaviour
     public void DisplayLevelFailPanel()
     {
         levelFailMenu.SetActive(true);
+    }
+
+    public void setLevelFailReason(string message)
+    {
+        TMP_Text failReason = levelFailMenu.transform.GetChild(1).GetComponent<TMP_Text>();
+        failReason.text = message;
     }
 
     public void DisplayEndGameText(string message)

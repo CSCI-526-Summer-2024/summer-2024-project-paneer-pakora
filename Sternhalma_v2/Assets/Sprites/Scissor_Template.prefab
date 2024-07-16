@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.7607843, g: 0.40784314, b: 0.40784314, a: 1}
   m_FlipX: 0
@@ -156,7 +156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.7607843, g: 0.40784314, b: 0.40784314, a: 1}
   m_FlipX: 0
@@ -242,7 +242,7 @@ SpriteShapeRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Color: {r: 0.7607843, g: 0.40784314, b: 0.40784314, a: 1}
   m_MaskInteraction: 2
   m_ShapeTexture: {fileID: 2800000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
@@ -406,7 +406,7 @@ SpriteShapeRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Color: {r: 0.7607843, g: 0.40784314, b: 0.40784314, a: 1}
   m_MaskInteraction: 2
   m_ShapeTexture: {fileID: 2800000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
@@ -782,7 +782,7 @@ SpriteShapeRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Color: {r: 0.7607843, g: 0.40784314, b: 0.40784314, a: 1}
   m_MaskInteraction: 2
   m_ShapeTexture: {fileID: 2800000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
@@ -882,7 +882,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4788138992398854739}
   - component: {fileID: -2387285501131673512}
-  - component: {fileID: 5207808966089308726}
   m_Layer: 0
   m_Name: Scissor_Template
   m_TagString: Scissors
@@ -916,20 +915,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8146ae2004b544e28a6ee549acaee8b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OccupiedTile: {fileID: 0}
-  Faction: 2
---- !u!114 &5207808966089308726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9101855067637830412}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1ff0ea8af92549439758c1241b50e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OccupiedTile: {fileID: 0}

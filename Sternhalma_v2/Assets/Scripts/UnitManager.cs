@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using TMPro;
+using System;
 
 public class UnitManager : MonoBehaviour
 {
@@ -27,6 +28,11 @@ public class UnitManager : MonoBehaviour
     public int currentRockCount = 0;
     public int currentPaperCount = 0;
     public int currentScissorCount = 0;
+
+    public Stack<Dictionary<Vector3, String>> pastStates = new Stack<Dictionary<Vector3, String>>();
+    public Stack<String> movedUnit = new Stack<String>();
+    public Stack<Dictionary<Vector3, String>> lastTurnedGreen = new Stack<Dictionary<Vector3, String>>();
+    public Stack<Vector3> lastGreenPos = new Stack<Vector3>();
 
     private void Awake()
     {
