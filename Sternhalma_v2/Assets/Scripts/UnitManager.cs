@@ -8,6 +8,7 @@ using System;
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance;
+    public bool isGameEnded = false;
 
     private List<ScriptableUnit> units;
     public HexTile selectedTile;

@@ -28,6 +28,10 @@ public class ShowHideLegend : MonoBehaviour
     // Update is called once per frame
     private void OnMouseDown()
     {
+         if (PauseMenu.gameIsPaused)
+        {
+            return; 
+        }
         if (GridManager.selectedLevel == 0)
         {
             selectedTile = UnitManager.Instance.selectedTile;
