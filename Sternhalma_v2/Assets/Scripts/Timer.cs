@@ -28,7 +28,7 @@ public class Timer : MonoBehaviour
         gameEndText.gameObject.SetActive(false);
         levelClearMenu.SetActive(false);
         firebaseHandler = FindObjectOfType<FirebaseHandler>();
-    }
+    } //Start
 
     void Update()
     {
@@ -44,7 +44,7 @@ public class Timer : MonoBehaviour
                 timeRemaining = 0;
                 timeIsRunning = false;
 
-                if(GridManager.selectedLevel == 1)  // TUt 3
+                if (GridManager.selectedLevel == 1)  // TUt 3
                 {
                     Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
@@ -73,6 +73,11 @@ public class Timer : MonoBehaviour
                     Level0_5_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
 
+                else if (GridManager.selectedLevel == 6) // Level 1 (Technically level 2)
+                {
+                    Level0_25_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
+
                 //DisplayEndGameText("You Lose!");
 
                 setLevelFailReason("No time remaining.");
@@ -82,7 +87,7 @@ public class Timer : MonoBehaviour
 
             CheckGameStatus();  //This is called to see if the game should end early based on other conditions
         }
-    }
+    } //Update
 
     public void DisplayTime(float timeToDisplay)
     {
@@ -132,9 +137,13 @@ public class Timer : MonoBehaviour
             {
                 Level0_GameManager.Instance.ChangeState(GameState.WinState);
             }
-            else if (GridManager.selectedLevel == 5) 
+            else if (GridManager.selectedLevel == 5)
             {
                 Level0_5_GameManager.Instance.ChangeState(GameState.WinState);
+            }
+            else if (GridManager.selectedLevel == 6)
+            {
+                Level0_25_GameManager.Instance.ChangeState(GameState.WinState);
             }
 
             //DisplayEndGameText("You Win!");
@@ -180,9 +189,13 @@ public class Timer : MonoBehaviour
                     Level0_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
 
-                else if (GridManager.selectedLevel == 5) 
+                else if (GridManager.selectedLevel == 5)
                 {
                     Level0_5_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
+                else if (GridManager.selectedLevel == 6)
+                {
+                    Level0_25_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
 
                 //DisplayEndGameText("You Lose!");
@@ -222,6 +235,10 @@ public class Timer : MonoBehaviour
                 else if (GridManager.selectedLevel == 5) // 
                 {
                     Level0_5_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
+                else if (GridManager.selectedLevel == 6) // 
+                {
+                    Level0_25_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
 
                 //DisplayEndGameText("You Lose!");
@@ -264,9 +281,13 @@ public class Timer : MonoBehaviour
                         Level0_GameManager.Instance.ChangeState(GameState.LoseState);
                     }
 
-                    else if (GridManager.selectedLevel == 5) 
+                    else if (GridManager.selectedLevel == 5)
                     {
                         Level0_5_GameManager.Instance.ChangeState(GameState.LoseState);
+                    }
+                    else if (GridManager.selectedLevel == 6)
+                    {
+                        Level0_25_GameManager.Instance.ChangeState(GameState.LoseState);
                     }
 
                     //DisplayEndGameText("You Lose!");
@@ -314,9 +335,13 @@ public class Timer : MonoBehaviour
         {
             Level0_5_GameManager.Instance.ChangeState(GameState.WinState);
         }
-    }
+        else if (GridManager.selectedLevel == 6)
+        {
+            Level0_25_GameManager.Instance.ChangeState(GameState.WinState);
+        }
+    } //fn
 
-        private void HandleLoseState()
+    private void HandleLoseState()
     {
         float timeTaken = initialTime - timeRemaining;
         Debug.Log("Level Lost in " + timeTaken + " seconds");
@@ -350,9 +375,13 @@ public class Timer : MonoBehaviour
         {
             Level0_5_GameManager.Instance.ChangeState(GameState.LoseState);
         }
+        else if (GridManager.selectedLevel == 6)
+        {
+            Level0_25_GameManager.Instance.ChangeState(GameState.LoseState);
+        }
 
         DisplayLevelFailPanel();
-    }
+    } //fn
 
     private void HandleLoseConditions()
     {
@@ -363,8 +392,8 @@ public class Timer : MonoBehaviour
 
         //if (onlyOnePieceType || onlyLoneIsland || (!onlyPerimeter && !CheckValidMoveOnPerimeter(dict)))
         //{
-            timeIsRunning = false;
-            HandleLoseState();
+        timeIsRunning = false;
+        HandleLoseState();
         //}
     }
 
@@ -419,15 +448,15 @@ public class Timer : MonoBehaviour
                     (keys.Contains(bottomPos) && dict[bottomPos] != null) ||
                     (keys.Contains(bottomLeftPos) && dict[bottomLeftPos] != null) ||
                     (keys.Contains(topLeftPos) && dict[topLeftPos] != null))
-            {
-                // Debug.Log($"Unit at {pos} ({unit.Faction}) has a valid move.");
-                return false;
+                {
+                    // Debug.Log($"Unit at {pos} ({unit.Faction}) has a valid move.");
+                    return false;
+                }
             }
-        }
         }
 
         return true;
-    }
+    } //fn
 
     private bool CheckIsOnlyPerimeter(Dictionary<Vector3, BaseUnit> dict)  //checks if there are any units on the internal, non-perimeter tiles of the game board
     {
@@ -435,7 +464,7 @@ public class Timer : MonoBehaviour
         //We first set the internal tiles here as per the level
         List<Vector3> internalPos = null;
         if (GridManager.selectedLevel == 2)
-        { 
+        {
             internalPos = new List<Vector3> { new Vector3(0, 1.0f), new Vector3(1.5f, 0.5f), new Vector3(1.5f, -0.5f),
                                                         new Vector3(0, -1.0f), new Vector3(-1.5f, -0.5f), new Vector3(-1.5f, 0.5f),
                                                         new Vector3(0, 0)};
@@ -445,9 +474,9 @@ public class Timer : MonoBehaviour
             internalPos = new List<Vector3> { new Vector3(-3.0f, -0.5f), new Vector3(0.0f, -0.5f), new Vector3(1.5f, 0.0f),
                                                         new Vector3(3.0f, 0.5f)};
         }
-        else if(GridManager.selectedLevel == 0)
+        else if (GridManager.selectedLevel == 0)
         {
-            internalPos = new List<Vector3> {};
+            internalPos = new List<Vector3> { };
         }
 
         else if (GridManager.selectedLevel == 3)
@@ -462,7 +491,12 @@ public class Timer : MonoBehaviour
 
         else if (GridManager.selectedLevel == 5)
         {
-            internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) , new Vector3(0.0f, 1.0f) };
+            internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f), new Vector3(0.0f, 1.0f) };
+        }
+
+        else if (GridManager.selectedLevel == 6)
+        {
+            internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) };
         }
 
         //iterate over internal positions
@@ -478,7 +512,7 @@ public class Timer : MonoBehaviour
         }
 
         return true;  //return true if all units are isolated
-    }
+    } //fn
 
 
 
@@ -495,7 +529,7 @@ public class Timer : MonoBehaviour
             if (dict[key] != null && dict[key].Faction == Faction.Paper)
             {
                 paperCount += 1;
-        }
+            }
 
             else if (dict[key] != null && dict[key].Faction == Faction.Rock)
             {
@@ -543,6 +577,11 @@ public class Timer : MonoBehaviour
                 Level0_5_GameManager.Instance.ChangeState(GameState.LoseState);
 
             }
+            else if (GridManager.selectedLevel == 6)
+            {
+                Level0_25_GameManager.Instance.ChangeState(GameState.LoseState);
+
+            }
 
             return true;
         }
@@ -578,6 +617,11 @@ public class Timer : MonoBehaviour
             else if (GridManager.selectedLevel == 5)
             {
                 Level0_5_GameManager.Instance.ChangeState(GameState.LoseState);
+
+            }
+            else if (GridManager.selectedLevel == 6)
+            {
+                Level0_25_GameManager.Instance.ChangeState(GameState.LoseState);
 
             }
 
@@ -618,14 +662,19 @@ public class Timer : MonoBehaviour
                 Level0_5_GameManager.Instance.ChangeState(GameState.LoseState);
 
             }
+            else if (GridManager.selectedLevel == 6)
+            {
+                Level0_25_GameManager.Instance.ChangeState(GameState.LoseState);
+
+            }
 
             return true;
         }
         else
         {
-        return false;
-    }
-    }
+            return false;
+        }
+    } //fn
 
 
 
@@ -647,7 +696,7 @@ public class Timer : MonoBehaviour
                                                         };
         }
 
-        else if ( GridManager.selectedLevel == 1)
+        else if (GridManager.selectedLevel == 1)
         {
             perimeterPos = new List<Vector3> { new Vector3(-4.5f, -1.0f), new Vector3(-4.5f, 0.0f),
                                                          new Vector3(-3.0f, -1.5f), new Vector3(-3.0f, 0.5f),
@@ -686,14 +735,17 @@ public class Timer : MonoBehaviour
 
 
 
-        else if (GridManager.selectedLevel == 3)
+        else if (GridManager.selectedLevel == 3)   // Tutorial 3
         {
-            perimeterPos = new List<Vector3> {           new Vector3(0.0f, -1.0f), new Vector3(0.0f, -2.0f),
-                                                         new Vector3(0.0f, 1.0f), new Vector3(1.5f, 0.5f),
-                                                         new Vector3(1.5f,-0.5f),new Vector3(1.5f, -1.5f),
+            perimeterPos = new List<Vector3> {
 
-                                                         new Vector3(-1.5f,0.5f), new Vector3(-1.5f,1.5f),
-                                                         new Vector3(-1.5f,-0.5f), new Vector3(3.0f,-2.0f)
+
+
+                                                        new Vector3(-1.5f, -0.5f), new Vector3(-1.5f,0.5f), new Vector3(-1.5f,1.5f),
+                                                        new Vector3(0.0f,-1.0f), new Vector3(0.0f, 1.0f),
+                                                        new Vector3(1.5f,-1.5f),new Vector3(1.5f, -0.5f), new Vector3(1.5f,0.5f),
+
+                                                        new Vector3(3.0f,-2.0f),
 
                                                         };
         }
@@ -717,7 +769,7 @@ public class Timer : MonoBehaviour
 
         else if (GridManager.selectedLevel == 5)
         {
-            perimeterPos = new List<Vector3> {           
+            perimeterPos = new List<Vector3> {
 
                                                          new Vector3(-1.5f, -1.5f), new Vector3(-1.5f, -0.5f), new Vector3(-1.5f, 0.5f), new Vector3(-1.5f,0.5f),
 
@@ -731,45 +783,57 @@ public class Timer : MonoBehaviour
                                                         };
         }
 
-        //Iterate over perimeter tiles
-
-
-        for (int i=0; i< perimeterPos.Count; i++)
+        else if (GridManager.selectedLevel == 6)
         {
-            if (dict[perimeterPos[i]]!= null)
+            perimeterPos = new List<Vector3> {           new Vector3(0.0f, -1.0f), new Vector3(0.0f, -2.0f),
+                                                         new Vector3(0.0f, 1.0f), new Vector3(1.5f, 0.5f),
+                                                         new Vector3(1.5f,-0.5f),new Vector3(1.5f, -1.5f),
+
+                                                         new Vector3(-1.5f,0.5f), new Vector3(-1.5f,1.5f),
+                                                         new Vector3(-1.5f,-0.5f), new Vector3(3.0f,-2.0f)
+
+                                                        };
+        }
+
+            //Iterate over perimeter tiles
+
+
+            for (int i = 0; i < perimeterPos.Count; i++)
             {
-                float posX = perimeterPos[i].x;
-                float posY = perimeterPos[i].y;
+                if (dict[perimeterPos[i]] != null)
+                {
+                    float posX = perimeterPos[i].x;
+                    float posY = perimeterPos[i].y;
 
 
-                //iterate over neighbors, calculate the position on opposite side of the neighbour to check if it is empty
-                Vector3 topPos = new Vector3(posX, posY + 1.0f);
-                Vector3 topRightPos = new Vector3(posX + 1.5f, posY + 0.5f);
-                Vector3 bottomRightPos = new Vector3(posX + 1.5f, posY - 0.5f);
-                Vector3 bottomPos = new Vector3(posX, posY - 1.0f);
-                Vector3 bottomLeftPos = new Vector3(posX - 1.5f, posY - 0.5f);
-                Vector3 topLeftPos = new Vector3(posX - 1.5f, posY + 0.5f);
+                    //iterate over neighbors, calculate the position on opposite side of the neighbour to check if it is empty
+                    Vector3 topPos = new Vector3(posX, posY + 1.0f);
+                    Vector3 topRightPos = new Vector3(posX + 1.5f, posY + 0.5f);
+                    Vector3 bottomRightPos = new Vector3(posX + 1.5f, posY - 0.5f);
+                    Vector3 bottomPos = new Vector3(posX, posY - 1.0f);
+                    Vector3 bottomLeftPos = new Vector3(posX - 1.5f, posY - 0.5f);
+                    Vector3 topLeftPos = new Vector3(posX - 1.5f, posY + 0.5f);
 
-                List<Vector3> potentialPos = new List<Vector3>{ topPos, topRightPos, bottomRightPos,
+                    List<Vector3> potentialPos = new List<Vector3>{ topPos, topRightPos, bottomRightPos,
                     bottomPos, bottomLeftPos, topLeftPos };
 
-                for (int j=0; j<potentialPos.Count; j++)   
-                {
-                    Vector3 emptyPos = new Vector3(2 * potentialPos[j].x - perimeterPos[i].x,
-                                                    2*potentialPos[j].y - perimeterPos[i].y);
-
-                    if(dict.ContainsKey(potentialPos[j]) && dict[potentialPos[j]] != null && dict.ContainsKey(emptyPos) && dict[emptyPos] == null)
+                    for (int j = 0; j < potentialPos.Count; j++)
                     {
-                        if (isMovePossible(dict, perimeterPos[i], potentialPos[j]))
+                        Vector3 emptyPos = new Vector3(2 * potentialPos[j].x - perimeterPos[i].x,
+                                                        2 * potentialPos[j].y - perimeterPos[i].y);
+
+                        if (dict.ContainsKey(potentialPos[j]) && dict[potentialPos[j]] != null && dict.ContainsKey(emptyPos) && dict[emptyPos] == null)
                         {
-                            return true;
+                            if (isMovePossible(dict, perimeterPos[i], potentialPos[j]))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
             }
-        }
 
-        return false;
+            return false;
 
             //for (int i = 0; i < perimeterPos.Count - 1; i = i + 2)
             //{
@@ -796,174 +860,183 @@ public class Timer : MonoBehaviour
             //    }
             //}
 
-        //for (int i = perimeterPos.Count - 2; i >= 0; i = i - 2)
-        //        {
-        //    if (i > 1)
-        //    {
-        //        if (dict[perimeterPos[i]] != null && dict[perimeterPos[i - 1]] != null && dict[perimeterPos[i - 2]] == null)
-        //        {
-        //            if (isMovePossible(dict, perimeterPos[i], perimeterPos[i - 1]))
-        //            {
-        //                return true;
-        //            }
-        //        }
-        //    }
+            //for (int i = perimeterPos.Count - 2; i >= 0; i = i - 2)
+            //        {
+            //    if (i > 1)
+            //    {
+            //        if (dict[perimeterPos[i]] != null && dict[perimeterPos[i - 1]] != null && dict[perimeterPos[i - 2]] == null)
+            //        {
+            //            if (isMovePossible(dict, perimeterPos[i], perimeterPos[i - 1]))
+            //            {
+            //                return true;
+            //            }
+            //        }
+            //    }
 
-        //    else
-        //    {
-        //        if (dict[perimeterPos[i]] != null && dict[perimeterPos[11]] != null && dict[perimeterPos[10]] == null)
-        //        {
-        //            if (isMovePossible(dict, perimeterPos[i], perimeterPos[perimeterPos.Count - 1]))
-        //            {
-        //                return true;
-        //            }
-        //        }
-        //    }
-        //}
-        //return false; 
-    }
+            //    else
+            //    {
+            //        if (dict[perimeterPos[i]] != null && dict[perimeterPos[11]] != null && dict[perimeterPos[10]] == null)
+            //        {
+            //            if (isMovePossible(dict, perimeterPos[i], perimeterPos[perimeterPos.Count - 1]))
+            //            {
+            //                return true;
+            //            }
+            //        }
+            //    }
+            //}
+            //return false; 
+        }
 
-
-
-
+    
 
 
-    private bool isMovePossible(Dictionary<Vector3, BaseUnit> dict, Vector3 pos1, Vector3 pos2)
-    {
-        if (dict[pos1].Faction == Faction.Rock)
+
+
+
+
+        private bool isMovePossible(Dictionary<Vector3, BaseUnit> dict, Vector3 pos1, Vector3 pos2)
         {
-            if (dict[pos2].Faction == Faction.Scissor)
+            if (dict[pos1].Faction == Faction.Rock)
             {
-                return true;
+                if (dict[pos2].Faction == Faction.Scissor)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
+
+            else if (dict[pos1].Faction == Faction.Scissor)
+            {
+                if (dict[pos2].Faction == Faction.Paper)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
             else
             {
-                return false;
-            }
-        }
-
-        else if (dict[pos1].Faction == Faction.Scissor)
-        {
-            if (dict[pos2].Faction == Faction.Paper)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        else
-        {
-            if (dict[pos2].Faction == Faction.Rock)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
-
-
-
-    private bool CheckLoneIslandInterior(Dictionary<Vector3, BaseUnit> dict)  //checks if all units at specific internal (non peim) positions on the game board are isolated
-    {
-
-        //We are defining internal poisitons based on level here:
-        List<Vector3> internalPos = null;
-        if (GridManager.selectedLevel == 2)
-        {
-            internalPos = new List<Vector3> { new Vector3(0, 1.0f), new Vector3(1.5f, 0.5f), new Vector3(1.5f, -0.5f),
-                                                        new Vector3(0, -1.0f), new Vector3(-1.5f, -0.5f), new Vector3(-1.5f, 0.5f),
-                                                        new Vector3(0, 0)};
-        }
-        else if (GridManager.selectedLevel == 1)
-        {
-            internalPos = new List<Vector3> { new Vector3(-3.0f, -0.5f), new Vector3(0.0f, -0.5f), new Vector3(1.5f, 0.0f),
-                                                        new Vector3(3.0f, 0.5f)};
-        }
-        else if (GridManager.selectedLevel == 0)
-        {
-
-            internalPos = new List<Vector3> { };
-        }
-
-        else if (GridManager.selectedLevel == 3)
-        {
-
-            internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) };
-        }
-
-
-
-        else if (GridManager.selectedLevel == 5)
-        {
-
-            internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f), new Vector3(0.0f, 1.0f) };
-        }
-
-        for (int i = 0; i < internalPos.Count; i++)
-        {
-
-            Vector3 pos = internalPos[i];
-
-            if (dict[pos] != null)
-            {
-                float posX = pos.x;
-                float posY = pos.y;
-
-                Vector3 topPos = new Vector3(posX, posY + 1.0f);
-                Vector3 topRightPos = new Vector3(posX + 1.5f, posY + 0.5f);
-                Vector3 bottomRightPos = new Vector3(posX + 1.5f, posY - 0.5f);
-                Vector3 bottomPos = new Vector3(posX, posY - 1.0f);
-                Vector3 bottomLeftPos = new Vector3(posX - 1.5f, posY - 0.5f);
-                Vector3 topLeftPos = new Vector3(posX - 1.5f, posY + 0.5f);
-
-                if ((dict[topPos] != null) ||
-                    (dict[topRightPos] != null) ||
-                    (dict[bottomRightPos] != null) ||
-                    (dict[bottomPos] != null) ||
-                    (dict[bottomLeftPos] != null) ||
-                    (dict[topLeftPos] != null))
+                if (dict[pos2].Faction == Faction.Rock)
+                {
+                    return true;
+                }
+                else
                 {
                     return false;
                 }
             }
         }
 
-        return true;
-    }
 
 
-
-
-
-    private bool IsLonePiece(Dictionary<Vector3, BaseUnit> dict, Vector3 pos)   //method wghich checks if a unit at a given position is isolated
-    {
-        float posX = pos.x;
-        float posY = pos.y;
-
-        //Calculate 6 neighbors
-        Vector3 topPos = new Vector3(posX, posY + 1.0f);
-        Vector3 topRightPos = new Vector3(posX + 1.5f, posY + 0.5f);
-        Vector3 bottomRightPos = new Vector3(posX + 1.5f, posY - 0.5f);
-        Vector3 bottomPos = new Vector3(posX, posY - 1.0f);
-        Vector3 bottomLeftPos = new Vector3(posX - 1.5f, posY - 0.5f);
-        Vector3 topLeftPos = new Vector3(posX - 1.5f, posY + 0.5f);
-
-        if ((dict[topPos] != null) ||
-            (dict[topRightPos] != null) ||
-            (dict[bottomRightPos] != null) ||
-            (dict[bottomPos] != null) ||
-            (dict[bottomLeftPos] != null) ||
-            (dict[topLeftPos] != null))
+        private bool CheckLoneIslandInterior(Dictionary<Vector3, BaseUnit> dict)  //checks if all units at specific internal (non peim) positions on the game board are isolated
         {
-            return false;
+
+            //We are defining internal poisitons based on level here:
+            List<Vector3> internalPos = null;
+            if (GridManager.selectedLevel == 2)
+            {
+                internalPos = new List<Vector3> { new Vector3(0, 1.0f), new Vector3(1.5f, 0.5f), new Vector3(1.5f, -0.5f),
+                                                        new Vector3(0, -1.0f), new Vector3(-1.5f, -0.5f), new Vector3(-1.5f, 0.5f),
+                                                        new Vector3(0, 0)};
+            }
+            else if (GridManager.selectedLevel == 1)
+            {
+                internalPos = new List<Vector3> { new Vector3(-3.0f, -0.5f), new Vector3(0.0f, -0.5f), new Vector3(1.5f, 0.0f),
+                                                        new Vector3(3.0f, 0.5f)};
+            }
+            else if (GridManager.selectedLevel == 0)
+            {
+
+                internalPos = new List<Vector3> { };
+            }
+
+            else if (GridManager.selectedLevel == 3)
+            {
+
+                internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) };
+            }
+
+
+
+            else if (GridManager.selectedLevel == 5)
+            {
+
+                internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f), new Vector3(0.0f, 1.0f) };
+            }
+
+            else if (GridManager.selectedLevel == 6)
+            {
+
+                internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) };
+            }
+
+            for (int i = 0; i < internalPos.Count; i++)
+            {
+
+                Vector3 pos = internalPos[i];
+
+                if (dict[pos] != null)
+                {
+                    float posX = pos.x;
+                    float posY = pos.y;
+
+                    Vector3 topPos = new Vector3(posX, posY + 1.0f);
+                    Vector3 topRightPos = new Vector3(posX + 1.5f, posY + 0.5f);
+                    Vector3 bottomRightPos = new Vector3(posX + 1.5f, posY - 0.5f);
+                    Vector3 bottomPos = new Vector3(posX, posY - 1.0f);
+                    Vector3 bottomLeftPos = new Vector3(posX - 1.5f, posY - 0.5f);
+                    Vector3 topLeftPos = new Vector3(posX - 1.5f, posY + 0.5f);
+
+                    if ((dict[topPos] != null) ||
+                        (dict[topRightPos] != null) ||
+                        (dict[bottomRightPos] != null) ||
+                        (dict[bottomPos] != null) ||
+                        (dict[bottomLeftPos] != null) ||
+                        (dict[topLeftPos] != null))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
-        return true;
-    }
-}
+
+
+
+
+        private bool IsLonePiece(Dictionary<Vector3, BaseUnit> dict, Vector3 pos)   //method wghich checks if a unit at a given position is isolated
+        {
+            float posX = pos.x;
+            float posY = pos.y;
+
+            //Calculate 6 neighbors
+            Vector3 topPos = new Vector3(posX, posY + 1.0f);
+            Vector3 topRightPos = new Vector3(posX + 1.5f, posY + 0.5f);
+            Vector3 bottomRightPos = new Vector3(posX + 1.5f, posY - 0.5f);
+            Vector3 bottomPos = new Vector3(posX, posY - 1.0f);
+            Vector3 bottomLeftPos = new Vector3(posX - 1.5f, posY - 0.5f);
+            Vector3 topLeftPos = new Vector3(posX - 1.5f, posY + 0.5f);
+
+            if ((dict[topPos] != null) ||
+                (dict[topRightPos] != null) ||
+                (dict[bottomRightPos] != null) ||
+                (dict[bottomPos] != null) ||
+                (dict[bottomLeftPos] != null) ||
+                (dict[topLeftPos] != null))
+            {
+                return false;
+            }
+
+            return true;
+        } //fn
+    
+} //class
