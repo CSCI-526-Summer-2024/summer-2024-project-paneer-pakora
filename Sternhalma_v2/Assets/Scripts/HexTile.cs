@@ -8,6 +8,9 @@ public class HexTile : MonoBehaviour
     [SerializeField] private SpriteRenderer _renderer; //manages rendering of the Hex tile's sprite
     [SerializeField] private GameObject _highlight;   //This game obj is used to highlight the tile when mouse hvers over it
     [SerializeField] public GameObject highlightOnSelect;
+    [SerializeField] public GameObject tileBorder;
+    [SerializeField] public Vector3 initialScale;
+
 
     public BaseUnit OccupiedUnit;   //currently occupied?
     public bool isEmpty => this.OccupiedUnit == null;  //checks if tile is empty by seieng if Occupied unit is null
@@ -15,6 +18,11 @@ public class HexTile : MonoBehaviour
     public Vector3 posEasy;
     public Vector3 posHard;
     public bool isRotatable;
+
+    public void Awake()
+    {
+        initialScale = transform.localScale;   
+    }
 
     public void SetColorToGreen()
     {
@@ -37,14 +45,31 @@ public class HexTile : MonoBehaviour
         return "white";
     }
 
+    private void DecreaseScale(bool status)
+    {
+        Vector3 finalScale = initialScale;
+
+        if (status)
+        {
+            finalScale = initialScale * 1.1f;
+        }
+
+        transform.localScale = finalScale;
+    }
+
     private void OnMouseEnter()
     {
         _highlight.SetActive(true);
+        //GameObject meep = GetComponent<GameObject>();
+        DecreaseScale(true);
+        tileBorder.SetActive(true);
     }
 
     private void OnMouseExit()
     {
         _highlight.SetActive(false);
+        DecreaseScale(false);
+        tileBorder.SetActive(false);
     }
 
     public void SetUnit(BaseUnit unit)      //Assigns a unit to the tile updating the unit's position and linking the unit back to this tile
