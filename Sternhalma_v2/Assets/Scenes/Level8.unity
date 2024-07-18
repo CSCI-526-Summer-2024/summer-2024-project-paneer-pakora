@@ -130,6 +130,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 306585516}
     m_Modifications:
+    - target: {fileID: 889863490525091641, guid: 5c793455c5e662a4297b444163837bfc, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 889863490525091641, guid: 5c793455c5e662a4297b444163837bfc, type: 3}
+      propertyPath: m_margin.x
+      value: -5.5123444
+      objectReference: {fileID: 0}
+    - target: {fileID: 889863490525091641, guid: 5c793455c5e662a4297b444163837bfc, type: 3}
+      propertyPath: m_margin.z
+      value: -22.50953
+      objectReference: {fileID: 0}
     - target: {fileID: 3046950212807180756, guid: 5c793455c5e662a4297b444163837bfc, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -284,6 +296,7 @@ MonoBehaviour:
   currentRockCount: 0
   currentPaperCount: 0
   currentScissorCount: 0
+  unitsRemoved: {fileID: 877500063}
 --- !u!4 &132987140
 Transform:
   m_ObjectHideFlags: 0
@@ -922,6 +935,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 662674628823155563, guid: 340822e3fb5fcb6408c547b27b2f31ec, type: 3}
   m_PrefabInstance: {fileID: 1448832685}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &877500063 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 889863490525091641, guid: 5c793455c5e662a4297b444163837bfc, type: 3}
+  m_PrefabInstance: {fileID: 79143579}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &932692261
 PrefabInstance:
   m_ObjectHideFlags: 0

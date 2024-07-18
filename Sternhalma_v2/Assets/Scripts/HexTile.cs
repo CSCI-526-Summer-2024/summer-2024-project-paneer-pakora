@@ -317,6 +317,11 @@ public class HexTile : MonoBehaviour
                         UnitManager.Instance.currentScissorCount -= 1;
                         UnitManager.Instance.scissorsLeft.text = UnitManager.Instance.currentScissorCount.ToString();
 
+                        UnitManager.Instance.unitsRemoved.text = (UnitManager.Instance.currentRockCount +
+                                                 UnitManager.Instance.currentPaperCount +
+                                                 UnitManager.Instance.currentScissorCount).ToString() +
+                                                 " Piece(s) Left!";
+
                         //enable Undo button (now that a move has been made)
                         GridManager.Instance.enableUndo();
                     }
@@ -368,6 +373,11 @@ public class HexTile : MonoBehaviour
 
                         UnitManager.Instance.currentRockCount -= 1;
                         UnitManager.Instance.rocksLeft.text = UnitManager.Instance.currentRockCount.ToString();
+
+                        UnitManager.Instance.unitsRemoved.text = (UnitManager.Instance.currentRockCount +
+                                                 UnitManager.Instance.currentPaperCount +
+                                                 UnitManager.Instance.currentScissorCount).ToString() +
+                                                 " Piece(s) Left!";
 
                         //enable Undo button (now that a move has been made)
                         GridManager.Instance.enableUndo();
@@ -423,6 +433,11 @@ public class HexTile : MonoBehaviour
 
                         UnitManager.Instance.currentPaperCount -= 1;
                         UnitManager.Instance.papersLeft.text = UnitManager.Instance.currentPaperCount.ToString();
+
+                        UnitManager.Instance.unitsRemoved.text = (UnitManager.Instance.currentRockCount +
+                                                 UnitManager.Instance.currentPaperCount +
+                                                 UnitManager.Instance.currentScissorCount).ToString() +
+                                                 " Piece(s) Left!";
 
                         //enable Undo button (now that a move has been made)
                         GridManager.Instance.enableUndo();

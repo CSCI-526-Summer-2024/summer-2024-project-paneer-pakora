@@ -382,6 +382,10 @@ public class Level0_5_GameManager : MonoBehaviour
         UnitManager.Instance.papersLeft.text = UnitManager.Instance.currentPaperCount.ToString();
         UnitManager.Instance.scissorsLeft.text = UnitManager.Instance.currentScissorCount.ToString();
 
+        UnitManager.Instance.unitsRemoved.text = (UnitManager.Instance.currentRockCount +
+                                                 UnitManager.Instance.currentPaperCount +
+                                                 UnitManager.Instance.currentScissorCount).ToString() +
+                                                 " Piece(s) Left!";
         // Change the game state to PlayerTurn after spawning objects
         Level0_5_GameManager.Instance.ChangeState(GameState.PlayerTurn);
     }

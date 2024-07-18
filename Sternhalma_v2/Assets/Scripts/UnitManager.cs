@@ -35,6 +35,8 @@ public class UnitManager : MonoBehaviour
     public Stack<Dictionary<Vector3, String>> lastTurnedGreen = new Stack<Dictionary<Vector3, String>>();
     public Stack<Vector3> lastGreenPos = new Stack<Vector3>();
 
+    public TMP_Text unitsRemoved;
+
     private void Awake()
     {
         Instance = this;
