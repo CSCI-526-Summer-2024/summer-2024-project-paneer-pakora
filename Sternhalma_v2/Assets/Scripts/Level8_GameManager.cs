@@ -415,7 +415,7 @@ public class Level8_GameManager : MonoBehaviour
         // Spawn rock units
         List<Vector3> rockList = new List<Vector3> { new Vector3(-7.5f, 0.5f), new Vector3(-7.5f, -0.5f),
                                                      new Vector3(-6.0f, 0.0f), new Vector3(-4.5f, 1.5f),
-                                                    new Vector3(-1.5f, 1.5f), new Vector3(0.0f, 3.0f),
+                                                    new Vector3(-1.5f, 1.5f),
                                                     new Vector3(3.0f, -2.0f), new Vector3(4.5f, 1.5f),
                                                     new Vector3(4.5f, -1.5f), new Vector3(6.0f, 0.0f)};
         var rockCount = rockList.Count;
