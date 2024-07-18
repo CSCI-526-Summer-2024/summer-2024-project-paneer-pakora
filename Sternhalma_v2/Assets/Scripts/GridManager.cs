@@ -12,8 +12,8 @@ public class GridManager : MonoBehaviour
     public static GridManager Instance;
 
     public HexTile hexPrefab;
-    public int gridWidth = 10;
-    public int gridHeight = 10;
+    public int gridWidth = 20;
+    public int gridHeight = 20;
     public float hexSize = 1f;
 
     public Dictionary<Vector3, HexTile> posTile = new Dictionary<Vector3, HexTile>();
@@ -37,8 +37,8 @@ public class GridManager : MonoBehaviour
 
     public void GenerateHexGrid()
     {
-        float hexWidth = hexSize + 0.1f;
-        float hexHeight = hexSize * Mathf.Sqrt(3) + 0.1f;
+        float hexWidth = hexSize + 0.1f*hexSize;
+        float hexHeight = hexSize * Mathf.Sqrt(3) + 0.1f*hexSize;
 
         posTile = new Dictionary<Vector3, HexTile>();
         posTranslator = new Dictionary<Vector3, Vector3>();
