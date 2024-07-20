@@ -512,7 +512,8 @@ public class Timer : MonoBehaviour
 
         else if (GridManager.selectedLevel == 3)
         {
-            internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) };
+            //internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f) };
+            internalPos = new List<Vector3> { };
         }
 
         else if (GridManager.selectedLevel == 4)
@@ -830,17 +831,96 @@ public class Timer : MonoBehaviour
 
         else if (GridManager.selectedLevel == 3)   // Tutorial 3
         {
-            perimeterPos = new List<Vector3> {
+            //perimeterPos = new List<Vector3> {
 
 
 
-                                                        new Vector3(-1.5f, -0.5f), new Vector3(-1.5f,0.5f), new Vector3(-1.5f,1.5f),
-                                                        new Vector3(0.0f,-1.0f), new Vector3(0.0f, 1.0f),
-                                                        new Vector3(1.5f,-1.5f),new Vector3(1.5f, -0.5f), new Vector3(1.5f,0.5f),
+            //                                            new Vector3(-1.5f, -0.5f), new Vector3(-1.5f,0.5f), new Vector3(-1.5f,1.5f),
+            //                                            new Vector3(0.0f,-1.0f), new Vector3(0.0f, 1.0f),
+            //                                            new Vector3(1.5f,-1.5f),new Vector3(1.5f, -0.5f), new Vector3(1.5f,0.5f),
 
-                                                        new Vector3(3.0f,-2.0f),
+            //                                            new Vector3(3.0f,-2.0f),
 
-                                                        };
+            //                                            };
+
+            perimeterPos = new List<Vector3> {};
+
+            for (float x = -6.0f; x <= 6.0f; x += 1.5f) //overall range of x
+            {
+                if (x == 0)
+                {
+                    float y = -0.5f;
+                    perimeterPos.Add(new Vector3(x, y));
+                }
+
+                else if (x == 1.5f)
+                {
+                    for (float y = -1.0f; y <= 1.0f; y++)
+                    {
+                        perimeterPos.Add(new Vector3(x, y));
+                    }
+                }
+
+                else if (x == 3.0f)
+                {
+                    float y = -1.5f;
+                    perimeterPos.Add(new Vector3(x, y));
+                }
+
+                else if (x == 4.5f)
+                {
+                    float y = -1.0f;
+                    perimeterPos.Add(new Vector3(x, y));
+                }
+
+                else if (x == 6.0f)
+                {
+                    float y = -0.5f;
+                    perimeterPos.Add(new Vector3(x, y));
+                }
+
+                else if (x == -1.5f)
+                {
+                    for (float y = -2.0f; y <= 2.0f; y++)
+                    {
+                        if (y != -1.0f)
+                        {
+                            perimeterPos.Add(new Vector3(x, y));
+                        }
+                    }
+                }
+
+                else if (x == -3.0f)
+                {
+                    for (float y = -1.5f; y <= 2.5f; y++)
+                    {
+                        if (y != 0.5f && y != 1.5f)
+                        {
+                            perimeterPos.Add(new Vector3(x, y));
+                        }
+                    }
+                }
+
+                else if (x == -4.5f)
+                {
+                    List<float> y_arr = new List<float> { -1.0f, 3.0f };
+                    for (int i = 0; i < y_arr.Count; i++)
+                    {
+                        float y = y_arr[i];
+
+                        perimeterPos.Add(new Vector3(x, y));
+                    }
+                }
+
+                else if (x == -6.0f)
+                {
+                    for (float y = -3.5f; y <= -1.5f; y++)
+                    {
+                        perimeterPos.Add(new Vector3(x, y));
+                    }
+                }
+            }
+
         }
 
         else if (GridManager.selectedLevel == 4)
