@@ -135,8 +135,8 @@ public class Tut3_GameManager : MonoBehaviour
 
     public void GenerateHexGrid(float hexSize, Dictionary<Vector3, HexTile> posTile, Dictionary<Vector3, Vector3> posTranslator, HexTile hexPrefab)
     {
-        float hexWidth = hexSize + 0.1f;
-        float hexHeight = hexSize * Mathf.Sqrt(3) + 0.2f;
+        float hexWidth = hexSize + 0.3f;
+        float hexHeight = hexSize * Mathf.Sqrt(3) + 0.5f;
 
         //for (float x = -1.5f; x <= 3.0f; x += 1.5f) //overall range of x
         //{

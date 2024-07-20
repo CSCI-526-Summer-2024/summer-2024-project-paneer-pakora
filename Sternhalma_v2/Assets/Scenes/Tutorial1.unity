@@ -3479,6 +3479,7 @@ GameObject:
   - component: {fileID: 729228000}
   - component: {fileID: 729227999}
   - component: {fileID: 729228002}
+  - component: {fileID: 729228003}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -3622,6 +3623,18 @@ MonoBehaviour:
   levelFailMenu: {fileID: 547506515}
   timeReductionLocation: {fileID: 1792364834}
   minusTimePrefab: {fileID: 4994343942880751996, guid: 74eec7b718f7c024a922a83492aab852, type: 3}
+--- !u!114 &729228003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729227996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa1d5ce1ec33343b392d48c94e1c910c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &791834842
 GameObject:
   m_ObjectHideFlags: 0
