@@ -138,7 +138,7 @@ public class Tut4_GameManager : MonoBehaviour
         
 
         float hexWidth = hexSize + 0.4f;
-        float hexHeight = hexSize * Mathf.Sqrt(3) + 0.4f;
+        float hexHeight = hexSize * Mathf.Sqrt(3) + 0.6f;
 
         for (float x = -3.0f; x <= 3.0f; x += 1.5f)  //overall range of x
         {
