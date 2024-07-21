@@ -36,6 +36,14 @@ public class MenuManager : MonoBehaviour
 
     }
 
+    public void LevelSelect()
+    {
+        currentLevel = "LevelSelect";
+        SceneManager.LoadScene("LevelSelect");
+        UnityEngine.Debug.Log("Current Level: " + currentLevel);
+
+    }
+
     public void Tutorial1()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
