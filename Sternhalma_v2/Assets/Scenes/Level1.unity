@@ -496,10 +496,10 @@ RectTransform:
   - {fileID: 1186166700}
   - {fileID: 1087113745}
   - {fileID: 932692262}
+  - {fileID: 1563433883}
   - {fileID: 1448832686}
   - {fileID: 1475488643}
   - {fileID: 1100684402}
-  - {fileID: 1563433883}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2182,9 +2182,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelClearPanel
       objectReference: {fileID: 0}
-    - target: {fileID: 1132724964577917990, guid: 340822e3fb5fcb6408c547b27b2f31ec, type: 3}
+    - target: {fileID: 662674628823155563, guid: 340822e3fb5fcb6408c547b27b2f31ec, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132724964577917990, guid: 340822e3fb5fcb6408c547b27b2f31ec, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
