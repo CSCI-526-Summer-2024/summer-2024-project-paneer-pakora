@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Services.Analytics;
 
-public class Level0_5_GameManager : MonoBehaviour
+public class Level8_GameManager : MonoBehaviour
 {
     public static int retryCount = 0;
     public static string userId = "user_unique_id";
-    public static Level0_5_GameManager Instance;
+    public static Level8_GameManager Instance;
 
     public GameState GameState;
     FirebaseHandler firebaseHandler;
@@ -31,7 +31,7 @@ public class Level0_5_GameManager : MonoBehaviour
 
     private void Start()
     {
-        GridManager.selectedLevel = 5;
+        GridManager.selectedLevel = 8;
         ChangeState(GameState.GenerateGrid);
         //ChangeState(GameState.MainMenu);
         //ChangeState(GameState.Tutorial2);
@@ -45,7 +45,6 @@ public class Level0_5_GameManager : MonoBehaviour
 
     public void ChangeState(GameState newState)
     {
-        //Debug.Log($"Changing state from {GameState} to {newState}");
 
         GameState = newState;
         switch (newState)
@@ -53,12 +52,6 @@ public class Level0_5_GameManager : MonoBehaviour
             //case GameState.MainMenu:
             //    break;
             case GameState.GenerateGrid:
-                //Debug.Log("Before SetActive : " + GridManager.Instance.rotateButton.activeSelf);
-                //GridManager.Instance.rotateButton.SetActive(true);
-                //Debug.Log("After SetActive : " + GridManager.Instance.rotateButton.activeSelf);
-
-                // Check if the object is active in the hierarchy
-                //Debug.Log("Active In Hierarchy: " + GridManager.Instance.rotateButton.activeInHierarchy);
                 GenerateHexGrid(GridManager.Instance.hexSize, GridManager.Instance.posTile, GridManager.Instance.posTranslator, GridManager.Instance.hexPrefab);
                 //GridManager.Instance.rotateButton.SetActive(false);
                 break;
@@ -138,14 +131,33 @@ public class Level0_5_GameManager : MonoBehaviour
 
     public void GenerateHexGrid(float hexSize, Dictionary<Vector3, HexTile> posTile, Dictionary<Vector3, Vector3> posTranslator, HexTile hexPrefab)
     {
-        float hexWidth = hexSize + 0.1f;
-        float hexHeight = hexSize * Mathf.Sqrt(3) + 0.1f;
+        float hexWidth = hexSize + 0.2f;
+        float hexHeight = hexSize * Mathf.Sqrt(3) + 0.2f;
 
-        for (float x = -1.5f; x <= 3.0f; x += 1.5f) //overall range of x
+        for (float x = -9; x <= 9; x += 1.5f)
         {
-            if (x == 0)
+            if (x == -9.0f || x == 9.0f)
             {
-                for (int y = -1; y <= 2; y++)   //all 4 hexes on middle row
+                int y = 0;
+
+                float xPos = x * hexWidth;
+                float yPos = y * hexHeight;
+
+                HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                hex.transform.parent = this.transform;
+                hex.name = $"Hex_{x}_{y}";
+
+                hex.posEasy = new Vector3(x, y, 0);
+                hex.posHard = new Vector3(xPos, yPos, 0);
+                posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+                posTranslator.Add(new Vector3(x, y, 0), new Vector3(xPos, yPos, 0));
+                hex.isRotatable = false;
+            }
+
+            else if (x == -7.5f || x == 7.5f)
+            {
+                for (float y = -0.5f; y <= 0.5f; y++)
                 {
                     float xPos = x * hexWidth;
                     float yPos = y * hexHeight;
@@ -158,23 +170,41 @@ public class Level0_5_GameManager : MonoBehaviour
                     hex.posHard = new Vector3(xPos, yPos, 0);
                     posTile[new Vector3(xPos, yPos, 0)] = hex;
 
-                    posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+                    posTranslator.Add(new Vector3(x, y, 0), new Vector3(xPos, yPos, 0));
 
-                    //Debug.Log("Pos");
-                    //Debug.Log(xPos + " " + yPos);
+                    hex.isRotatable = false;
+                }
+            }
 
-                    if (y == 0|| y==1)
-                    {
-                        hex.isRotatable = true;
-                    }
-                    else
+            else if (x == -6.0f || x == 6.0f)
+            {
+                for (float y = -1.0f; y <= 1.0f; y++)
+                {
+                    float xPos = x * hexWidth;
+                    float yPos = y * hexHeight;
+
+                    HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                    hex.transform.parent = this.transform;
+                    hex.name = $"Hex_{x}_{y}";
+
+                    hex.posEasy = new Vector3(x, y, 0);
+                    hex.posHard = new Vector3(xPos, yPos, 0);
+                    posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+                    posTranslator.Add(new Vector3(x, y, 0), new Vector3(xPos, yPos, 0));
+                    
+                    if (y == -1.0f || y == 1.0f)
                     {
                         hex.isRotatable = false;
                     }
+                    else
+                    {
+                        hex.isRotatable = true;
+                    }
                 }
             }
 
-            else if (x == 1.5f)
+            else if (x == -4.5f || x == 4.5f)
             {
                 for (float y = -1.5f; y <= 1.5f; y++)
                 {
@@ -189,18 +219,22 @@ public class Level0_5_GameManager : MonoBehaviour
                     hex.posHard = new Vector3(xPos, yPos, 0);
                     posTile[new Vector3(xPos, yPos, 0)] = hex;
 
-                    posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+                    posTranslator.Add(new Vector3(x, y, 0), new Vector3(xPos, yPos, 0));
 
-                    //Debug.Log("Pos");
-                    //Debug.Log(xPos + " " + yPos);
-                    hex.isRotatable = false;
-
+                    if (y == -1.5f || y == 1.5f)
+                    {
+                        hex.isRotatable = false;
+                    }
+                    else
+                    {
+                        hex.isRotatable = true;
+                    }
                 }
             }
 
-            else  if(x==-1.5f)
+            else if (x == -3.0f || x == 3.0f)
             {
-                for (float y = -1.5f; y <= 1.5f; y++)
+                for (float y = -2.0f; y <= 2.0f; y++)
                 {
                     float xPos = x * hexWidth;
                     float yPos = y * hexHeight;
@@ -213,21 +247,22 @@ public class Level0_5_GameManager : MonoBehaviour
                     hex.posHard = new Vector3(xPos, yPos, 0);
                     posTile[new Vector3(xPos, yPos, 0)] = hex;
 
-                    posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+                    posTranslator.Add(new Vector3(x, y, 0), new Vector3(xPos, yPos, 0));
 
-                    //Debug.Log("Pos");
-                    //Debug.Log(xPos + " " + yPos);
-
-                    hex.isRotatable = false;
+                    if (y == -2.0f || y == 2.0f)
+                    {
+                        hex.isRotatable = false;
+                    }
+                    else
+                    {
+                        hex.isRotatable = true;
+                    }
                 }
             }
 
-            
-
-
-            else  //when x == 3
+            else if (x == -1.5f || x == 1.5f)
             {
-                int y = 0;
+                for (float y = -2.5f; y <= 2.5f; y++)
                 {
                     float xPos = x * hexWidth;
                     float yPos = y * hexHeight;
@@ -240,77 +275,131 @@ public class Level0_5_GameManager : MonoBehaviour
                     hex.posHard = new Vector3(xPos, yPos, 0);
                     posTile[new Vector3(xPos, yPos, 0)] = hex;
 
-                    posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+                    posTranslator.Add(new Vector3(x, y, 0), new Vector3(xPos, yPos, 0));
 
-                    //Debug.Log("Pos");
-                    //Debug.Log(xPos + " " + yPos);
-
-                    hex.isRotatable = false;
+                    if (y == -2.5f || y == 2.5f)
+                    {
+                        hex.isRotatable = false;
+                    }
+                    else
+                    {
+                        hex.isRotatable = true;
+                    }
                 }
             }
 
+            else
+            {
+                for (int y = -3; y <= 3; y++)
+                {
+                    float xPos = x * hexWidth;
+                    float yPos = y * hexHeight;
 
-        } //for ends here
+                    HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                    hex.transform.parent = this.transform;
+                    hex.name = $"Hex_{x}_{y}";
+
+                    hex.posEasy = new Vector3(x, y, 0);
+                    hex.posHard = new Vector3(xPos, yPos, 0);
+                    posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+                    posTranslator.Add(new Vector3(x, y, 0), new Vector3(xPos, yPos, 0));
+                    if (y == -3f || y == 3)
+                    {
+                        hex.isRotatable = false;
+                    }
+                    else
+                    {
+                        hex.isRotatable = true;
+                    }
+                }
+            }
+        }
+
         GridManager.Instance.posTranslator = posTranslator;
         GridManager.Instance.posTile = posTile;
-        Level0_5_GameManager.Instance.ChangeState(GameState.SpawnObjects);
+        Level8_GameManager.Instance.ChangeState(GameState.SpawnObjects);
     }
 
 
     public void SpawnObjects(Dictionary<Vector3, BaseUnit> currentStatus, Dictionary<HexTile, BaseUnit> tileToUnit, HashSet<HexTile> isVisited)
     {
-        // Initialize the currentStatus dictionary with null values
-        for (float x = -1.5f; x <=3.0f; x += 1.5f)  //range of x
+        for (float x = -9; x <= 9; x += 1.5f)
         {
-            if (x == 0)
+            if (x == -9.0f || x == 9.0f)
             {
-                for (int y = -1; y <= 2; y++)
-                {
-                    currentStatus[new Vector3(x, y)] = null;
-                }
-            }
-            else if (x == 1.5f)
-            {
-                for (float y = -1.5f; y <= 1.5f; y++)
-                {
-                    currentStatus[new Vector3(x, y)] = null;
-                }
-            }
-            else if (x == -1.5f)
-            {
-                for (float y = -1.5f; y <= 1.5f; y++)
-                {
-                    currentStatus[new Vector3(x, y)] = null;
-                }
-            }
-
-
-            
-
-
-            else   //x ===3
-            {
-
                 int y = 0;
-                currentStatus[new Vector3(x, y)] = null;
 
+                currentStatus[new Vector3(x, y)] = null;
             }
 
+            else if (x == -7.5f || x == 7.5f)
+            {
+                for (float y = -0.5f; y <= 0.5f; y++)
+                {
+                    currentStatus[new Vector3(x, y)] = null;
+                }
+            }
 
+            else if (x == -6.0f || x == 6.0f)
+            {
+                for (float y = -1.0f; y <= 1.0f; y++)
+                {
+                    currentStatus[new Vector3(x, y)] = null;
+                }
+            }
 
+            else if (x == -4.5f || x == 4.5f)
+            {
+                for (float y = -1.5f; y <= 1.5f; y++)
+                {
+                    currentStatus[new Vector3(x, y)] = null;
+                }
+            }
 
-        } //for 
+            else if (x == -3.0f || x == 3.0f)
+            {
+                for (float y = -2.0f; y <= 2.0f; y++)
+                {
+                    currentStatus[new Vector3(x, y)] = null;
+                }
+            }
+
+            else if (x == -1.5f || x == 1.5f)
+            {
+                for (float y = -2.5f; y <= 2.5f; y++)
+                {
+                    currentStatus[new Vector3(x, y)] = null;
+                }
+            }
+
+            else
+            {
+                for (int y = -3; y <= 3; y++)
+                {
+                    currentStatus[new Vector3(x, y)] = null;
+                }
+            }
+        }
+
 
         // Spawn scissor units
-        //List<Vector3> scissorList = new List<Vector3> { new Vector3(0, 0) };
-        //List<Vector3> scissorList = new List<Vector3> { new Vector3(-3.0f, 1.0f), new Vector3(0, -1.0f) };
 
-        List<Vector3> scissorList = new List<Vector3> { new Vector3(-1.5f, -1.5f), new Vector3(3.0f, 0.0f) };
+        //List<Vector3> scissorList = new List<Vector3> { new Vector3(-1.5f, -1.5f), new Vector3(3.0f, 0.0f) };
+
+        List<Vector3> scissorList = new List<Vector3> { new Vector3(-4.5f, -0.5f), new Vector3(-3.0f, 1.0f),
+                                                        new Vector3(-3.0f, 0.0f), new Vector3(-1.5f, 0.5f),
+                                                        new Vector3(-1.5f, -1.5f), new Vector3(0.0f, 0.0f),
+                                                        new Vector3(0.0f, -2.0f), new Vector3(1.5f, -2.5f),
+                                                        new Vector3(3.0f, -1.0f), new Vector3(6.0f, -1.0f)
+                                                        };
         var scissorCount = scissorList.Count;
         UnitManager.Instance.currentScissorCount = scissorCount;
 
         for (int i = 0; i < scissorCount; i++)
         {
+            Debug.Log("i: " + i);
+            Debug.Log("scissorList: " + scissorList[i]);
             var scissorPrefab = UnitManager.Instance.GetUnit<Scissor>(Faction.Scissor);
             BaseUnit spawnedScissor = Instantiate(scissorPrefab);
             HexTile scissorTile = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(scissorList[i]));
@@ -324,10 +413,11 @@ public class Level0_5_GameManager : MonoBehaviour
         }
 
         // Spawn rock units
-        //List<Vector3> rockList = new List<Vector3> { new Vector3(1.5f, -0.5f), new Vector3(-1.5f, -0.5f) };
-        //List<Vector3> rockList = new List<Vector3> { new Vector3(-1.5f, -1.5f), new Vector3(-1.5f, 0.5f), new Vector3(0.0f, 1.0f), new Vector3(1.5f, -0.5f), new Vector3(3.0f, 0) };
-
-        List<Vector3> rockList = new List<Vector3> { new Vector3(0.0f,0.0f), new Vector3(1.5f, 1.5f) , new Vector3(1.5f, -0.5f) };
+        List<Vector3> rockList = new List<Vector3> { new Vector3(-7.5f, 0.5f), new Vector3(-7.5f, -0.5f),
+                                                     new Vector3(-6.0f, 0.0f), new Vector3(-4.5f, 1.5f),
+                                                    new Vector3(-1.5f, 1.5f),
+                                                    new Vector3(3.0f, -2.0f), new Vector3(4.5f, 1.5f),
+                                                    new Vector3(4.5f, -1.5f), new Vector3(6.0f, 0.0f)};
         var rockCount = rockList.Count;
         UnitManager.Instance.currentRockCount = rockCount;
 
@@ -345,9 +435,10 @@ public class Level0_5_GameManager : MonoBehaviour
         }
 
         // Spawn paper units
-        //List<Vector3> paperList = new List<Vector3> { new Vector3(1.5f, 0.5f), new Vector3(0, -1), new Vector3(-1.5f, 0.5f) };
-        //List<Vector3> paperList = new List<Vector3> { new Vector3(-3.0f, 0f), new Vector3(-1.5f, 1.5f), new Vector3(1.5f, 1.5f), new Vector3(1.5f, -1.5f), new Vector3(3.0f, -1.0f) };
-        List<Vector3> paperList = new List<Vector3> { new Vector3(-1.5f, 1.5f), new Vector3(0.0f, -1.0f), new Vector3(1.5f, -1.5f) };
+        List<Vector3> paperList = new List<Vector3> { new Vector3(-6.0f, 1.0f), new Vector3(-3.0f, -1.0f),
+                                                        new Vector3(-1.5f, -0.5f), new Vector3(3.0f, 1.0f),
+                                                        new Vector3(4.5f, 0.5f), new Vector3(4.5f, -0.5f),
+                                                        new Vector3(7.5f, -0.5f)};
         var paperCount = paperList.Count;
         UnitManager.Instance.currentPaperCount = paperCount;
 
@@ -386,9 +477,11 @@ public class Level0_5_GameManager : MonoBehaviour
                                                  UnitManager.Instance.currentPaperCount +
                                                  UnitManager.Instance.currentScissorCount).ToString() +
                                                  " Piece(s) Left!";
+
         // Change the game state to PlayerTurn after spawning objects
-        Level0_5_GameManager.Instance.ChangeState(GameState.PlayerTurn);
+        Level8_GameManager.Instance.ChangeState(GameState.PlayerTurn);
     }
 }
+
 
 

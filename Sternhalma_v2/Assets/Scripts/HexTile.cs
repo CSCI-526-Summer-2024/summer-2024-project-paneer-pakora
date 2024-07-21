@@ -8,6 +8,9 @@ public class HexTile : MonoBehaviour
     [SerializeField] private SpriteRenderer _renderer; //manages rendering of the Hex tile's sprite
     [SerializeField] private GameObject _highlight;   //This game obj is used to highlight the tile when mouse hvers over it
     [SerializeField] public GameObject highlightOnSelect;
+    [SerializeField] public GameObject tileBorder;
+    [SerializeField] public Vector3 initialScale;
+
 
     public BaseUnit OccupiedUnit;   //currently occupied?
     public bool isEmpty => this.OccupiedUnit == null;  //checks if tile is empty by seieng if Occupied unit is null
@@ -15,6 +18,11 @@ public class HexTile : MonoBehaviour
     public Vector3 posEasy;
     public Vector3 posHard;
     public bool isRotatable;
+
+    public void Awake()
+    {
+        initialScale = transform.localScale;   
+    }
 
     public void SetColorToGreen()
     {
@@ -37,14 +45,31 @@ public class HexTile : MonoBehaviour
         return "white";
     }
 
+    private void DecreaseScale(bool status)
+    {
+        Vector3 finalScale = initialScale;
+
+        if (status)
+        {
+            finalScale = initialScale * 1.1f;
+        }
+
+        transform.localScale = finalScale;
+    }
+
     private void OnMouseEnter()
     {
         _highlight.SetActive(true);
+        //GameObject meep = GetComponent<GameObject>();
+        DecreaseScale(true);
+        tileBorder.SetActive(true);
     }
 
     private void OnMouseExit()
     {
         _highlight.SetActive(false);
+        DecreaseScale(false);
+        tileBorder.SetActive(false);
     }
 
     public void SetUnit(BaseUnit unit)      //Assigns a unit to the tile updating the unit's position and linking the unit back to this tile
@@ -124,7 +149,10 @@ public class HexTile : MonoBehaviour
         {
             return;
         }
-
+        if (GridManager.selectedLevel == 8 && Level8_GameManager.Instance.GameState != GameState.PlayerTurn)
+        {
+            return;
+        }
 
 
         HexTile selectedTile = UnitManager.Instance.selectedTile;
@@ -289,6 +317,11 @@ public class HexTile : MonoBehaviour
                         UnitManager.Instance.currentScissorCount -= 1;
                         UnitManager.Instance.scissorsLeft.text = UnitManager.Instance.currentScissorCount.ToString();
 
+                        UnitManager.Instance.unitsRemoved.text = (UnitManager.Instance.currentRockCount +
+                                                 UnitManager.Instance.currentPaperCount +
+                                                 UnitManager.Instance.currentScissorCount).ToString() +
+                                                 " Piece(s) Left!";
+
                         //enable Undo button (now that a move has been made)
                         GridManager.Instance.enableUndo();
                     }
@@ -340,6 +373,11 @@ public class HexTile : MonoBehaviour
 
                         UnitManager.Instance.currentRockCount -= 1;
                         UnitManager.Instance.rocksLeft.text = UnitManager.Instance.currentRockCount.ToString();
+
+                        UnitManager.Instance.unitsRemoved.text = (UnitManager.Instance.currentRockCount +
+                                                 UnitManager.Instance.currentPaperCount +
+                                                 UnitManager.Instance.currentScissorCount).ToString() +
+                                                 " Piece(s) Left!";
 
                         //enable Undo button (now that a move has been made)
                         GridManager.Instance.enableUndo();
@@ -395,6 +433,11 @@ public class HexTile : MonoBehaviour
 
                         UnitManager.Instance.currentPaperCount -= 1;
                         UnitManager.Instance.papersLeft.text = UnitManager.Instance.currentPaperCount.ToString();
+
+                        UnitManager.Instance.unitsRemoved.text = (UnitManager.Instance.currentRockCount +
+                                                 UnitManager.Instance.currentPaperCount +
+                                                 UnitManager.Instance.currentScissorCount).ToString() +
+                                                 " Piece(s) Left!";
 
                         //enable Undo button (now that a move has been made)
                         GridManager.Instance.enableUndo();

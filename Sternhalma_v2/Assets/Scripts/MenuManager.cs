@@ -95,6 +95,12 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("Level0_25");
     }
 
+    public void Level8()
+    {
+        currentLevel = "Level8";
+        SceneManager.LoadScene("Level8");
+    }
+
 
 
     private void Awake()

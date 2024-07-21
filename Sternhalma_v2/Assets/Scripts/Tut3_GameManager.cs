@@ -135,14 +135,141 @@ public class Tut3_GameManager : MonoBehaviour
 
     public void GenerateHexGrid(float hexSize, Dictionary<Vector3, HexTile> posTile, Dictionary<Vector3, Vector3> posTranslator, HexTile hexPrefab)
     {
-        float hexWidth = hexSize + 0.1f;
-        float hexHeight = hexSize * Mathf.Sqrt(3) + 0.1f;
+        float hexWidth = hexSize + 0.3f;
+        float hexHeight = hexSize * Mathf.Sqrt(3) + 0.5f;
 
-        for (float x = -1.5f; x <= 3.0f; x += 1.5f) //overall range of x
+        //for (float x = -1.5f; x <= 3.0f; x += 1.5f) //overall range of x
+        //{
+        //    if (x == 0)
+        //    {
+        //        for (int y = -1; y <= 1; y++)
+        //        {
+        //            float xPos = x * hexWidth;
+        //            float yPos = y * hexHeight;
+
+        //            HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+        //            hex.transform.parent = this.transform;
+        //            hex.name = $"Hex_{x}_{y}";
+
+        //            hex.posEasy = new Vector3(x, y, 0);
+        //            hex.posHard = new Vector3(xPos, yPos, 0);
+        //            posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+        //            posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+
+        //            //Debug.Log("Pos");
+        //            //Debug.Log(xPos + " " + yPos);
+
+        //            if (y == 0)
+        //            {
+        //                hex.isRotatable = true;
+        //            }
+        //            else
+        //            {
+        //                hex.isRotatable = false;
+        //            }
+        //        }
+        //    }
+
+        //    else if (x == 1.5f)
+        //    {
+        //        for (float y = -1.5f; y <= 0.5f; y++)
+        //        {
+        //            float xPos = x * hexWidth;
+        //            float yPos = y * hexHeight;
+
+        //            HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+        //            hex.transform.parent = this.transform;
+        //            hex.name = $"Hex_{x}_{y}";
+
+        //            hex.posEasy = new Vector3(x, y, 0);
+        //            hex.posHard = new Vector3(xPos, yPos, 0);
+        //            posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+        //            posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+
+        //            //Debug.Log("Pos");
+        //            //Debug.Log(xPos + " " + yPos);
+        //            hex.isRotatable = false;
+
+        //        }
+        //    }
+
+        //    else if (x == -1.5f)
+        //    {
+        //        for (float y = -0.5f; y <= 1.5f; y++)
+        //        {
+        //            float xPos = x * hexWidth;
+        //            float yPos = y * hexHeight;
+
+        //            HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+        //            hex.transform.parent = this.transform;
+        //            hex.name = $"Hex_{x}_{y}";
+
+        //            hex.posEasy = new Vector3(x, y, 0);
+        //            hex.posHard = new Vector3(xPos, yPos, 0);
+        //            posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+        //            posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+
+        //            //Debug.Log("Pos");
+        //            //Debug.Log(xPos + " " + yPos);
+
+        //            hex.isRotatable = false;
+        //        }
+        //    }
+
+        //    else     //when x=3
+        //    {
+        //        int y = -2;
+        //        {
+        //            float xPos = x * hexWidth;
+        //            float yPos = y * hexHeight;
+
+        //            HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+        //            hex.transform.parent = this.transform;
+        //            hex.name = $"Hex_{x}_{y}";
+
+        //            hex.posEasy = new Vector3(x, y, 0);
+        //            hex.posHard = new Vector3(xPos, yPos, 0);
+        //            posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+        //            posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+
+        //            //Debug.Log("Pos");
+        //            //Debug.Log(xPos + " " + yPos);
+
+        //            hex.isRotatable = false;
+        //        }
+        //    }
+
+
+        //} //for ends here
+
+
+        for (float x = -6.0f; x <= 6.0f; x += 1.5f) //overall range of x
         {
             if (x == 0)
             {
-                for (int y = -1; y <= 1; y++)
+                float y = -0.5f;
+                float xPos = x * hexWidth;
+                float yPos = y * hexHeight;
+
+                HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                hex.transform.parent = this.transform;
+                hex.name = $"Hex_{x}_{y}";
+
+                hex.posEasy = new Vector3(x, y, 0);
+                hex.posHard = new Vector3(xPos, yPos, 0);
+                posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+                posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+                hex.isRotatable = false;
+            }
+
+            else if (x == 1.5f)
+            {
+                for (float y = -1.0f; y <= 1.0f; y++)
                 {
                     float xPos = x * hexWidth;
                     float yPos = y * hexHeight;
@@ -156,24 +283,136 @@ public class Tut3_GameManager : MonoBehaviour
                     posTile[new Vector3(xPos, yPos, 0)] = hex;
 
                     posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+                    hex.isRotatable = false;
+                }
+            }
 
-                    //Debug.Log("Pos");
-                    //Debug.Log(xPos + " " + yPos);
+            else if (x == 3.0f)
+            {
+                float y = -1.5f;
+                float xPos = x * hexWidth;
+                float yPos = y * hexHeight;
 
-                    if (y == 0)
+                HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                hex.transform.parent = this.transform;
+                hex.name = $"Hex_{x}_{y}";
+
+                hex.posEasy = new Vector3(x, y, 0);
+                hex.posHard = new Vector3(xPos, yPos, 0);
+                posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+                posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+                hex.isRotatable = false;
+            }
+
+            else if (x == 4.5f)     
+            {
+                float y = -1.0f;
+                float xPos = x * hexWidth;
+                float yPos = y * hexHeight;
+
+                HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                hex.transform.parent = this.transform;
+                hex.name = $"Hex_{x}_{y}";
+
+                hex.posEasy = new Vector3(x, y, 0);
+                hex.posHard = new Vector3(xPos, yPos, 0);
+                posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+                posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+                hex.isRotatable = false;
+            }
+
+            else if (x == 6.0f)
+            {
+                float y = -0.5f;
+                float xPos = x * hexWidth;
+                float yPos = y * hexHeight;
+
+                HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                hex.transform.parent = this.transform;
+                hex.name = $"Hex_{x}_{y}";
+
+                hex.posEasy = new Vector3(x, y, 0);
+                hex.posHard = new Vector3(xPos, yPos, 0);
+                posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+                posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+                hex.isRotatable = false;
+            }
+
+            else if (x == -1.5f)
+            {
+                for (float y = -2.0f; y <= 2.0f; y++)
+                {
+                    if (y != -1.0f)
                     {
-                        hex.isRotatable = true;
-                    }
-                    else
-                    {
+                        float xPos = x * hexWidth;
+                        float yPos = y * hexHeight;
+
+                        HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                        hex.transform.parent = this.transform;
+                        hex.name = $"Hex_{x}_{y}";
+
+                        hex.posEasy = new Vector3(x, y, 0);
+                        hex.posHard = new Vector3(xPos, yPos, 0);
+                        posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+                        posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
                         hex.isRotatable = false;
                     }
                 }
             }
 
-            else if (x == 1.5f)
+            else if (x == -3.0f)
             {
-                for (float y = -1.5f; y <= 0.5f; y++)
+                for (float y = -1.5f; y <= 2.5f; y++)
+                {
+                    if (y != 0.5f && y != 1.5f)
+                    {
+                        float xPos = x * hexWidth;
+                        float yPos = y * hexHeight;
+
+                        HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                        hex.transform.parent = this.transform;
+                        hex.name = $"Hex_{x}_{y}";
+
+                        hex.posEasy = new Vector3(x, y, 0);
+                        hex.posHard = new Vector3(xPos, yPos, 0);
+                        posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+                        posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+                        hex.isRotatable = false;
+                    }
+                }
+            }
+
+            else if (x == -4.5f)
+            {
+                List<float> y_arr = new List<float> {-1.0f, 3.0f};
+                for (int i=0; i<y_arr.Count; i++)
+                {
+                    float y = y_arr[i];
+                    
+                    float xPos = x * hexWidth;
+                    float yPos = y * hexHeight;
+
+                    HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
+                    hex.transform.parent = this.transform;
+                    hex.name = $"Hex_{x}_{y}";
+
+                    hex.posEasy = new Vector3(x, y, 0);
+                    hex.posHard = new Vector3(xPos, yPos, 0);
+                    posTile[new Vector3(xPos, yPos, 0)] = hex;
+
+                    posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
+                    hex.isRotatable = false;
+                }
+            }
+
+            else if (x == -6.0f)
+            {
+                for (float y = -3.5f; y <= -1.5f; y++)
                 {
                     float xPos = x * hexWidth;
                     float yPos = y * hexHeight;
@@ -187,64 +426,12 @@ public class Tut3_GameManager : MonoBehaviour
                     posTile[new Vector3(xPos, yPos, 0)] = hex;
 
                     posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
-
-                    //Debug.Log("Pos");
-                    //Debug.Log(xPos + " " + yPos);
-                    hex.isRotatable = false;
-
-                }
-            }
-
-            else if (x == -1.5f)
-            {
-                for (float y = -0.5f; y <= 1.5f; y++)
-                {
-                    float xPos = x * hexWidth;
-                    float yPos = y * hexHeight;
-
-                    HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
-                    hex.transform.parent = this.transform;
-                    hex.name = $"Hex_{x}_{y}";
-
-                    hex.posEasy = new Vector3(x, y, 0);
-                    hex.posHard = new Vector3(xPos, yPos, 0);
-                    posTile[new Vector3(xPos, yPos, 0)] = hex;
-
-                    posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
-
-                    //Debug.Log("Pos");
-                    //Debug.Log(xPos + " " + yPos);
-
                     hex.isRotatable = false;
                 }
             }
-
-            else     //when x=3
-            {
-                int y = -2;
-                {
-                    float xPos = x * hexWidth;
-                    float yPos = y * hexHeight;
-
-                    HexTile hex = Instantiate(hexPrefab, new Vector3(xPos, yPos, 0), Quaternion.identity);
-                    hex.transform.parent = this.transform;
-                    hex.name = $"Hex_{x}_{y}";
-
-                    hex.posEasy = new Vector3(x, y, 0);
-                    hex.posHard = new Vector3(xPos, yPos, 0);
-                    posTile[new Vector3(xPos, yPos, 0)] = hex;
-
-                    posTranslator[new Vector3(x, y, 0)] = new Vector3(xPos, yPos, 0);
-
-                    //Debug.Log("Pos");
-                    //Debug.Log(xPos + " " + yPos);
-
-                    hex.isRotatable = false;
-                }
-            }
+        }
 
 
-        } //for ends here
         GridManager.Instance.posTranslator = posTranslator;
         GridManager.Instance.posTile = posTile;
         Tut3_GameManager.Instance.ChangeState(GameState.SpawnObjects);
@@ -254,49 +441,118 @@ public class Tut3_GameManager : MonoBehaviour
     public void SpawnObjects(Dictionary<Vector3, BaseUnit> currentStatus, Dictionary<HexTile, BaseUnit> tileToUnit, HashSet<HexTile> isVisited)
     {
         // Initialize the currentStatus dictionary with null values
-        for (float x = -1.5f; x <= 3.0f; x += 1.5f)  //range of x
+        //for (float x = -1.5f; x <= 3.0f; x += 1.5f)  //range of x
+        //{
+        //    if (x == 0)
+        //    {
+        //        for (int y = -1; y <= 1; y++)
+        //        {
+        //            currentStatus[new Vector3(x, y)] = null;
+        //        }
+        //    }
+        //    else if (x == 1.5f)
+        //    {
+        //        for (float y = -1.5f; y <= 0.5f; y++)
+        //        {
+        //            currentStatus[new Vector3(x, y)] = null;
+        //        }
+        //    }
+        //    else if (x == -1.5f)
+        //    {
+        //        for (float y = -0.5f; y <= 1.5f; y++)
+        //        {
+        //            currentStatus[new Vector3(x, y)] = null;
+        //        }
+        //    }
+
+
+        //    else
+        //    {
+
+        //        int y = -2;
+        //        currentStatus[new Vector3(x, y)] = null;
+
+        //    }
+
+        for (float x = -6.0f; x <= 6.0f; x += 1.5f) //overall range of x
         {
             if (x == 0)
             {
-                for (int y = -1; y <= 1; y++)
-                {
-                    currentStatus[new Vector3(x, y)] = null;
-                }
+                float y = -0.5f;
+                currentStatus[new Vector3(x, y)] = null;
             }
+
             else if (x == 1.5f)
             {
-                for (float y = -1.5f; y <= 0.5f; y++)
+                for (float y = -1.0f; y <= 1.0f; y++)
                 {
                     currentStatus[new Vector3(x, y)] = null;
                 }
             }
+
+            else if (x == 3.0f)
+            {
+                float y = -1.5f;
+                currentStatus[new Vector3(x, y)] = null;
+            }
+
+            else if (x == 4.5f)
+            {
+                float y = -1.0f;
+                currentStatus[new Vector3(x, y)] = null;
+            }
+
+            else if (x == 6.0f)
+            {
+                float y = -0.5f;
+                currentStatus[new Vector3(x, y)] = null;
+            }
+
             else if (x == -1.5f)
             {
-                for (float y = -0.5f; y <= 1.5f; y++)
+                for (float y = -2.0f; y <= 2.0f; y++)
                 {
+                    if (y != -1.0f)
+                    {
+                        currentStatus[new Vector3(x, y)] = null;
+                    }
+                }
+            }
+
+            else if (x == -3.0f)
+            {
+                for (float y = -1.5f; y <= 2.5f; y++)
+                {
+                    if (y != 0.5f && y != 1.5f)
+                    {
+                        currentStatus[new Vector3(x, y)] = null;
+                    }
+                }
+            }
+
+            else if (x == -4.5f)
+            {
+                List<float> y_arr = new List<float> { -1.0f, 3.0f };
+                for (int i = 0; i < y_arr.Count; i++)
+                {
+                    float y = y_arr[i];
+
                     currentStatus[new Vector3(x, y)] = null;
                 }
             }
 
-
-            else
+            else if (x == -6.0f)
             {
-
-                int y = -2;
-                currentStatus[new Vector3(x, y)] = null;
-
+                for (float y = -3.5f; y <= -1.5f; y++)
+                {
+                    currentStatus[new Vector3(x, y)] = null;
+                }
             }
+        }
 
-
-
-
-        } //for 
-
-        // Spawn scissor units
-        //List<Vector3> scissorList = new List<Vector3> { new Vector3(0, 0) };
-        //List<Vector3> scissorList = new List<Vector3> { new Vector3(-3.0f, 1.0f), new Vector3(0, -1.0f) };
-
-        List<Vector3> scissorList = new List<Vector3> { new Vector3(-1.5f, -0.5f), new Vector3(1.5f, -1.5f) };
+        //List<Vector3> scissorList = new List<Vector3> { new Vector3(-1.5f, -0.5f), new Vector3(1.5f, -1.5f) };
+        List<Vector3> scissorList = new List<Vector3> { new Vector3(-6.0f, -3.5f),  new Vector3(-3.0f, 2.5f),
+                                                        new Vector3(-1.5f, 1.0f), new Vector3(1.5f, 0.0f)};
         var scissorCount = scissorList.Count;
         UnitManager.Instance.currentScissorCount = scissorCount;
 
@@ -315,10 +571,9 @@ public class Tut3_GameManager : MonoBehaviour
         }
 
         // Spawn rock units
-        //List<Vector3> rockList = new List<Vector3> { new Vector3(1.5f, -0.5f), new Vector3(-1.5f, -0.5f) };
-        //List<Vector3> rockList = new List<Vector3> { new Vector3(-1.5f, -1.5f), new Vector3(-1.5f, 0.5f), new Vector3(0.0f, 1.0f), new Vector3(1.5f, -0.5f), new Vector3(3.0f, 0) };
-
-        List<Vector3> rockList = new List<Vector3> { new Vector3(0.0f, 0.0f), new Vector3(1.5f, -0.5f) };
+        //List<Vector3> rockList = new List<Vector3> { new Vector3(0.0f, 0.0f), new Vector3(1.5f, -0.5f) };
+        List<Vector3> rockList = new List<Vector3> { new Vector3(-4.5f, 3.0f), new Vector3(-3.0f, -1.5f),
+                                                    new Vector3(1.5f, 1.0f), new Vector3(4.5f, -1.0f)};
         var rockCount = rockList.Count;
         UnitManager.Instance.currentRockCount = rockCount;
 
@@ -336,10 +591,8 @@ public class Tut3_GameManager : MonoBehaviour
         }
 
         // Spawn paper units
-        //List<Vector3> paperList = new List<Vector3> { new Vector3(1.5f, 0.5f), new Vector3(0, -1), new Vector3(-1.5f, 0.5f) };
-        //List<Vector3> paperList = new List<Vector3> { new Vector3(-3.0f, 0f), new Vector3(-1.5f, 1.5f), new Vector3(1.5f, 1.5f), new Vector3(1.5f, -1.5f), new Vector3(3.0f, -1.0f) };
-        List<Vector3> paperList = new List<Vector3> { new Vector3(0.0f, 1.0f), new Vector3(0.0f, -1.0f), new Vector3(-1.5f, 0.5f) };
-        var paperCount = paperList.Count;
+        //List<Vector3> paperList = new List<Vector3> { new Vector3(0.0f, 1.0f), new Vector3(0.0f, -1.0f), new Vector3(-1.5f, 0.5f) };
+        List<Vector3> paperList = new List<Vector3> { new Vector3(-6.0f, -2.5f), new Vector3(-1.5f, -2.0f), new Vector3(6.0f, -0.5f) };        var paperCount = paperList.Count;
         UnitManager.Instance.currentPaperCount = paperCount;
 
         for (int i = 0; i < paperCount; i++)
@@ -372,6 +625,11 @@ public class Tut3_GameManager : MonoBehaviour
         UnitManager.Instance.rocksLeft.text = UnitManager.Instance.currentRockCount.ToString();
         UnitManager.Instance.papersLeft.text = UnitManager.Instance.currentPaperCount.ToString();
         UnitManager.Instance.scissorsLeft.text = UnitManager.Instance.currentScissorCount.ToString();
+
+        UnitManager.Instance.unitsRemoved.text = (UnitManager.Instance.currentRockCount +
+                                                 UnitManager.Instance.currentPaperCount +
+                                                 UnitManager.Instance.currentScissorCount).ToString() +
+                                                 " Piece(s) Left!";
 
         // Change the game state to PlayerTurn after spawning objects
         Tut3_GameManager.Instance.ChangeState(GameState.PlayerTurn);
