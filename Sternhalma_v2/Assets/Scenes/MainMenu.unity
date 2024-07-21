@@ -303,10 +303,10 @@ RectTransform:
   - {fileID: 819110307}
   m_Father: {fileID: 1887587365}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 45, y: -281.77}
-  m_SizeDelta: {x: -1439.2805, y: -995.4027}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 45, y: -281.77002}
+  m_SizeDelta: {x: 480.71948, y: 84.59729}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &108432580
 MonoBehaviour:
@@ -1253,7 +1253,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -1322,10 +1322,10 @@ RectTransform:
   - {fileID: 2119910916}
   m_Father: {fileID: 1887587365}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 45, y: -194.98825}
-  m_SizeDelta: {x: -1439.2805, y: -991.0305}
+  m_SizeDelta: {x: 480.71948, y: 88.96948}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &751171732
 MonoBehaviour:
@@ -1625,7 +1625,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -2957,10 +2957,10 @@ RectTransform:
   - {fileID: 696736351}
   m_Father: {fileID: 1887587365}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 45, y: -104.93}
-  m_SizeDelta: {x: -1439.2805, y: -988.8444}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 45, y: -104.92999}
+  m_SizeDelta: {x: 480.71948, y: 91.15558}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1602501229
 MonoBehaviour:
@@ -3740,7 +3740,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

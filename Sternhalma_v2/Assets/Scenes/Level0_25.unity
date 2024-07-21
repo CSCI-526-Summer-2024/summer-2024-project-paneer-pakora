@@ -594,10 +594,10 @@ RectTransform:
   - {fileID: 214371215}
   - {fileID: 1920246053}
   - {fileID: 906785463}
+  - {fileID: 1184853810}
   - {fileID: 1073279180}
   - {fileID: 1711890649}
   - {fileID: 287290762}
-  - {fileID: 1184853810}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1825,7 +1825,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 1
+  m_text: Level 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
