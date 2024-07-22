@@ -1674,28 +1674,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3390994178930171647, guid: 1d3c1786df731b84da2d69c5fe7d586e, type: 3}
-      propertyPath: m_Color.b
-      value: 0.27058825
-      objectReference: {fileID: 0}
-    - target: {fileID: 3390994178930171647, guid: 1d3c1786df731b84da2d69c5fe7d586e, type: 3}
-      propertyPath: m_Color.g
-      value: 0.27058825
-      objectReference: {fileID: 0}
-    - target: {fileID: 3390994178930171647, guid: 1d3c1786df731b84da2d69c5fe7d586e, type: 3}
-      propertyPath: m_Color.r
-      value: 0.27058825
-      objectReference: {fileID: 0}
     - target: {fileID: 6273810994475900946, guid: 1d3c1786df731b84da2d69c5fe7d586e, type: 3}
       propertyPath: m_Name
       value: PauseMenuPanel
       objectReference: {fileID: 0}
-    - target: {fileID: 6273810994475900946, guid: 1d3c1786df731b84da2d69c5fe7d586e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8411719884989430356, guid: 1d3c1786df731b84da2d69c5fe7d586e, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

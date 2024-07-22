@@ -131,8 +131,8 @@ public class Level8_GameManager : MonoBehaviour
 
     public void GenerateHexGrid(float hexSize, Dictionary<Vector3, HexTile> posTile, Dictionary<Vector3, Vector3> posTranslator, HexTile hexPrefab)
     {
-        float hexWidth = hexSize + 0.4f;
-        float hexHeight = hexSize * Mathf.Sqrt(3) + 0.8f;
+        float hexWidth = hexSize + 0.15f; //0.125
+        float hexHeight = hexSize * Mathf.Sqrt(3) + 0.2f; //0.175
 
         for (float x = -9; x <= 9; x += 1.5f)
         {
