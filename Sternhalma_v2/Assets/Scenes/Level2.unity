@@ -2221,9 +2221,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelClearPanel
       objectReference: {fileID: 0}
-    - target: {fileID: 1132724964577917990, guid: 340822e3fb5fcb6408c547b27b2f31ec, type: 3}
+    - target: {fileID: 662674628823155563, guid: 340822e3fb5fcb6408c547b27b2f31ec, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132724964577917990, guid: 340822e3fb5fcb6408c547b27b2f31ec, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
