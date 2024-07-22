@@ -104,6 +104,14 @@ public class MenuManager : MonoBehaviour
         //GameManager.Instance.ChangeState(GameState.GenerateGrid);
     }
 
+    public void Level2_5()
+    {
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        currentLevel = "Level2_5";
+        SceneManager.LoadScene("Level2");
+        //GameManager.Instance.ChangeState(GameState.GenerateGrid);
+    }
+
     public void Level3()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
