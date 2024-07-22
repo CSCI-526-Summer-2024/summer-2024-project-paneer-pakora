@@ -7,6 +7,12 @@ public class PerimeterTutorial : MonoBehaviour
 {
     public Button perimeterTutorialButton;
     public GameObject perimeterTutorialPrefab;
+
+    private void Awake()
+    {
+        Time.timeScale = 0f;
+        PauseMenu.gameIsPaused = true;
+    }
     public void dismissTutorial()
     {
         Debug.Log("dismissed Tutorial!");
@@ -15,5 +21,8 @@ public class PerimeterTutorial : MonoBehaviour
 
         perimeterTutorialButton.gameObject.SetActive(false);
         perimeterTutorialPrefab.SetActive(false);
+
+        Time.timeScale = 1.0f;
+        PauseMenu.gameIsPaused = false;
     }
 }
