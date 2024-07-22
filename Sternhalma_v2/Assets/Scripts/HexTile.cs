@@ -153,6 +153,10 @@ public class HexTile : MonoBehaviour
         {
             return;
         }
+        if (GridManager.selectedLevel == 9 && Level2_GameManager.Instance.GameState != GameState.PlayerTurn)
+        {
+            return;
+        }
 
 
         HexTile selectedTile = UnitManager.Instance.selectedTile;
