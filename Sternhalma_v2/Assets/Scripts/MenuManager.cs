@@ -36,6 +36,14 @@ public class MenuManager : MonoBehaviour
 
     }
 
+    public void Controls()
+    {
+        currentLevel = "Controls";
+        SceneManager.LoadScene("Controls");
+        UnityEngine.Debug.Log("Current Level: " + currentLevel);
+
+    }
+
     public void LevelSelect()
     {
         currentLevel = "LevelSelect";
