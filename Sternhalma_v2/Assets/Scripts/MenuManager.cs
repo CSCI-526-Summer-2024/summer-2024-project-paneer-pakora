@@ -36,6 +36,14 @@ public class MenuManager : MonoBehaviour
 
     }
 
+    public void Controls()
+    {
+        currentLevel = "Controls";
+        SceneManager.LoadScene("Controls");
+        UnityEngine.Debug.Log("Current Level: " + currentLevel);
+
+    }
+
     public void LevelSelect()
     {
         currentLevel = "LevelSelect";
@@ -93,6 +101,14 @@ public class MenuManager : MonoBehaviour
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         currentLevel = "Level2";
         SceneManager.LoadScene("Level0_5");
+        //GameManager.Instance.ChangeState(GameState.GenerateGrid);
+    }
+
+    public void Level2_5()
+    {
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        currentLevel = "Level2_5";
+        SceneManager.LoadScene("Level2");
         //GameManager.Instance.ChangeState(GameState.GenerateGrid);
     }
 
