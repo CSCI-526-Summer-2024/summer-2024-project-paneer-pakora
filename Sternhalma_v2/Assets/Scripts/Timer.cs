@@ -284,14 +284,17 @@ public class Timer : MonoBehaviour
 
             if (onlyPerimeter)
             {
+
                 if (CheckValidMoveOnPerimeter(dict))
                 {
                     return;
                 }
                 else
-                {
+                { 
+
                     timeIsRunning = false;
                     Debug.Log("In no valid perimeter move condition");
+
                     if (GridManager.selectedLevel == 1)  // TUt 3
                     {
                         Tut2_GameManager.Instance.ChangeState(GameState.LoseState);
@@ -990,7 +993,7 @@ public class Timer : MonoBehaviour
         {
             perimeterPos = new List<Vector3> {
 
-                                                         new Vector3(-1.5f, -1.5f), new Vector3(-1.5f, -0.5f), new Vector3(-1.5f, 0.5f), new Vector3(-1.5f,0.5f),
+                                                         new Vector3(-1.5f, -1.5f), new Vector3(-1.5f, -0.5f), new Vector3(-1.5f, 0.5f), new Vector3(-1.5f, 1.5f),
 
                                                          new Vector3(0.0f,-1.0f),  new Vector3(0.0f,2.0f),
 
