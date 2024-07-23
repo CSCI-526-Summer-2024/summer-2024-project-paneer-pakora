@@ -157,6 +157,16 @@ public class HexTile : MonoBehaviour
 
         HexTile selectedTile = UnitManager.Instance.selectedTile;
 
+        //if (GridManager.selectedLevel == 0)
+        //{
+        //    if (selectedTile != null)
+        //    {
+        //        Debug.Log("TUTORIAL1");
+        //        Debug.Log(selectedTile.posEasy);
+        //        //Tutorial1_ShowGuide(selectedTile);
+        //    }
+        //}
+
         if (UnitManager.Instance.currentStatus[this.posEasy] == null && selectedTile == null)
         {
             Debug.Log("1");
@@ -586,5 +596,21 @@ public class HexTile : MonoBehaviour
         }
 
         return pastColorDict;
+    }
+
+    public void Tutorial1_ShowGuide(HexTile selectedTile)
+    {
+        Debug.Log("Mouse click in Tutorial 1!");
+        Debug.Log(selectedTile.posEasy);
+
+        if (Tut1_GameManager.Instance.Guide1.activeSelf)
+        {
+            Tut1_GameManager.Instance.Guide1.SetActive(false);
+        }
+
+        else
+        {
+            Tut1_GameManager.Instance.Guide1.SetActive(true);
+        }
     }
 }
