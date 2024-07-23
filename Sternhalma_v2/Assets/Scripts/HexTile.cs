@@ -19,10 +19,26 @@ public class HexTile : MonoBehaviour
     public Vector3 posHard;
     public bool isRotatable;
 
+
+
+
+    [SerializeField] public AudioClip clackSound; 
+    public AudioSource audioSource;
+
+
     public void Awake()
     {
-        initialScale = transform.localScale;   
+        initialScale = transform.localScale;
+        audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource component missing from GameObject");
+        }
+        Debug.Log("AudioSource initialized: " + (audioSource != null));
+
     }
+
 
     public void SetColorToGreen()
     {
@@ -57,7 +73,7 @@ public class HexTile : MonoBehaviour
         transform.localScale = finalScale;
     }
 
-    private void OnMouseEnter()
+    private void OnMouseEnter()  
     {
         _highlight.SetActive(true);
         //GameObject meep = GetComponent<GameObject>();
@@ -65,7 +81,7 @@ public class HexTile : MonoBehaviour
         tileBorder.SetActive(true);
     }
 
-    private void OnMouseExit()
+    private void OnMouseExit() 
     {
         _highlight.SetActive(false);
         DecreaseScale(false);
@@ -103,21 +119,26 @@ public class HexTile : MonoBehaviour
         
     }
 
-    public void RemoveUnit(BaseUnit unit)  //does the oposite of the setUnit function
+    public void RemoveUnit(BaseUnit unit)  //does the oposite of the setUnit function Removes a unit from the tile and destroys its game object.
+
     {
+        Debug.Log("RemoveUnit called for unit: " + unit.name);
         unit.OccupiedTile = null;
         this.OccupiedUnit = null;
         Destroy(unit.gameObject);
+        PlayClackSound();
     }
 
-    private void OnMouseDown()
+    private void OnMouseDown()   //This function is called whenever the tile is clicked with the mouse.
+
+
     {
         if (PauseMenu.gameIsPaused)
         {
             return;
         }
 
-        //Check the current Game State
+        //Check the current Game State for differnt leves
 
         if (GridManager.selectedLevel == 2 && GameManager.Instance.GameState != GameState.PlayerTurn)
         {
@@ -149,6 +170,10 @@ public class HexTile : MonoBehaviour
         {
             return;
         }
+        if (GridManager.selectedLevel == 7 && Tut4_GameManager.Instance.GameState != GameState.PlayerTurn)
+        {
+            return;
+        }
         if (GridManager.selectedLevel == 8 && Level8_GameManager.Instance.GameState != GameState.PlayerTurn)
         {
             return;
@@ -157,15 +182,9 @@ public class HexTile : MonoBehaviour
 
         HexTile selectedTile = UnitManager.Instance.selectedTile;
 
-        //if (GridManager.selectedLevel == 0)
-        //{
-        //    if (selectedTile != null)
-        //    {
-        //        Debug.Log("TUTORIAL1");
-        //        Debug.Log(selectedTile.posEasy);
-        //        //Tutorial1_ShowGuide(selectedTile);
-        //    }
-        //}
+
+        //No Unit and No Tile selected, deselects tiles and hide rotate button
+
 
         if (UnitManager.Instance.currentStatus[this.posEasy] == null && selectedTile == null)
         {
@@ -174,6 +193,9 @@ public class HexTile : MonoBehaviour
             GridManager.Instance.rotateButton.SetActive(false);
             return;
         }
+
+
+
 
         else if (UnitManager.Instance.currentStatus[this.posEasy] != null && selectedTile != null)
         {
@@ -310,6 +332,7 @@ public class HexTile : MonoBehaviour
                         RemovePotentialHighlight(selectedPos);
                         this.SetUnit(UnitManager.Instance.currentStatus[selectedPos]);
                         midTile.RemoveUnit(UnitManager.Instance.currentStatus[midPos]);
+                        PlayClackSound();
                         UnitManager.Instance.UpdateCurrentStatus(selectedPos, midPos, currentPos);
                         UnitManager.Instance.SetSelectedTile(null);
                         selectedTile.highlightOnSelect.SetActive(false);
@@ -367,6 +390,7 @@ public class HexTile : MonoBehaviour
                         RemovePotentialHighlight(selectedPos);
                         this.SetUnit(UnitManager.Instance.currentStatus[selectedPos]);
                         midTile.RemoveUnit(UnitManager.Instance.currentStatus[midPos]);
+                        PlayClackSound();
                         UnitManager.Instance.UpdateCurrentStatus(selectedPos, midPos, currentPos);
                         UnitManager.Instance.SetSelectedTile(null);
                         selectedTile.highlightOnSelect.SetActive(false);
@@ -427,6 +451,7 @@ public class HexTile : MonoBehaviour
                         RemovePotentialHighlight(selectedPos);
                         this.SetUnit(UnitManager.Instance.currentStatus[selectedPos]);
                         midTile.RemoveUnit(UnitManager.Instance.currentStatus[midTile.posEasy]);
+                        PlayClackSound();
                         UnitManager.Instance.UpdateCurrentStatus(selectedPos, midPos, currentPos);
                         UnitManager.Instance.SetSelectedTile(null);
                         selectedTile.highlightOnSelect.SetActive(false);
@@ -598,19 +623,19 @@ public class HexTile : MonoBehaviour
         return pastColorDict;
     }
 
-    public void Tutorial1_ShowGuide(HexTile selectedTile)
+
+private void PlayClackSound()
     {
-        Debug.Log("Mouse click in Tutorial 1!");
-        Debug.Log(selectedTile.posEasy);
-
-        if (Tut1_GameManager.Instance.Guide1.activeSelf)
+        Debug.Log("PlayClackSound called, AudioSource: " + (audioSource != null) + ", AudioClip: " + (clackSound != null));
+        if (audioSource != null && clackSound != null)
         {
-            Tut1_GameManager.Instance.Guide1.SetActive(false);
+            audioSource.PlayOneShot(clackSound);
+            Debug.Log("Sound played");
         }
-
         else
         {
-            Tut1_GameManager.Instance.Guide1.SetActive(true);
+            Debug.Log("AudioSource or AudioClip is null");
+
         }
     }
 }
