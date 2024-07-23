@@ -86,7 +86,10 @@ public class Timer : MonoBehaviour
                 {
                     Tut4_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
-
+                else if (GridManager.selectedLevel == 9)
+                {
+                    Level2_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
                 //DisplayEndGameText("You Lose!");
 
                 setLevelFailReason("No time remaining.");
@@ -163,6 +166,10 @@ public class Timer : MonoBehaviour
             {
                 Tut4_GameManager.Instance.ChangeState(GameState.WinState);
             }
+            else if (GridManager.selectedLevel == 9)
+            {
+                Level2_GameManager.Instance.ChangeState(GameState.WinState);
+            }
 
             //DisplayEndGameText("You Win!");
             HandleWinState();
@@ -223,6 +230,10 @@ public class Timer : MonoBehaviour
                 {
                     Tut4_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
+                else if (GridManager.selectedLevel == 9)
+                {
+                    Level2_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
 
                 //DisplayEndGameText("You Lose!");
                 //DisplayLevelFailPanel();
@@ -274,7 +285,10 @@ public class Timer : MonoBehaviour
                 {
                     Tut4_GameManager.Instance.ChangeState(GameState.LoseState);
                 }
-
+                else if (GridManager.selectedLevel == 9)
+                {
+                    Level2_GameManager.Instance.ChangeState(GameState.LoseState);
+                }
                 //DisplayEndGameText("You Lose!");
                 //DisplayLevelFailPanel();
                 setLevelFailReason("No available moves or rotations left.");
@@ -334,6 +348,10 @@ public class Timer : MonoBehaviour
                     {
                         Tut4_GameManager.Instance.ChangeState(GameState.LoseState);
                     }
+                    else if (GridManager.selectedLevel == 9)
+                    {
+                        Level2_GameManager.Instance.ChangeState(GameState.LoseState);
+                    }
                     //DisplayEndGameText("You Lose!");
                     //DisplayLevelFailPanel();
                     setLevelFailReason("No available moves or rotations left.");
@@ -392,6 +410,10 @@ public class Timer : MonoBehaviour
         {
             Tut4_GameManager.Instance.ChangeState(GameState.WinState);
         }
+        else if (GridManager.selectedLevel == 9)
+        {
+            Level2_GameManager.Instance.ChangeState(GameState.WinState);
+        }
     } //fn
 
     private void HandleLoseState()
@@ -440,6 +462,10 @@ public class Timer : MonoBehaviour
         else if (GridManager.selectedLevel == 7)
         {
            Tut4_GameManager.Instance.ChangeState(GameState.LoseState);
+        }
+        else if (GridManager.selectedLevel == 9)
+        {
+            Level2_GameManager.Instance.ChangeState(GameState.LoseState);
         }
 
         DisplayLevelFailPanel();
@@ -618,6 +644,13 @@ public class Timer : MonoBehaviour
             }
         }
 
+        else if (GridManager.selectedLevel == 9)
+        {
+            internalPos = new List<Vector3> { new Vector3(0.0f, 0.0f),
+                                                new Vector3(1.5f, -0.5f),
+                                                new Vector3(0.0f, -1.0f) };
+        }
+
         //iterate over internal positions
         for (int i = 0; i < internalPos.Count; i++)
         {
@@ -709,7 +742,10 @@ public class Timer : MonoBehaviour
             {
                 Level8_GameManager.Instance.ChangeState(GameState.LoseState);
             }
-
+            else if (GridManager.selectedLevel == 9)
+            {
+                Level2_GameManager.Instance.ChangeState(GameState.LoseState);
+            }
             return true;
         }
 
@@ -759,7 +795,10 @@ public class Timer : MonoBehaviour
             {
                 Level8_GameManager.Instance.ChangeState(GameState.LoseState);
             }
-
+            else if (GridManager.selectedLevel == 9)
+            {
+                Level2_GameManager.Instance.ChangeState(GameState.LoseState);
+            }
             return true;
         }
 
@@ -810,7 +849,10 @@ public class Timer : MonoBehaviour
             {
                 Level8_GameManager.Instance.ChangeState(GameState.LoseState);
             }
-
+            else if (GridManager.selectedLevel == 9)
+            {
+                Level2_GameManager.Instance.ChangeState(GameState.LoseState);
+            }
             return true;
         }
         else
@@ -1052,7 +1094,14 @@ public class Timer : MonoBehaviour
         }
 
         //Iterate over perimeter tiles
-
+        else if (GridManager.selectedLevel == 9)
+        {
+            perimeterPos = new List<Vector3> { new Vector3(0.0f, 1.0f), new Vector3(1.5f, 0.5f),
+            new Vector3(3.0f, 0.0f), new Vector3(3.0f, -1.0f),
+            new Vector3(1.5f, -1.5f), new Vector3(0.0f, -2.0f),
+            new Vector3(-1.5f, -1.5f), new Vector3(-1.5f, -0.5f),
+            new Vector3(-1.5f, 0.5f)};
+        }
 
         for (int i = 0; i < perimeterPos.Count; i++)
             {
