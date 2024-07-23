@@ -3293,6 +3293,7 @@ RectTransform:
   - {fileID: 27570492}
   - {fileID: 1757275741}
   - {fileID: 1412803592}
+  - {fileID: 2008625491}
   - {fileID: 788073633}
   - {fileID: 410572851}
   - {fileID: 452856139}
@@ -3626,7 +3627,7 @@ GameObject:
   - component: {fileID: 332580664}
   - component: {fileID: 332580663}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Continue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8479,7 +8480,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2008625491}
   - {fileID: 332580662}
   m_Father: {fileID: 306585516}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8596,6 +8596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perimeterTutorialButton: {fileID: 788073634}
   perimeterTutorialPrefab: {fileID: 219671885}
+  perimeterInstructions: {fileID: 2008625490}
 --- !u!1 &791539755
 GameObject:
   m_ObjectHideFlags: 0
@@ -18212,7 +18213,7 @@ GameObject:
   - component: {fileID: 2008625493}
   - component: {fileID: 2008625492}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PerimeterInstructions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18230,11 +18231,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 788073633}
+  m_Father: {fileID: 306585516}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 195.91418, y: 44}
+  m_AnchoredPosition: {x: -481.08582, y: -250.055}
   m_SizeDelta: {x: 894.85, y: 156.5682}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2008625492
