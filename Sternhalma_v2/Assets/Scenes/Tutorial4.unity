@@ -651,7 +651,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tutorial 4
+  m_text: Level 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2012,8 +2012,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Hint: Use a chained rotation mechanism to move perimeter objects closer
-    within the grid for a successful jump.'
+  m_text: 'Tip: Move pieces to tiles where you can rotate them'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0d53159fdbdf4a042b260c88ca139886, type: 2}
   m_sharedMaterial: {fileID: -3534073225856093318, guid: 0d53159fdbdf4a042b260c88ca139886, type: 2}
