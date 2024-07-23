@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Rock
   m_EditorClassIdentifier: 
   Faction: 0
-  UnitPrefab: {fileID: 8447883190670954352, guid: 41ff960a68a68d7449828a8868934dd1, type: 3}
+  UnitPrefab: {fileID: 8447883190670954352, guid: 8e2caa811c97bce4f93a180369714f56, type: 3}
