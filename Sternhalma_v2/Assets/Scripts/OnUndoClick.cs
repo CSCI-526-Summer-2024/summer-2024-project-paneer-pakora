@@ -88,7 +88,7 @@ public class OnUndoClick : MonoBehaviour
                     Vector3 translatedPos = GridManager.Instance.GetTranslatedPos(kvp.Key);
                     HexTile tile = GridManager.Instance.GetTileAtPos(translatedPos);
                     tile.highlightOnSelect.SetActive(false);
-
+                    tile.tileBorder.SetActive(false);
 
                     if (UnitManager.Instance.currentStatus[kvp.Key] == null)
                     {
