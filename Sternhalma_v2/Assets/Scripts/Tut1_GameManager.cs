@@ -12,6 +12,13 @@ public class Tut1_GameManager : MonoBehaviour
     FirebaseHandler firebaseHandler;
     Timer timer;
 
+    public GameObject Guide1;
+    public GameObject Guide2;
+    public GameObject Guide3;
+    public GameObject Guide4;
+    public GameObject Guide5;
+    public GameObject Guide6;
+
     private void Awake()
     {
         if (Instance == null)
