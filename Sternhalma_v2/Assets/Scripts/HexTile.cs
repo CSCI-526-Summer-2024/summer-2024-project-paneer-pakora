@@ -20,14 +20,25 @@ public class HexTile : MonoBehaviour
     public bool isRotatable;
 
 
-    [SerializeField] private AudioClip clackSound; 
-    private AudioSource audioSource;
+
+
+    [SerializeField] public AudioClip clackSound; 
+    public AudioSource audioSource;
+
 
     public void Awake()
     {
         initialScale = transform.localScale;
         audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource component missing from GameObject");
+        }
+        Debug.Log("AudioSource initialized: " + (audioSource != null));
+
     }
+
 
     public void SetColorToGreen()
     {
@@ -111,6 +122,7 @@ public class HexTile : MonoBehaviour
     public void RemoveUnit(BaseUnit unit)  //does the oposite of the setUnit function Removes a unit from the tile and destroys its game object.
 
     {
+        Debug.Log("RemoveUnit called for unit: " + unit.name);
         unit.OccupiedTile = null;
         this.OccupiedUnit = null;
         Destroy(unit.gameObject);
@@ -614,9 +626,15 @@ public class HexTile : MonoBehaviour
 
 private void PlayClackSound()
     {
+        Debug.Log("PlayClackSound called, AudioSource: " + (audioSource != null) + ", AudioClip: " + (clackSound != null));
         if (audioSource != null && clackSound != null)
         {
             audioSource.PlayOneShot(clackSound);
+            Debug.Log("Sound played");
+        }
+        else
+        {
+            Debug.Log("AudioSource or AudioClip is null");
 
         }
     }
