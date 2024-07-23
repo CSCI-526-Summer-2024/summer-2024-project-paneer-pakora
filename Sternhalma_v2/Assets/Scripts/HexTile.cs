@@ -228,7 +228,7 @@ public class HexTile : MonoBehaviour
                         Debug.Log("TileToHighlight:");
                         Debug.Log(tileToHighlight);
                         tileToHighlight.highlightOnSelect.SetActive(false);
-                        tileToHighlight.tileBorder.SetActive(false);
+                        //tileToHighlight.tileBorder.SetActive(false);
                     }
                 }
 
@@ -265,13 +265,13 @@ public class HexTile : MonoBehaviour
                         Debug.Log("TileToHighlight:");
                         Debug.Log(tileToHighlight);
                         tileToHighlight.highlightOnSelect.SetActive(false);
-                        tileToHighlight.tileBorder.SetActive(false);
+                        //tileToHighlight.tileBorder.SetActive(false);
                     }
                 }
 
                 UnitManager.Instance.SetSelectedTile(this);
                 this.highlightOnSelect.SetActive(true);
-                this.tileBorder.SetActive(false);
+                this.tileBorder.SetActive(true);
                 AddPotentialHighlight(this.posEasy);
 
                 if (this.isRotatable)
@@ -552,7 +552,7 @@ public class HexTile : MonoBehaviour
                 Debug.Log(potentialPos[i]);
                 HexTile tileToHighlight = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(potentialPos[i]));
                 tileToHighlight.highlightOnSelect.SetActive(false);
-                tileToHighlight.tileBorder.SetActive(false);
+                //tileToHighlight.tileBorder.SetActive(false);
             }
         }
     }
@@ -579,7 +579,7 @@ public class HexTile : MonoBehaviour
                 {
                     HexTile tileToHighlight = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(potentialPos[i]));
                     tileToHighlight.highlightOnSelect.SetActive(true);
-                    tileToHighlight.tileBorder.SetActive(false);
+                    //tileToHighlight.tileBorder.SetActive(false);
                 }
             }
         }
