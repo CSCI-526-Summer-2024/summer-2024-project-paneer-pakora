@@ -43,8 +43,8 @@ public class ShowHideLegend : MonoBehaviour
             var rockLeg = GameObject.Find("RockLegend");
             var scissorLeg = GameObject.Find("ScissorLegend");
 
-            Debug.Log("CURRENT PIECE COUNT IS");
-            Debug.Log(currentPieceCount);
+            //Debug.Log("CURRENT PIECE COUNT IS");
+            //Debug.Log(currentPieceCount);
 
             if (currentPieceCount == 3)
             {

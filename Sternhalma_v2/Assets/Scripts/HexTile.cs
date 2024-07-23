@@ -77,15 +77,15 @@ public class HexTile : MonoBehaviour
     {
         _highlight.SetActive(true);
         //GameObject meep = GetComponent<GameObject>();
-        DecreaseScale(true);
-        tileBorder.SetActive(true);
+        //DecreaseScale(true);
+        //tileBorder.SetActive(true);
     }
 
     private void OnMouseExit() 
     {
         _highlight.SetActive(false);
-        DecreaseScale(false);
-        tileBorder.SetActive(false);
+        //DecreaseScale(false);
+        //tileBorder.SetActive(false);
     }
 
     public void SetUnit(BaseUnit unit)      //Assigns a unit to the tile updating the unit's position and linking the unit back to this tile
@@ -207,6 +207,7 @@ public class HexTile : MonoBehaviour
                 //Debug.Log("2.1");
                 UnitManager.Instance.SetSelectedTile(null);
                 selectedTile.highlightOnSelect.SetActive(false);
+                selectedTile.tileBorder.SetActive(false);
                 //GameManager.Instance.rotateButton.SetActive(false);
 
                 float x = this.posEasy.x;
@@ -227,6 +228,7 @@ public class HexTile : MonoBehaviour
                         Debug.Log("TileToHighlight:");
                         Debug.Log(tileToHighlight);
                         tileToHighlight.highlightOnSelect.SetActive(false);
+                        tileToHighlight.tileBorder.SetActive(false);
                     }
                 }
 
@@ -242,6 +244,7 @@ public class HexTile : MonoBehaviour
             {
                 UnitManager.Instance.SetSelectedTile(null);
                 selectedTile.highlightOnSelect.SetActive(false);
+                selectedTile.tileBorder.SetActive(false);
                 // GameManager.Instance.rotateButton.SetActive(false);
 
                 float x = selectedTile.posEasy.x;
@@ -262,11 +265,13 @@ public class HexTile : MonoBehaviour
                         Debug.Log("TileToHighlight:");
                         Debug.Log(tileToHighlight);
                         tileToHighlight.highlightOnSelect.SetActive(false);
+                        tileToHighlight.tileBorder.SetActive(false);
                     }
                 }
 
                 UnitManager.Instance.SetSelectedTile(this);
                 this.highlightOnSelect.SetActive(true);
+                this.tileBorder.SetActive(false);
                 AddPotentialHighlight(this.posEasy);
 
                 if (this.isRotatable)
@@ -285,6 +290,7 @@ public class HexTile : MonoBehaviour
             Debug.Log("3");
             UnitManager.Instance.SetSelectedTile(this);
             this.highlightOnSelect.SetActive(true);
+            this.tileBorder.SetActive(true);
             //Debug.Log("Highlight Hexagon active?");
             //Debug.Log(this.highlightOnSelect.active);
             Debug.Log(this.isRotatable);
@@ -336,6 +342,7 @@ public class HexTile : MonoBehaviour
                         UnitManager.Instance.UpdateCurrentStatus(selectedPos, midPos, currentPos);
                         UnitManager.Instance.SetSelectedTile(null);
                         selectedTile.highlightOnSelect.SetActive(false);
+                        selectedTile.tileBorder.SetActive(false);
                         this.SetColorToGreen();
                         UnitManager.Instance.isVisited.Add(this);
                         GridManager.Instance.rotateButton.SetActive(false);
@@ -394,6 +401,7 @@ public class HexTile : MonoBehaviour
                         UnitManager.Instance.UpdateCurrentStatus(selectedPos, midPos, currentPos);
                         UnitManager.Instance.SetSelectedTile(null);
                         selectedTile.highlightOnSelect.SetActive(false);
+                        selectedTile.tileBorder.SetActive(false);
                         this.SetColorToGreen();
                         UnitManager.Instance.isVisited.Add(this);
                         GridManager.Instance.rotateButton.SetActive(false);
@@ -455,6 +463,7 @@ public class HexTile : MonoBehaviour
                         UnitManager.Instance.UpdateCurrentStatus(selectedPos, midPos, currentPos);
                         UnitManager.Instance.SetSelectedTile(null);
                         selectedTile.highlightOnSelect.SetActive(false);
+                        selectedTile.tileBorder.SetActive(false);
                         this.SetColorToGreen();
                         UnitManager.Instance.isVisited.Add(this);
                         GridManager.Instance.rotateButton.SetActive(false);
@@ -543,6 +552,7 @@ public class HexTile : MonoBehaviour
                 Debug.Log(potentialPos[i]);
                 HexTile tileToHighlight = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(potentialPos[i]));
                 tileToHighlight.highlightOnSelect.SetActive(false);
+                tileToHighlight.tileBorder.SetActive(false);
             }
         }
     }
@@ -569,6 +579,7 @@ public class HexTile : MonoBehaviour
                 {
                     HexTile tileToHighlight = GridManager.Instance.GetTileAtPos(GridManager.Instance.GetTranslatedPos(potentialPos[i]));
                     tileToHighlight.highlightOnSelect.SetActive(true);
+                    tileToHighlight.tileBorder.SetActive(false);
                 }
             }
         }
