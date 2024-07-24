@@ -193,5 +193,22 @@ public class ShowHideLegend : MonoBehaviour
             }
 
         }
+
+        if (GridManager.selectedLevel == 1)
+        {
+            Debug.Log("TUTORIAL2 ON MOUSE DOWN");
+            Vector3 firstTile = new Vector3(-3.00f, -0.50f, 0.00f);
+
+            selectedTile = UnitManager.Instance.selectedTile;
+            if (selectedTile != null)
+            {
+                Debug.Log(selectedTile.posEasy);
+
+                if (selectedTile.posEasy == firstTile)
+                {
+                    Tut2_GameManager.Instance.Guide1.SetActive(false);
+                }
+            }
+        }
     }
 }

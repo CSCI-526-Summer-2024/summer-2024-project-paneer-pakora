@@ -13,6 +13,7 @@ public class Tut2_GameManager : MonoBehaviour
     FirebaseHandler firebaseHandler;
     Timer timer;
 
+    public GameObject Guide1;
 
     private void Awake()
     {
