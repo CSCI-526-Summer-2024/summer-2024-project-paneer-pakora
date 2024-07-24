@@ -23,19 +23,19 @@ public class HexTile : MonoBehaviour
 
 
     [SerializeField] public AudioClip clackSound; 
-    //public AudioSource audioSource;
+    public AudioSource audioSource;
 
 
     public void Awake()
     {
         initialScale = transform.localScale;
-        //audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 
-        //if (audioSource == null)
-        //{
-        //    Debug.LogError("AudioSource component missing from GameObject");
-        //}
-        //Debug.Log("AudioSource initialized: " + (audioSource != null));
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource component missing from GameObject");
+        }
+        Debug.Log("AudioSource initialized: " + (audioSource != null));
 
     }
 
@@ -637,16 +637,16 @@ public class HexTile : MonoBehaviour
 
 private void PlayClackSound()
     {
-        //Debug.Log("PlayClackSound called, AudioSource: " + (audioSource != null) + ", AudioClip: " + (clackSound != null));
-        //if (audioSource != null && clackSound != null)
-        //{
-        //    audioSource.PlayOneShot(clackSound);
-        //    Debug.Log("Sound played");
-        //}
-        //else
-        //{
-        //    Debug.Log("AudioSource or AudioClip is null");
+        Debug.Log("PlayClackSound called, AudioSource: " + (audioSource != null) + ", AudioClip: " + (clackSound != null));
+        if (audioSource != null && clackSound != null)
+        {
+            audioSource.PlayOneShot(clackSound);
+            Debug.Log("Sound played");
+        }
+        else
+        {
+            Debug.Log("AudioSource or AudioClip is null");
 
-        //}
+        }
     }
 }
